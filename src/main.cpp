@@ -1,4 +1,25 @@
 #include "main.h"
+#include "drive.hpp"
+
+
+//HELPFUL LINKS:
+//ascii text generator: https://fsymbols.com/generators/carty/
+//PROS API: https://pros.cs.purdue.edu/v5/api/cpp/index.html
+
+/**
+CONTROLS:
+Joysticks: roll around obviously
+A: intake forward
+B: intake backward
+*/
+
+
+pros::Controller master(pros::E_CONTROLLER_MASTER);
+//MOTORS
+pros::Motor front_left_mtr(FRONT_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor front_right_mtr(FRONT_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor back_left_mtr(BACK_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor back_right_mtr(BACK_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
 
 /**
  * A callback function for LLEMU's center button.
@@ -74,20 +95,17 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	pros::Motor left_mtr(1);
-	pros::Motor right_mtr(2);
 
 	while (true) {
-		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
+		// getting joystick input
 		int left = master.get_analog(ANALOG_LEFT_Y);
 		int right = master.get_analog(ANALOG_RIGHT_Y);
 
-		left_mtr = left;
-		right_mtr = right;
+		//drive code
+		tank_control(left, right);
 
+		
+		get_base_watts();
 		pros::delay(20);
 	}
 }

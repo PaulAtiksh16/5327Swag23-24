@@ -15,6 +15,22 @@
 #ifndef _PROS_MAIN_H_
 #define _PROS_MAIN_H_
 
+//PORTS BELOW
+#define FRONT_LEFT_PORT 1
+#define BACK_LEFT_PORT 2
+#define FRONT_RIGHT_PORT 3
+#define BACK_RIGHT_PORT 4
+
+#define LEFT_INTAKE_PORT 5
+#define RIGHT_INTAKE_PORT 6
+
+#define LEFT_LIFT_PORT 7
+#define RIGHT_LIFT_PORT 8
+
+#define FLYWHEEL_PORT 9
+#define PUNCHER_PORT 10
+
+
 /**
  * If defined, some commonly used enums will have preprocessor macros which give
  * a shorter, more convenient naming pattern. If this isn't desired, simply
