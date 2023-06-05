@@ -1,5 +1,6 @@
 #include "main.h"
 #include "drive.hpp"
+#include "mechs.hpp"
 
 
 //HELPFUL LINKS:
@@ -21,6 +22,8 @@ pros::Motor front_right_mtr(FRONT_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pro
 pros::Motor back_left_mtr(BACK_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor back_right_mtr(BACK_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
 
+pros::Motor left_intake_mtr(LEFT_INTAKE_PORT, pros::E_MOTOR_GEAR_GREEN, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor right_intake_mtr(RIGHT_INTAKE_PORT, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_DEGREES);
 /**
  * A callback function for LLEMU's center button.
  *
@@ -104,7 +107,14 @@ void opcontrol() {
 		//drive code
 		tank_control(left, right);
 
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
+			run_intake_forward();
+		}
 		
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
+			run_intake_backward();
+		}
+
 		get_base_watts();
 		pros::delay(20);
 	}
