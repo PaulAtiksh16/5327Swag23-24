@@ -106,7 +106,8 @@ void opcontrol() {
 
 		//drive code
 		tank_control(left, right);
-
+		// arcade_control(left, right);
+		
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
 			run_intake_forward();
 		}
