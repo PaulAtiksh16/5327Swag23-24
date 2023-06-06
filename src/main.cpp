@@ -111,6 +111,8 @@ void opcontrol() {
 		// int left = master.get_analog(ANALOG_LEFT_Y);
 		// int right = master.get_analog(ANALOG_RIGHT_X);
 		// arcade_control(left, right);
+		// 
+		// single_arcade_control(left, right);
 
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
 			run_intake_forward();
