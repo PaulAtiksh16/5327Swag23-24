@@ -37,6 +37,32 @@ void tank_control(int left, int right) {
     front_right_mtr.move(right);
 }
 
+void arcade_control(int left, int right) {
+
+    // deadzones
+    if (abs(left) < 10) {
+      left = 0;
+    }
+
+    if (abs(right) < 10) {
+      right = 0;
+    }
+
+    // brake logic
+    if (left == 0) {
+      left_brake();
+    }
+
+    if (right == 0) {
+      right_brake();
+    }
+    brake_flag = false;
+
+    // actually runs the motors
+    left_move((left+right < 127) ? (left+right) : 127);
+    right_move(left-right);
+}
+
 //display wattage from base
 void get_base_watts() {
     pros::lcd::print(0, "front left: %f", front_left_mtr.get_power());
@@ -91,6 +117,18 @@ void base_move(int speed) {
   front_left_mtr.move(speed);
   front_right_mtr.move(speed);
   back_left_mtr.move(speed);
+  back_right_mtr.move(speed);
+}
+
+// move left side
+void left_move(int speed) {
+  front_left_mtr.move(speed);
+  back_left_mtr.move(speed);
+}
+
+// move right side
+void right_move(int speed) {
+  front_right_mtr.move(speed);
   back_right_mtr.move(speed);
 }
 

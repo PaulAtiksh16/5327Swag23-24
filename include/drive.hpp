@@ -13,6 +13,8 @@ extern "C" {
 
 void tank_control(int left, int right);
 
+void arcade_control(int left, int right);
+
 void get_base_watts(void);
 
 void brake(void);
@@ -27,6 +29,11 @@ void brake_brake(void);
 
 // function to make all motors move the same speed
 void base_move(int speed);
+
+// functions for left and right motors to move independently
+void left_move(int speed);
+
+void right_move(int speed);
 
 void base_move_encoders(int encoders);
 
