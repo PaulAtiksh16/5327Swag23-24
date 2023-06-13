@@ -6,6 +6,7 @@ extern pros::Motor left_intake_mtr;
 extern pros::Motor right_intake_mtr;
 
 extern pros::Motor flywheel_mtr;
+extern pros::Motor flywheel_mtr_2;
 
 
 bool forward_intake_flag = false;
@@ -19,6 +20,7 @@ void everything_off() {
   left_intake_mtr.move(0);
   right_intake_mtr.move(0);
   flywheel_mtr.move(0);
+  flywheel_mtr_2.move(0);
 
   forward_intake_flag = false;
   reverse_intake_flag = false;
@@ -75,8 +77,10 @@ void run_flywheel() {
 
   if (flywheel_flag) {
     flywheel_mtr.move(127);
+    flywheel_mtr_2.move(127);
   } else {
     flywheel_mtr.move(0);
+    flywheel_mtr_2.move(0);
   }
   pros::delay(250);
 }

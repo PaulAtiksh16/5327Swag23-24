@@ -28,7 +28,8 @@
 #define RIGHT_LIFT_PORT 8
 
 #define FLYWHEEL_PORT 9
-#define PUNCHER_PORT 10
+#define FLYWHEEL_PORT_2 10
+#define PUNCHER_PORT 11
 
 
 /**
