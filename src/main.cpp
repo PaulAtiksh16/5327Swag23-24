@@ -110,6 +110,8 @@ void autonomous() {
  */
 void opcontrol() {
 
+	int lift_state = 0;
+
 	while (true) {
 
 		// TANK DRIVE //
@@ -127,6 +129,25 @@ void opcontrol() {
 		// int right = master.get_analog (ANALOG_LEFT_X);
 		// arcade_control(left, right);
 
+		// LIFT //
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
+			lift_state += 1;
+			if (lift_state > 2) {
+				lift_state = 2;
+			}	
+			else {
+				move_lift(lift_state);
+			}				
+		}
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
+			lift_state -= 1;
+			if (lift_state < 0) {
+				lift_state = 0;
+			}		
+			else {
+				move_lift(lift_state);
+			}	
+		}
 
 
 		// INTAKE FORWARD //

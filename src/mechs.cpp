@@ -84,3 +84,10 @@ void run_flywheel() {
   }
   pros::delay(250);
 }
+
+void move_lift(int lift_state) {
+  // Moves lift to certain level based on lift_state 
+  // 0 = rest state; 1 = index height; 2 = max height
+
+  
+}
