@@ -8,6 +8,9 @@ extern pros::Motor right_intake_mtr;
 extern pros::Motor flywheel_mtr;
 extern pros::Motor flywheel_mtr_2;
 
+extern pros::Motor left_lift_mtr;
+extern pros::Motor right_lift_mtr;
+
 
 bool forward_intake_flag = false;
 bool reverse_intake_flag = false;
@@ -85,9 +88,10 @@ void run_flywheel() {
   pros::delay(250);
 }
 
-void move_lift(int lift_state) {
-  // Moves lift to certain level based on lift_state 
-  // 0 = rest state; 1 = index height; 2 = max height
-
-  
+// Moves lift up or down
+void move_lift(bool lift_state) {
+  // experiment with position, should be the max position
+  double position = (lift_state) ? 4500 : 0;
+  left_lift_mtr.move_relative(position, 50);
+  right_lift_mtr.move_relative(position, 50);
 }

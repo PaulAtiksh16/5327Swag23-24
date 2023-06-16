@@ -20,6 +20,6 @@ void run_intake_backward(void);
 
 void run_flywheel(void);
 
-void move_lift(int lift_state);
+void move_lift(bool lift_state);
 
 #endif //_MECHS_HPP_

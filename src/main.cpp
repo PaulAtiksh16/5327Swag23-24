@@ -29,6 +29,8 @@ pros::Motor right_intake_mtr(RIGHT_INTAKE_PORT, pros::E_MOTOR_GEAR_GREEN, true, 
 pros::Motor flywheel_mtr(FLYWHEEL_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor flywheel_mtr_2(FLYWHEEL_PORT_2, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
 
+pros::Motor left_lift_mtr(LEFT_LIFT_PORT, pros::E_MOTOR_GEAR_RED, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor right_lift_mtr(RIGHT_LIFT_PORT, pros::E_MOTOR_GEAR_RED, true, pros::E_MOTOR_ENCODER_DEGREES);
 /**
  * A callback function for LLEMU's center button.
  *
@@ -110,7 +112,7 @@ void autonomous() {
  */
 void opcontrol() {
 
-	int lift_state = 0;
+	bool lift_state = false;
 
 	while (true) {
 
@@ -129,22 +131,17 @@ void opcontrol() {
 		// int right = master.get_analog (ANALOG_LEFT_X);
 		// arcade_control(left, right);
 
-		// LIFT //
+		// LIFT UP //
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
-			lift_state += 1;
-			if (lift_state > 2) {
-				lift_state = 2;
-			}	
-			else {
+			if (lift_state == false) {
+				lift_state = true;
 				move_lift(lift_state);
-			}				
+			}			
 		}
+		// LIFT DOWN //
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-			lift_state -= 1;
-			if (lift_state < 0) {
-				lift_state = 0;
-			}		
-			else {
+			if (lift_state == true) {
+				lift_state = false;
 				move_lift(lift_state);
 			}	
 		}
