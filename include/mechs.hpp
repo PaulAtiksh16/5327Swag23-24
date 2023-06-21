@@ -22,4 +22,12 @@ void run_flywheel(void);
 
 void move_lift(bool lift_state);
 
+void run_conveyor_forward(void);
+void run_conveyor_backward(void);
+
+void intake(void);
+void outtake(void);
+
+void index(void);
+
 #endif //_MECHS_HPP_

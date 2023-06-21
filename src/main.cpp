@@ -10,8 +10,12 @@
 /**
 CONTROLS:
 Joysticks: roll around obviously
-A: intake forward
-B: intake backward
+A: intake
+B: outtake
+L1: flywheel
+L2: everything off
+R2: index
+
 */
 
 //CONTROLLER
@@ -31,6 +35,11 @@ pros::Motor flywheel_mtr_2(FLYWHEEL_PORT_2, pros::E_MOTOR_GEAR_BLUE, true, pros:
 
 pros::Motor left_lift_mtr(LEFT_LIFT_PORT, pros::E_MOTOR_GEAR_RED, false, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor right_lift_mtr(RIGHT_LIFT_PORT, pros::E_MOTOR_GEAR_RED, true, pros::E_MOTOR_ENCODER_DEGREES);
+
+pros::Motor conveyor_mtr(CONVEYOR_PORT, pros::E_MOTOR_GEAR_GREEN, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor conveyor_mtr_2(CONVEYOR_PORT_2, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_DEGREES);
+
+
 /**
  * A callback function for LLEMU's center button.
  *
@@ -131,30 +140,35 @@ void opcontrol() {
 		// int right = master.get_analog (ANALOG_LEFT_X);
 		// arcade_control(left, right);
 
-		// LIFT UP //
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
-			if (lift_state == false) {
-				lift_state = true;
-				move_lift(lift_state);
-			}			
-		}
-		// LIFT DOWN //
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-			if (lift_state == true) {
-				lift_state = false;
-				move_lift(lift_state);
-			}	
-		}
 
 
-		// INTAKE FORWARD //
+		// // LIFT UP //
+		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
+		// 	if (lift_state == false) {
+		// 		lift_state = true;
+		// 		move_lift(lift_state);
+		// 	}			
+		// }
+
+		// // LIFT DOWN //
+		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
+		// 	if (lift_state == true) {
+		// 		lift_state = false;
+		// 		move_lift(lift_state);
+		// 	}	
+		// }
+
+
+		// INTAKE //
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
-			run_intake_forward();
+			// run_intake_forward();
+			intake();
 		}
 		
-		// INTAKE BACKWARD //
+		// OUTTAKE //
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
-			run_intake_backward();
+			// run_intake_backward();
+			outtake();
 		}
 
 		// FLYWHEEL //
@@ -165,6 +179,11 @@ void opcontrol() {
 		// EVERYTHING OFF //
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
 			everything_off();
+		}
+
+		// INDEX // 
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+			index();
 		}
 
 

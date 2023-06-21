@@ -11,11 +11,17 @@ extern pros::Motor flywheel_mtr_2;
 extern pros::Motor left_lift_mtr;
 extern pros::Motor right_lift_mtr;
 
+extern pros::Motor conveyor_mtr;
+extern pros::Motor conveyor_mtr_2;
+
 
 bool forward_intake_flag = false;
 bool reverse_intake_flag = false;
 
 bool flywheel_flag = false;
+
+bool forward_conveyor_flag = false;
+bool reverse_conveyor_flag = false;
 
 
 // turn off all motors; reset all flags
@@ -35,6 +41,9 @@ void get_mech_watts() {
   pros::lcd::print(0, "Left intake: %f", left_intake_mtr.get_power());
   pros::lcd::print(1, "Right intake: %f", right_intake_mtr.get_power());
   pros::lcd::print(2, "Flywheel: %f", flywheel_mtr.get_power());
+  pros::lcd::print(3, "Flywheel 2: %f", flywheel_mtr_2.get_power());
+  pros::lcd::print(4, "Conveyor: %f", conveyor_mtr.get_power());
+  pros::lcd::print(5, "Conveyor 2: %f", conveyor_mtr_2.get_power());
 }
 
 
@@ -94,4 +103,77 @@ void move_lift(bool lift_state) {
   double position = (lift_state) ? 4500 : 0;
   left_lift_mtr.move_relative(position, 50);
   right_lift_mtr.move_relative(position, 50);
+}
+
+
+// Run conveyor
+void run_conveyor_forward() {
+  // flag for conveyor so button can both turn on and off
+  forward_conveyor_flag = not forward_conveyor_flag;
+  reverse_conveyor_flag = false;
+
+  if (forward_conveyor_flag) {
+    conveyor_mtr.move(127);
+    conveyor_mtr_2.move(127);
+  } else {
+    conveyor_mtr.move(0);
+    conveyor_mtr_2.move(0);
+  }
+  pros::delay(250);
+}
+
+//Run conveyor backwards
+void run_conveyor_backward() {
+  // flag for conveyor so button can both turn on and off
+  reverse_conveyor_flag = not reverse_conveyor_flag;
+  forward_conveyor_flag = false;
+
+  if (reverse_conveyor_flag) {
+    conveyor_mtr.move(-127);
+    conveyor_mtr_2.move(-127);
+  } else {
+    conveyor_mtr.move(0);
+    conveyor_mtr_2.move(0);
+  }
+  pros::delay(250);
+}
+
+
+// INTAKE FUNCTION
+void intake() {
+  left_intake_mtr.move(127);
+  right_intake_mtr.move(127);
+  forward_intake_flag = true;
+  reverse_intake_flag = false;
+
+  conveyor_mtr.move(0);
+  conveyor_mtr_2.move(0);
+  forward_conveyor_flag = false;
+  reverse_conveyor_flag = false;
+}
+
+// OUTTAKE FUNCTION
+void outtake() {
+  left_intake_mtr.move(-127);
+  right_intake_mtr.move(-127);
+  forward_intake_flag = false;
+  reverse_intake_flag = true;
+
+  conveyor_mtr.move(-127);
+  conveyor_mtr_2.move(-127);
+  forward_conveyor_flag = false;
+  reverse_conveyor_flag = false;
+}
+
+// INDEX FUNCTION
+void index() {
+  left_intake_mtr.move(127);
+  right_intake_mtr.move(127);
+  forward_intake_flag = true;
+  reverse_intake_flag = false;
+
+  conveyor_mtr.move(127);
+  conveyor_mtr_2.move(127);
+  forward_conveyor_flag = true;
+  reverse_conveyor_flag = false;
 }
