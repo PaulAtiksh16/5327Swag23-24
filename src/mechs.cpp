@@ -24,16 +24,24 @@ bool forward_conveyor_flag = false;
 bool reverse_conveyor_flag = false;
 
 
-// turn off all motors; reset all flags
+// turn off motors; reset flags
 void everything_off() {
+  //intake
   left_intake_mtr.move(0);
   right_intake_mtr.move(0);
-  flywheel_mtr.move(0);
-  flywheel_mtr_2.move(0);
-
   forward_intake_flag = false;
   reverse_intake_flag = false;
-  flywheel_flag = false;
+
+  //conveyor
+  conveyor_mtr.move(0);
+  conveyor_mtr_2.move(0);
+  forward_conveyor_flag = false;
+  reverse_conveyor_flag = false;
+
+  //flywheel
+  // flywheel_mtr.move(0);
+  // flywheel_mtr_2.move(0);
+  // flywheel_flag = false;
 }
 
 // display wattage from mechs
@@ -83,13 +91,13 @@ void run_intake_backward() {
 
 
 // run flywheel
-void run_flywheel() {
+void run_flywheel(int power) {
   //flag for flywheel so button can both turn on and off
   flywheel_flag = not flywheel_flag;
 
   if (flywheel_flag) {
-    flywheel_mtr.move(127);
-    flywheel_mtr_2.move(127);
+    flywheel_mtr.move(power);
+    flywheel_mtr_2.move(power);
   } else {
     flywheel_mtr.move(0);
     flywheel_mtr_2.move(0);

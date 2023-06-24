@@ -18,7 +18,7 @@ void get_mech_watts(void);
 void run_intake_forward(void);
 void run_intake_backward(void);
 
-void run_flywheel(void);
+void run_flywheel(int power);
 
 void move_lift(bool lift_state);
 
