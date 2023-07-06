@@ -25,6 +25,8 @@ pros::Motor front_left_mtr(FRONT_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros:
 pros::Motor front_right_mtr(FRONT_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor back_left_mtr(BACK_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor back_right_mtr(BACK_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor top_left_mtr(TOP_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor top_right_mtr(TOP_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
 
 pros::Motor left_intake_mtr(LEFT_INTAKE_PORT, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor right_intake_mtr(RIGHT_INTAKE_PORT, pros::E_MOTOR_GEAR_GREEN, false, pros::E_MOTOR_ENCODER_DEGREES);
@@ -125,9 +127,9 @@ void opcontrol() {
 	while (true) {
 
 		// TANK DRIVE //
-		int left = master.get_analog(ANALOG_LEFT_Y);
-		int right = master.get_analog(ANALOG_RIGHT_Y);
-		tank_control(left, right);
+		// int left = master.get_analog(ANALOG_LEFT_Y);
+		// int right = master.get_analog(ANALOG_RIGHT_Y);
+		// tank_control(left, right);
 
 		// ARCADE DRIVE //
 		// int left = master.get_analog(ANALOG_LEFT_Y);
@@ -135,9 +137,9 @@ void opcontrol() {
 		// arcade_control(left, right);
 
 		// SINGLE STICK ARCADE //
-		// int left = master.get_analog(ANALOG_LEFT_Y);
-		// int right = master.get_analog (ANALOG_LEFT_X);
-		// arcade_control(left, right);
+		int left = master.get_analog(ANALOG_LEFT_Y);
+		int right = master.get_analog (ANALOG_LEFT_X);
+		arcade_control(left, right);
 
 
 
