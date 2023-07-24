@@ -1,0 +1,19 @@
+#ifndef _PNEUMATICS_HPP_
+#define _PNEUMATICS_HPP_
+
+#ifdef cplusplus
+extern "C" {
+#endif
+
+#include <stdint.h> // needed for the types declariations
+
+#ifdef cplusplus
+}
+#endif
+
+void walls_toggle(void);
+
+void kick_macro(void);
+void kick_toggle(void);
+
+#endif //_MECHS_HPP_

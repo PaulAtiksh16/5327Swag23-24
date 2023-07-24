@@ -1,6 +1,10 @@
 #include "main.h"
 #include "drive.hpp"
 #include "mechs.hpp"
+#include "pneumatics.hpp"
+#include "pros/adi.hpp"
+#include "pros/apix.h"
+#include "pros/rtos.hpp"
 
 
 //HELPFUL LINKS:
@@ -10,11 +14,11 @@
 /**
 CONTROLS:
 Joysticks: roll around obviously
-A: intake (intake on, conveyor off)
-B: outtake (intake reverse, conveyor reverse)
-L1: flywheel on/off
-L2: everything off (intake and conveyor off)
-R2: index (intake on, conveyor on)
+L1: flywheel on
+L2: flywheel off
+R2: kicker macro (out, then back in)
+R1: kicker toggle (out first push, back in second push)
+X: walls toggle (out first push, back in second push)
 */
 
 //CONTROLLER
@@ -40,6 +44,12 @@ pros::Motor right_lift_mtr(RIGHT_LIFT_PORT, pros::E_MOTOR_GEAR_RED, true, pros::
 pros::Motor conveyor_mtr(CONVEYOR_PORT, pros::E_MOTOR_GEAR_GREEN, false, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor conveyor_mtr_2(CONVEYOR_PORT_2, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_DEGREES);
 
+
+//PNEUMATICS
+pros::ADIDigitalOut left_wall(LEFT_WALL_PORT, false);
+pros::ADIDigitalOut right_wall(RIGHT_WALL_PORT, false);
+
+pros::ADIDigitalOut kicker(KICKER_PORT, true);
 
 /**
  * A callback function for LLEMU's center button.
@@ -161,36 +171,57 @@ void opcontrol() {
 
 
 		// INTAKE //
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
-			// run_intake_forward();
-			intake();
-		}
+		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
+		// 	// run_intake_forward();
+		// 	intake();
+		// }
 		
 		// OUTTAKE //
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
-			// run_intake_backward();
-			outtake();
-		}
+		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
+		// 	// run_intake_backward();
+		// 	outtake();
+		// }
 
 		// FLYWHEEL //
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
 			run_flywheel(127);
 		}
 
-		// EVERYTHING OFF //
+		// FLYWHEEL OFF //
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-			everything_off();
+			run_flywheel(0);
 		}
 
+		// EVERYTHING OFF //
+		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+		// 	everything_off();
+		// }
+
 		// INDEX // 
+		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+		// 	index();
+		// }
+
+		// WALLS TOGGLE //
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_X)) {
+			walls_toggle();
+		}
+
+		// KICKER MACRO //
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-			index();
+			// kick_macro();
+			pros::Task kicker_task(kick_macro);
+		}
+
+		// KICKER TOGGLE //
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+			kick_toggle();
 		}
 
 
 
 		// DEBUGGING //
-		get_base_watts();
+		// get_base_watts();
 		// get_mech_watts();
 
 
