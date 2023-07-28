@@ -137,9 +137,9 @@ void opcontrol() {
 	while (true) {
 
 		// TANK DRIVE //
-		// int left = master.get_analog(ANALOG_LEFT_Y);
-		// int right = master.get_analog(ANALOG_RIGHT_Y);
-		// tank_control(left, right);
+		int left = master.get_analog(ANALOG_LEFT_Y);
+		int right = master.get_analog(ANALOG_RIGHT_Y);
+		tank_control(left, right);
 
 		// ARCADE DRIVE //
 		// int left = master.get_analog(ANALOG_LEFT_Y);
@@ -147,9 +147,9 @@ void opcontrol() {
 		// arcade_control(left, right);
 
 		// SINGLE STICK ARCADE //
-		int left = master.get_analog(ANALOG_LEFT_Y);
-		int right = master.get_analog (ANALOG_LEFT_X);
-		arcade_control(left, right);
+		// int left = master.get_analog(ANALOG_LEFT_Y);
+		// int right = master.get_analog (ANALOG_LEFT_X);
+		// arcade_control(left, right);
 
 
 
