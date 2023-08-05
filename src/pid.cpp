@@ -14,6 +14,7 @@ extern pros::Motor top_right_mtr;
 const double wheel_radius = 1.625;
 const double PI = 3.14159265358979323846;
 
+// MOVE TO HEADER FILE, KEEP IMPLEMENTATION HERE
 class PID_controller
 {
 private:
@@ -51,6 +52,8 @@ public:
         error = targetDistance - currentDistance;
 
         // Integral is weighted by the amount of iterations, weighted by time 
+        // IMPLEMENT CONDITIONAL INTEGRATION (If bot past position and integral says
+        // to move forward, set integral to 0 (so it does nothing))
         integral += error * time;
 
         // Within 0.5 inches of desired position, reset integral to prevent future
@@ -69,7 +72,8 @@ public:
         // Proportion part is propWeight times error (gets smaller as 
         // bot gets closer to target distance)
         double output = kP * error + kI * integral + kD * derivative;
-        return output;
+        // Clamp the maximum value to 127, ONLY ACCOUNTS FOR FORWARD MOVEMENT
+        return (output > 127.0) ? 127.0 : output;
     }
 };
 
