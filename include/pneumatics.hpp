@@ -16,4 +16,6 @@ void walls_toggle(void);
 void kick_macro(void);
 void kick_toggle(void);
 
+void grabber_toggle(void);
+
 #endif //_MECHS_HPP_
