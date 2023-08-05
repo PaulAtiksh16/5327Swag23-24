@@ -49,7 +49,9 @@ pros::Motor conveyor_mtr_2(CONVEYOR_PORT_2, pros::E_MOTOR_GEAR_GREEN, true, pros
 pros::ADIDigitalOut left_wall(LEFT_WALL_PORT, false);
 pros::ADIDigitalOut right_wall(RIGHT_WALL_PORT, false);
 
-pros::ADIDigitalOut kicker(KICKER_PORT, true);
+pros::ADIDigitalOut kicker(KICKER_PORT, false);
+
+pros::ADIDigitalOut grabber(GRABBER_PORT, false);
 
 /**
  * A callback function for LLEMU's center button.
@@ -208,14 +210,19 @@ void opcontrol() {
 		}
 
 		// KICKER MACRO //
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-			// kick_macro();
-			pros::Task kicker_task(kick_macro);
-		}
+		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+		// 	// kick_macro();
+		// 	pros::Task kicker_task(kick_macro);
+		// }
 
 		// KICKER TOGGLE //
+		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+		// 	kick_toggle();
+		// }
+
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-			kick_toggle();
+			// kick_macro();
+			grabber_toggle();
 		}
 
 

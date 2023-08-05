@@ -8,6 +8,10 @@ extern pros::ADIDigitalOut right_wall;
 
 extern pros::ADIDigitalOut kicker;
 
+extern pros::ADIDigitalOut grabber;
+
+bool grabber_flag = false;
+
 bool walls_flag = false;
 
 bool kicker_flag = false;
@@ -43,5 +47,15 @@ void kick_toggle() {
         kicker.set_value(false); //bands snap forward when piston turns off
     } else {
         kicker.set_value(true); //bands retract when piston turns on
+    }
+}
+
+void grabber_toggle() {
+    grabber_flag = !grabber_flag;
+
+    if (grabber_flag) {
+        grabber.set_value(true); //grabber closes when piston turns on
+    } else {
+        grabber.set_value(false); //grabber opens when piston turns off
     }
 }

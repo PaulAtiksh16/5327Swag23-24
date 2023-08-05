@@ -33,6 +33,8 @@
 
 #define KICKER_PORT 3
 
+#define GRABBER_PORT 4
+
 
 //UNUSED PORTS BELOW
 #define LEFT_INTAKE_PORT 2
