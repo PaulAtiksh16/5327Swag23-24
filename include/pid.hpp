@@ -30,10 +30,10 @@ private:
     double integral = 0;
     double derivative = 0;
 
-    bool atPosition = false;
 public:
+    bool atPosition = false;
     // Constructor, create the weights 
-    PID_controller(double P, double I, double D, int T)
+    PID_controller(double P, double I, double D, int T=0)
     : kP{ P }, kI{ I }, kD{ D }, time{ T }
     {        
     }
@@ -43,7 +43,10 @@ public:
     void updateIntegral(double update) { kI = update; }
     void updateDerivative(double update) { kD = update; }
 
+    // Update and get the position
     void updateAtPosition(bool update) { atPosition = update; }
+
+    int getTime() { return time; }
 
     // Clamping the Integral to prevent windup
     // Returns true if the integrator should be clamped
@@ -54,5 +57,6 @@ public:
     double moveTo(double targetDistance, double currentDistance);
 };
 
+double get_distance_in(double encoder_value);
 
 #endif //_PID_HPP_

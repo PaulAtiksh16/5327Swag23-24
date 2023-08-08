@@ -1,6 +1,7 @@
 #include "main.h"
 #include "drive.hpp"
 #include "mechs.hpp"
+#include "pid.hpp"
 #include "pneumatics.hpp"
 #include "pros/adi.hpp"
 #include "pros/apix.h"
@@ -116,8 +117,32 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	
+	// Initialize PID class with weights in order (PLS CHANGE THEM) and optional delay parameter (ms)
+	PID_controller piss(6.9, 3.4, 4.20, 20);
+
+	// Continue function until at the desired position (24 inches here)
+	while(!piss.atPosition)
+	{
+		// Get distance moved, lmk if u want to change input to something else other than encoder units
+		double distance = get_distance_in(front_left_mtr.get_position());
+		base_move(piss.moveTo(24.0, distance));
+		pros::delay(piss.getTime());
+	}
 }
+/*
+   ________
+  /        \
+ /          \       																																											
+ \          /																																													 _____
+  \________/____________________________________________________________________________________________________________________________________________________________________________________|     \\
+																																																	___\\																																																
+   _____________________________________________________________________________________________________________________________________________________________________________________________       //
+  /        \																																													|_____//
+ /          \
+ \          /
+  \________/
+
+*/
 
 /**
  * Runs the operator control code. This function will be started in its own task
