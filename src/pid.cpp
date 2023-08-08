@@ -1,7 +1,7 @@
 #include "drive.hpp"
 #include "main.h"
 #include "pros/motors.h"
-#include <cmath>
+#include "pid.hpp"
 
 extern pros::Motor front_left_mtr;
 extern pros::Motor front_right_mtr;
@@ -14,68 +14,66 @@ extern pros::Motor top_right_mtr;
 const double wheel_radius = 1.625;
 const double PI = 3.14159265358979323846;
 
-// MOVE TO HEADER FILE, KEEP IMPLEMENTATION HERE
-class PID_controller
+
+// Clamping the Integral to prevent windup
+// Returns true if the integrator should be clamped
+bool PID_controller::clamp(double output, double clamped, double error)
 {
-private:
-    // Weights for PID
-    double kP;
-    double kI;
-    double kD;
-    // Milliseconds, is the time between the move function is run.
-    int time;
+    /*
+    No saturation took place if the clamped output is the same as the raw output
 
-    double error = 0;
-    double prevError = 0;
-    double integral = 0;
-    double derivative = 0;
-
-    bool atPosition = false;
-public:
-    // Constructor, create the weights 
-    PID_controller(double P, double I, double D, int T)
-    : kP{ P }, kI{ I }, kD{ D }, time{ T }
-    {        
-    }
-
-    // Update the weights
-    void updateProportion(double update) { kP = update; }
-    void updateIntegral(double update) { kI = update; }
-    void updateDerivative(double update) { kD = update; }
-
-    void updateAtPosition(bool update) { atPosition = update; }
-
-    // Measurements in inches, distance relative to starting position
-    // Returns voltage, continuously changes voltage
-    double moveTo(double targetDistance, double currentDistance)
+    Looking to see if the output is trying to make the error "more" of what it is
+        i.e. if there's positive error (bot behind position) and positive output 
+        (bot moving towards position), then we should clamp the integrator to slow
+        down.
+    */
+    if ((output == clamped) && (std::bit_sign(output) == std::bit_sign(error)))
     {
-        error = targetDistance - currentDistance;
-
-        // Integral is weighted by the amount of iterations, weighted by time 
-        // IMPLEMENT CONDITIONAL INTEGRATION (If bot past position and integral says
-        // to move forward, set integral to 0 (so it does nothing))
-        integral += error * time;
-
-        // Within 0.5 inches of desired position, reset integral to prevent future
-        // movement
-        if (fabs(error) <= 0.5)
-        {
-            integral = 0;
-            updateAtPosition(true);
-        }
-
-        // Takes how much error has changed since last iteration, and divide by 
-        // time to determine how fast or slow it moves between iterations.
-        derivative = (error - prevError) / time;
-        prevError = error;
-
-        // Proportion part is propWeight times error (gets smaller as 
-        // bot gets closer to target distance)
-        double output = kP * error + kI * integral + kD * derivative;
-        // Clamp the maximum value to 127, ONLY ACCOUNTS FOR FORWARD MOVEMENT
-        return (output > 127.0) ? 127.0 : output;
+        return true;
     }
-};
+}
+// Measurements in inches, distance relative to starting position
+// Returns voltage, continuously changes voltage
+double PID_controller::moveTo(double targetDistance, double currentDistance)
+{
+    error = targetDistance - currentDistance;
+
+    // Integral is weighted by the amount of iterations, weighted by time 
+    // IMPLEMENT CONDITIONAL INTEGRATION (If bot past position and integral says
+    // to move forward, set integral to 0 (so it does nothing))
+    integral += error * time;
+
+    // Within 0.5 inches of desired position, reset integral to prevent future
+    // movement
+    if (fabs(error) <= 0.5)
+    {
+        integral = 0;
+        updateAtPosition(true);
+    }
+
+    // Takes how much error has changed since last iteration, and divide by 
+    // time to determine how fast or slow it moves between iterations.
+    derivative = (error - prevError) / time;
+    prevError = error;
+
+    // Proportion part is propWeight times error (gets smaller as 
+    // bot gets closer to target distance)
+    double output = kP * error + kI * integral + kD * derivative;
+    // Clamp the maximum value to 127, ONLY ACCOUNTS FOR FORWARD SATURATION
+    // SET LOWER TO 127 IN THE FUTURE TO ACCOUNT FOR MOTOR BURNOUT, maybe make maxVoltage attribute?
+    double clampedOutput = (output > 127.0) ? 127.0 : output;
+
+    // Turn off integrator
+    /*
+    When output not saturated, turn on again
+    When moving forwards but need to go backwards, turn on again
+    */
+    if (clamp(output, clampedOutput, error))
+        integral = 0;
+
+    return clampedOutput;
+}
+
 
 double get_distance_in(double encoder_value)
 {
