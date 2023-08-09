@@ -27,10 +27,12 @@ bool PID_controller::clamp(double output, double clamped, double error)
         (bot moving towards position), then we should clamp the integrator to slow
         down.
     */
-    if ((output == clamped) && (std::bit_sign(output) == std::bit_sign(error)))
+    if ((output == clamped) && (std::signbit(output) == std::signbit(error)))
     {
         return true;
     }
+
+    return false;
 }
 // Measurements in inches, distance relative to starting position
 // Returns voltage, continuously changes voltage
