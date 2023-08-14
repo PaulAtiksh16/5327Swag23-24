@@ -15,6 +15,15 @@ extern pros::Motor conveyor_mtr;
 extern pros::Motor conveyor_mtr_2;
 
 
+//pneumatics below
+extern pros::ADIDigitalOut left_wall;
+extern pros::ADIDigitalOut right_wall;
+
+extern pros::ADIDigitalOut kicker;
+
+extern pros::ADIDigitalOut grabber;
+
+
 bool forward_intake_flag = false;
 bool reverse_intake_flag = false;
 
@@ -24,7 +33,7 @@ bool forward_conveyor_flag = false;
 bool reverse_conveyor_flag = false;
 
 
-// turn off motors; reset flags
+// turn off motors; reset flags; retract pneumatics
 void everything_off() {
   //intake
   left_intake_mtr.move(0);
@@ -37,6 +46,11 @@ void everything_off() {
   conveyor_mtr_2.move(0);
   forward_conveyor_flag = false;
   reverse_conveyor_flag = false;
+
+  //pneumatics
+  left_wall.set_value(false);
+  right_wall.set_value(false);
+  grabber.set_value(false);
 
   //flywheel
   // flywheel_mtr.move(0);

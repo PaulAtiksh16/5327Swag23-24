@@ -129,20 +129,9 @@ void autonomous() {
 		pros::delay(piss.getTime());
 	}
 }
-/*
-   ________
-  /        \
- /          \       																																											
- \          /																																													 _____
-  \________/____________________________________________________________________________________________________________________________________________________________________________________|     \\
-																																																	___\\																																																
-   _____________________________________________________________________________________________________________________________________________________________________________________________       //
-  /        \																																													|_____//
- /          \
- \          /
-  \________/
 
-*/
+
+
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -232,6 +221,7 @@ void opcontrol() {
 		// WALLS TOGGLE //
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_X)) {
 			walls_toggle();
+			pros::delay(200);
 		}
 
 		// KICKER MACRO //
@@ -248,6 +238,7 @@ void opcontrol() {
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
 			// kick_macro();
 			grabber_toggle();
+			pros::delay(200);
 		}
 
 

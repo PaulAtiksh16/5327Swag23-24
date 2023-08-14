@@ -54,8 +54,8 @@ void grabber_toggle() {
     grabber_flag = !grabber_flag;
 
     if (grabber_flag) {
-        grabber.set_value(true); //grabber closes when piston turns on
+        grabber.set_value(true); //grabber deploys when piston turns on
     } else {
-        grabber.set_value(false); //grabber opens when piston turns off
+        grabber.set_value(false); //grabber retracts when piston turns off
     }
 }
