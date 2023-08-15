@@ -119,7 +119,7 @@ void competition_initialize() {
 void autonomous() {
 	front_left_mtr.tare_position();
 	// Initialize PID class with weights in order (PLS CHANGE THEM) and optional delay parameter (ms)
-	PID_controller piss(1350.0, 500, 0, 10);
+	PID_controller piss(1300.0, 0.02, 6, 5);
 
 	// Continue function until at the desired position (24 inches here)
 	while (piss.atPosition == false)
@@ -131,7 +131,7 @@ void autonomous() {
 
 		
 	}
-	base_move_voltage(0);
+	base_move_voltage(piss.getTime());
 }
 
 
