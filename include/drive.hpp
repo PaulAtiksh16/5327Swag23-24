@@ -31,6 +31,8 @@ void brake_brake(void);
 void base_move(int speed);
 
 void base_move_voltage(int voltage);
+void left_move_voltage(int voltage);
+void right_move_voltage(int voltage);
 
 // functions for left and right motors to move independently
 void left_move(int speed);

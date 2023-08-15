@@ -49,7 +49,7 @@ double PID_controller::moveTo(double targetDistance, double currentDistance)
     // movement
     if (error <= 1.0)
     {
-        // integral = 0;
+        integral = 0;
         updateAtPosition(true);
     }
 
@@ -62,6 +62,45 @@ double PID_controller::moveTo(double targetDistance, double currentDistance)
 
     // Proportion part is propWeight times error (gets smaller as 
     // bot gets closer to target distance)
+    double output = kP * error + kI * integral + kD * derivative;
+    // Clamp the maximum value to 127, ONLY ACCOUNTS FOR FORWARD SATURATION
+    // SET LOWER TO 127 IN THE FUTURE TO ACCOUNT FOR MOTOR BURNOUT, maybe make maxVoltage attribute?
+    double clampedOutput = (output > 12000.0) ? 12000.0 : output;
+
+    // Turn off integrator
+    /*
+    When output not saturated, turn on again
+    When moving forwards but need to go backwards, turn on again
+    */
+    
+    if (clamp(output, clampedOutput, error))
+        integral = 0;
+    
+    return clampedOutput;
+}
+
+double PID_controller::turn(double targetAngle, double currentAngle)
+{
+    // Convert target angle to radians, then to the distance the wheels need to travel
+    // to reach the target angle
+    double desired_value_in_radians = targetAngle * (PI / 180);
+    double arc_length = botRadius * desired_value_in_radians;
+    arc_length = 360 * (arc_length / (4.125 * PI));
+
+
+    double average_position = PID_controller::getAveragePosition();
+    double error = (arc_length - average_position);
+
+    integral += error * time;
+    if (error <= 1.0)
+    {
+        integral = 0;
+        updateAtPosition(true);
+    }
+    
+    derivative = (error - prevError) / time;
+    prevError = error;
+
     double output = kP * error + kI * integral + kD * derivative;
     // Clamp the maximum value to 127, ONLY ACCOUNTS FOR FORWARD SATURATION
     // SET LOWER TO 127 IN THE FUTURE TO ACCOUNT FOR MOTOR BURNOUT, maybe make maxVoltage attribute?
