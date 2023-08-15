@@ -55,8 +55,10 @@ public:
     // Measurements in inches, distance relative to starting position
     // Returns voltage, continuously changes voltage
     double moveTo(double targetDistance, double currentDistance);
+    double simpleMove(double targetDistance, double currentDistance);
 };
 
+double pidMove(double target, double current);
 double get_distance_in(double encoder_value);
 
 #endif //_PID_HPP_

@@ -47,40 +47,54 @@ double PID_controller::moveTo(double targetDistance, double currentDistance)
 
     // Within 0.5 inches of desired position, reset integral to prevent future
     // movement
-    if (fabs(error) <= 0.5)
+    if (error <= 1.0)
     {
-        integral = 0;
+        // integral = 0;
         updateAtPosition(true);
     }
 
     // Takes how much error has changed since last iteration, and divide by 
     // time to determine how fast or slow it moves between iterations.
+    /*
     derivative = (error - prevError) / time;
     prevError = error;
+    */
 
     // Proportion part is propWeight times error (gets smaller as 
     // bot gets closer to target distance)
     double output = kP * error + kI * integral + kD * derivative;
     // Clamp the maximum value to 127, ONLY ACCOUNTS FOR FORWARD SATURATION
     // SET LOWER TO 127 IN THE FUTURE TO ACCOUNT FOR MOTOR BURNOUT, maybe make maxVoltage attribute?
-    double clampedOutput = (output > 127.0) ? 127.0 : output;
+   // double clampedOutput = (output > 127.0) ? 127.0 : output;
 
     // Turn off integrator
     /*
     When output not saturated, turn on again
     When moving forwards but need to go backwards, turn on again
     */
+    /*
     if (clamp(output, clampedOutput, error))
         integral = 0;
-
-    return clampedOutput;
+    */
+    return output;
 }
 
+double PID_controller::simpleMove(double targetDistance, double currentDistance)
+{
+    double error = targetDistance-currentDistance;
+    return 24*error;
+}
 
 double get_distance_in(double encoder_value)
 {
-    // Value in centidegrees, 100 centidegrees in 1 degree
-    return ((encoder_value / 100) / 360) * (2 * PI * wheel_radius);
+    // Value in degrees
+    return (encoder_value / 360.0) * (2 * PI * wheel_radius);
 }
 
 
+
+double pidMove(double target, double current)
+{
+    double error = target-current;
+    return 24*error;
+}

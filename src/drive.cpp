@@ -139,6 +139,15 @@ void base_move(int speed) {
   top_left_mtr.move(speed);
 }
 
+void base_move_voltage(int voltage) {
+  front_left_mtr.move_voltage(voltage);
+  front_right_mtr.move_voltage(voltage);
+  back_left_mtr.move_voltage(voltage);
+  back_right_mtr.move_voltage(voltage);
+  top_right_mtr.move_voltage(voltage);
+  top_left_mtr.move_voltage(voltage);
+}
+
 // move left side
 void left_move(int speed) {
   front_left_mtr.move(speed);

@@ -117,17 +117,21 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
+	front_left_mtr.tare_position();
 	// Initialize PID class with weights in order (PLS CHANGE THEM) and optional delay parameter (ms)
-	PID_controller piss(6.9, 3.4, 4.20, 20);
+	PID_controller piss(1350.0, 500, 0, 10);
 
 	// Continue function until at the desired position (24 inches here)
-	while(!piss.atPosition)
+	while (piss.atPosition == false)
 	{
 		// Get distance moved, lmk if u want to change input to something else other than encoder units
 		double distance = get_distance_in(front_left_mtr.get_position());
-		base_move(piss.moveTo(24.0, distance));
-		pros::delay(piss.getTime());
+		base_move_voltage(piss.moveTo(24, distance));
+		pros::delay(5);
+
+		
 	}
+	base_move_voltage(0);
 }
 
 

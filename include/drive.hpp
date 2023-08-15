@@ -30,6 +30,8 @@ void brake_brake(void);
 // function to make all motors move the same speed
 void base_move(int speed);
 
+void base_move_voltage(int voltage);
+
 // functions for left and right motors to move independently
 void left_move(int speed);
 
