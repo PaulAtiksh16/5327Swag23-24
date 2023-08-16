@@ -119,60 +119,6 @@ void competition_initialize() {
  */
 void autonomous() {
 	near_auton();
-	/*
-	LATERAL PID WEIGHTS:
-	P: 1300.0
-	I: 0.02
-	D: 6
-
-	TURNING PID WEIGHTS:
-	P: 1300.0
-	I: 0.02
-	D: 6
-	*/
-
-	/*
-	front_left_mtr.tare_position();
-	front_right_mtr.tare_position();
-	back_left_mtr.tare_position();
-	back_right_mtr.tare_position();
-	top_left_mtr.tare_position();
-	top_right_mtr.tare_position();
-	*/
-
-	// // Initialize PID class with weights in order (PLS CHANGE THEM) and optional delay parameter (ms)
-	// PID_controller piss(1300.0, 0.02, 6, 5);
-
-	// move_turn_pid(piss, 90);
-
-	// Continue function until at the desired position (24 inches here)
-	/*
-	while (piss.atPosition == false)
-	{
-		// Get distance moved, lmk if u want to change input to something else other than encoder units
-		double distance = get_distance_in(front_left_mtr.get_position());
-		base_move_voltage(piss.moveTo(24, distance));
-		pros::delay(5);		
-	}
-	*/
-
-	/*
-	base_move_voltage(0);
-	// Reset PID class
-	piss.resetWeights();
-	piss.updateWeights(150);
-	*/
-
-	/*
-	while (piss.atPosition == false) 
-	{
-		double distance = get_distance_in(piss.getAveragePosition());
-		double voltage = piss.turn(90, distance);
-		left_move_voltage(voltage);
-		right_move_voltage(-voltage);
-		pros::delay(piss.getTime());
-	}
-	*/
 }
 
 
