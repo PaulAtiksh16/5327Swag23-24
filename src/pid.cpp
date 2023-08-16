@@ -85,7 +85,7 @@ double PID_controller::turn(double targetAngle, double currentAngle)
     // to reach the target angle
     double desired_value_in_radians = targetAngle * (PI / 180);
     double arc_length = botRadius * desired_value_in_radians;
-    arc_length = 360 * (arc_length / (4.125 * PI));
+    arc_length = 360 * (arc_length / (3.25 * PI));
 
 
     double average_position = PID_controller::getAveragePosition();
@@ -140,7 +140,7 @@ double pidMove(double target, double current)
 
 
 
-void move_lateral_pid(PID_controller piss, double targetDistance) {
+void move_lateral_pid(PID_controller &piss, double targetDistance) {
     //reset encoders
     base_tare_position();
     
@@ -159,13 +159,13 @@ void move_lateral_pid(PID_controller piss, double targetDistance) {
 }
 
 
-void move_turn_pid(PID_controller piss, double targetAngle) {
+void move_turn_pid(PID_controller &piss, double targetAngle) {
     //reset encoders
     base_tare_position();
     
     // Reset PID class
     piss.resetWeights();
-    piss.updateWeights(78.5, 0.1, 0.1);
+    piss.updateWeights(1300, 0, 0);
     
     while (piss.atPosition == false) 
 	{

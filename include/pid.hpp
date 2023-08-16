@@ -90,7 +90,7 @@ public:
 double pidMove(double target, double current);
 double get_distance_in(double encoder_value);
 
-void move_lateral_pid(PID_controller piss, double targetDistance);
-void move_turn_pid(PID_controller piss, double targetAngle);
+void move_lateral_pid(PID_controller &piss, double targetDistance);
+void move_turn_pid(PID_controller &piss, double targetAngle);
 
 #endif //_PID_HPP_
