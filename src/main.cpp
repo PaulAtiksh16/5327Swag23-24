@@ -6,6 +6,7 @@
 #include "pros/adi.hpp"
 #include "pros/apix.h"
 #include "pros/rtos.hpp"
+#include "autonomous.hpp"
 
 
 //HELPFUL LINKS:
@@ -117,27 +118,32 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
+	near_auton();
 	/*
-	LATERAL WEIGHTS:
+	LATERAL PID WEIGHTS:
 	P: 1300.0
 	I: 0.02
 	D: 6
 
-	TURNING WEIGHTS:
+	TURNING PID WEIGHTS:
 	P: 1300.0
 	I: 0.02
 	D: 6
 	*/
 
+	/*
 	front_left_mtr.tare_position();
 	front_right_mtr.tare_position();
 	back_left_mtr.tare_position();
 	back_right_mtr.tare_position();
 	top_left_mtr.tare_position();
 	top_right_mtr.tare_position();
+	*/
 
-	// Initialize PID class with weights in order (PLS CHANGE THEM) and optional delay parameter (ms)
-	PID_controller piss(1300.0, 0.02, 6, 5);
+	// // Initialize PID class with weights in order (PLS CHANGE THEM) and optional delay parameter (ms)
+	// PID_controller piss(1300.0, 0.02, 6, 5);
+
+	// move_turn_pid(piss, 90);
 
 	// Continue function until at the desired position (24 inches here)
 	/*
@@ -150,14 +156,14 @@ void autonomous() {
 	}
 	*/
 
-
-
-
+	/*
 	base_move_voltage(0);
 	// Reset PID class
 	piss.resetWeights();
 	piss.updateWeights(150);
+	*/
 
+	/*
 	while (piss.atPosition == false) 
 	{
 		double distance = get_distance_in(piss.getAveragePosition());
@@ -166,6 +172,7 @@ void autonomous() {
 		right_move_voltage(-voltage);
 		pros::delay(piss.getTime());
 	}
+	*/
 }
 
 

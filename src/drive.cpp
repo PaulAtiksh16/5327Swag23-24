@@ -182,3 +182,13 @@ void base_move_encoders(int encoders) {
   top_left_mtr.move_absolute(encoders, 127);
   top_right_mtr.move_absolute(encoders, 127);
 }
+
+//reset motor encoder positions
+void base_tare_position() {
+  front_left_mtr.tare_position();
+	front_right_mtr.tare_position();
+	back_left_mtr.tare_position();
+	back_right_mtr.tare_position();
+	top_left_mtr.tare_position();
+	top_right_mtr.tare_position();
+}

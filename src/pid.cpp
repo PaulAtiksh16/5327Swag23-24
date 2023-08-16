@@ -137,3 +137,43 @@ double pidMove(double target, double current)
     double error = target-current;
     return 24*error;
 }
+
+
+
+void move_lateral_pid(PID_controller piss, double targetDistance) {
+    //reset encoders
+    base_tare_position();
+    
+    // Reset PID class
+	piss.resetWeights();
+	piss.updateWeights(1300.0, 0.02, 6);
+    
+    while (piss.atPosition == false)
+	{
+		// Get distance moved, lmk if u want to change input to something else other than encoder units
+		double distance = get_distance_in(front_left_mtr.get_position());
+		base_move_voltage(piss.moveTo(targetDistance, distance));
+		pros::delay(5);		
+	}
+    base_move_voltage(0);
+}
+
+
+void move_turn_pid(PID_controller piss, double targetAngle) {
+    //reset encoders
+    base_tare_position();
+    
+    // Reset PID class
+    piss.resetWeights();
+    piss.updateWeights(78.5, 0.1, 0.1);
+    
+    while (piss.atPosition == false) 
+	{
+		double distance = get_distance_in(piss.getAveragePosition());
+		double voltage = piss.turn(targetAngle, distance);
+		left_move_voltage(voltage);
+		right_move_voltage(-voltage);
+		pros::delay(5);
+	}
+    base_move_voltage(0);
+}

@@ -41,4 +41,6 @@ void right_move(int speed);
 
 void base_move_encoders(int encoders);
 
+void base_tare_position(void);
+
 #endif //_DRIVE_HPP_
