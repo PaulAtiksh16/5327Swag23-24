@@ -118,7 +118,8 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	near_auton();
+	base_move_relative(-200, 100);
+	pros::delay(500);
 }
 
 
@@ -191,7 +192,7 @@ void opcontrol() {
 
 		// FLYWHEEL //
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
-			run_flywheel(127);
+			run_flywheel(115);
 		}
 
 		// FLYWHEEL OFF //

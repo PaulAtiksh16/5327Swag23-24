@@ -43,4 +43,6 @@ void base_move_encoders(int encoders);
 
 void base_tare_position(void);
 
+void base_move_relative(double encoders, int velocity);
+
 #endif //_DRIVE_HPP_

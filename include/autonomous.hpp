@@ -11,6 +11,6 @@ extern "C" {
 }
 #endif
 
-void near_auton(void);
+void near_auton();
 
 #endif //_DRIVE_HPP_

@@ -140,13 +140,15 @@ double pidMove(double target, double current)
 
 
 
-void move_lateral_pid(PID_controller &piss, double targetDistance) {
+void move_lateral_pid(PID_controller& piss, double targetDistance) {
+    /*
     //reset encoders
     base_tare_position();
     
     // Reset PID class
 	piss.resetWeights();
 	piss.updateWeights(1300.0, 0.02, 6);
+    */
     
     while (piss.atPosition == false)
 	{

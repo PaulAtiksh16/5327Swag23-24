@@ -192,3 +192,12 @@ void base_tare_position() {
 	top_left_mtr.tare_position();
 	top_right_mtr.tare_position();
 }
+
+void base_move_relative(double encoders, int velocity) {
+  front_left_mtr.move_relative(encoders, velocity);
+  front_right_mtr.move_relative(encoders, velocity);
+  back_left_mtr.move_relative(encoders, velocity);
+  back_right_mtr.move_relative(encoders, velocity);
+  top_left_mtr.move_relative(encoders, velocity);
+  top_right_mtr.move_relative(encoders, velocity);
+}
