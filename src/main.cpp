@@ -118,8 +118,12 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	base_move_relative(-200, 100);
-	pros::delay(500);
+	// base_move_relative(-200, 100);
+	// pros::delay(500);
+
+	base_move_relative(2000, 1000);
+	pros::delay(1000);
+	base_move_relative(-1000, 500);
 }
 
 
