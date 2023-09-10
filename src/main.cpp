@@ -16,10 +16,9 @@
 /**
 CONTROLS:
 Joysticks: roll around obviously
-L1: flywheel on
-L2: flywheel off
-R2: kicker macro (out, then back in)
-R1: kicker toggle (out first push, back in second push)
+A: Intake forward
+B: Intake backward
+L2: Everything Off
 X: walls toggle (out first push, back in second push)
 */
 
@@ -28,11 +27,14 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 //MOTORS
 pros::Motor front_left_mtr(FRONT_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor top_left_mtr(MID_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor back_left_mtr(BACK_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
+
 pros::Motor front_right_mtr(FRONT_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor back_left_mtr(BACK_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor back_right_mtr(BACK_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor top_left_mtr(TOP_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor top_right_mtr(TOP_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor top_right_mtr(MID_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor back_right_mtr(BACK_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
+
+pros::Motor intake_mtr(INTAKE_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
 
 pros::Motor left_intake_mtr(LEFT_INTAKE_PORT, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor right_intake_mtr(RIGHT_INTAKE_PORT, pros::E_MOTOR_GEAR_GREEN, false, pros::E_MOTOR_ENCODER_DEGREES);
@@ -183,31 +185,31 @@ void opcontrol() {
 
 
 		// INTAKE //
-		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
-		// 	// run_intake_forward();
-		// 	intake();
-		// }
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
+			run_intake_forward();
+			// intake();
+		}
 		
 		// OUTTAKE //
-		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
-		// 	// run_intake_backward();
-		// 	outtake();
-		// }
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
+			run_intake_backward();
+			// outtake();
+		}
 
 		// FLYWHEEL //
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
-			run_flywheel(115);
-		}
+		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+		// 	run_flywheel(115);
+		// }
 
 		// FLYWHEEL OFF //
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-			run_flywheel(0);
-		}
+		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+		// 	run_flywheel(0);
+		// }
 
 		// EVERYTHING OFF //
-		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-		// 	everything_off();
-		// }
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+			everything_off();
+		}
 
 		// INDEX // 
 		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
@@ -231,11 +233,11 @@ void opcontrol() {
 		// 	kick_toggle();
 		// }
 
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-			// kick_macro();
-			grabber_toggle();
-			pros::delay(200);
-		}
+		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+		// 	// kick_macro();
+		// 	grabber_toggle();
+		// 	pros::delay(200);
+		// }
 
 
 

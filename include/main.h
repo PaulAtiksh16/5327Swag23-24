@@ -16,36 +16,43 @@
 #define _PROS_MAIN_H_
 
 //SMART PORTS BELOW
-#define FRONT_LEFT_PORT 15
-#define BACK_LEFT_PORT 14
-#define TOP_LEFT_PORT 13
+#define FRONT_LEFT_PORT 2
+#define MID_LEFT_PORT 1
+#define BACK_LEFT_PORT 11
 
-#define FRONT_RIGHT_PORT 17
-#define BACK_RIGHT_PORT 19
-#define TOP_RIGHT_PORT 18
+#define FRONT_RIGHT_PORT 9
+#define MID_RIGHT_PORT 10
+#define BACK_RIGHT_PORT 20
 
-#define FLYWHEEL_PORT 10 
-#define FLYWHEEL_PORT_2 20
+#define INTAKE_PORT 6
+
+
 
 //ADI TRIPORTS BELOW
 #define LEFT_WALL_PORT 3
 #define RIGHT_WALL_PORT 2
 
-#define KICKER_PORT 3
-
-#define GRABBER_PORT 1
+#define INTAKE_LINE_TRACKER 1
 
 
 //UNUSED PORTS BELOW
-#define LEFT_INTAKE_PORT 2
+#define LEFT_INTAKE_PORT 3
 #define RIGHT_INTAKE_PORT 4
 
-#define CONVEYOR_PORT 1
+#define CONVEYOR_PORT 5
 #define CONVEYOR_PORT_2 3
 
-#define LEFT_LIFT_PORT 7
-#define RIGHT_LIFT_PORT 8
-#define PUNCHER_PORT 11
+#define LEFT_LIFT_PORT 12
+#define RIGHT_LIFT_PORT 14
+#define PUNCHER_PORT 17
+
+#define FLYWHEEL_PORT 3
+#define FLYWHEEL_PORT_2 19
+
+//UNUSED TRIPORTS BELOW
+#define KICKER_PORT 3
+
+#define GRABBER_PORT 1
 
 /**
  * If defined, some commonly used enums will have preprocessor macros which give

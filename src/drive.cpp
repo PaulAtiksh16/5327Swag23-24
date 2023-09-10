@@ -35,9 +35,10 @@ void tank_control(int left, int right) {
     // actually runs the motors
     front_left_mtr.move(left);
     back_left_mtr.move(left);
-    back_right_mtr.move(right);
-    front_right_mtr.move(right);
     top_left_mtr.move(left);
+
+    front_right_mtr.move(right);
+    back_right_mtr.move(right);
     top_right_mtr.move(right);
 }
 

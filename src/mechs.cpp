@@ -14,6 +14,7 @@ extern pros::Motor right_lift_mtr;
 extern pros::Motor conveyor_mtr;
 extern pros::Motor conveyor_mtr_2;
 
+extern pros::Motor intake_mtr;
 
 //pneumatics below
 extern pros::ADIDigitalOut left_wall;
@@ -38,6 +39,8 @@ void everything_off() {
   //intake
   left_intake_mtr.move(0);
   right_intake_mtr.move(0);
+
+  intake_mtr.move(0);
   forward_intake_flag = false;
   reverse_intake_flag = false;
 
@@ -77,11 +80,13 @@ void run_intake_forward() {
   reverse_intake_flag = false;
 
   if (forward_intake_flag) {
-    left_intake_mtr.move(127);
-    right_intake_mtr.move(127);
+    // left_intake_mtr.move(127);
+    // right_intake_mtr.move(127);
+    intake_mtr.move(127);
   } else {
-    left_intake_mtr.move(0);
-    right_intake_mtr.move(0);
+    // left_intake_mtr.move(0);
+    // right_intake_mtr.move(0);
+    intake_mtr.move(0);
   }
   pros::delay(250);
 }
@@ -94,11 +99,13 @@ void run_intake_backward() {
   forward_intake_flag = false;
 
   if (reverse_intake_flag) {
-    left_intake_mtr.move(-127);
-    right_intake_mtr.move(-127);
+    // left_intake_mtr.move(-127);
+    // right_intake_mtr.move(-127);
+    intake_mtr.move(-127);
   } else {
-    left_intake_mtr.move(0);
-    right_intake_mtr.move(0);
+    // left_intake_mtr.move(0);
+    // right_intake_mtr.move(0);
+    intake_mtr.move(0);
   }
   pros::delay(250);
 }
