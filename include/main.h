@@ -16,15 +16,17 @@
 #define _PROS_MAIN_H_
 
 //SMART PORTS BELOW
-#define FRONT_LEFT_PORT 2
-#define MID_LEFT_PORT 1
+#define FRONT_LEFT_PORT 13
+#define MID_LEFT_PORT 14
 #define BACK_LEFT_PORT 11
 
-#define FRONT_RIGHT_PORT 9
-#define MID_RIGHT_PORT 10
+#define FRONT_RIGHT_PORT 18
+#define MID_RIGHT_PORT 19
 #define BACK_RIGHT_PORT 20
 
-#define INTAKE_PORT 6
+#define INTAKE_PORT 7
+
+#define LIFT_PORT 5
 
 
 
