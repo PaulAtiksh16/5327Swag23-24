@@ -18,8 +18,4 @@ void kick_toggle(void);
 
 void grabber_toggle(void);
 
-void blocker_toggle(void);
-
-void lock_toggle(void);
-
 #endif //_MECHS_HPP_

@@ -10,19 +10,11 @@ extern pros::ADIDigitalOut kicker;
 
 extern pros::ADIDigitalOut grabber;
 
-extern pros::ADIDigitalOut blocker;
-
-extern pros::ADIDigitalOut lock;
-
 bool grabber_flag = false;
 
 bool walls_flag = false;
 
 bool kicker_flag = false;
-
-bool blocker_flag = false;
-
-bool lock_flag = false;
 
 //open walls
 void walls_toggle() {
@@ -36,26 +28,6 @@ void walls_toggle() {
         //walls fold when piston retracts
         left_wall.set_value(false);
         right_wall.set_value(false);
-    }
-}
-
-void blocker_toggle() {
-    blocker_flag = !blocker_flag;
-
-    if (blocker_flag) {
-        blocker.set_value(true); //blocker deploys when piston turns on
-    } else {
-        blocker.set_value(false); //blocker retracts when piston turns off
-    }
-}
-
-void lock_toggle() {
-    lock_flag = !lock_flag;
-
-    if (lock_flag) {
-        lock.set_value(true); //lock deploys when piston turns on
-    } else {
-        lock.set_value(false); //lock retracts when piston turns off
     }
 }
 

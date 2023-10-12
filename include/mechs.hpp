@@ -22,11 +22,6 @@ void run_flywheel(int power);
 
 void move_lift(bool lift_state);
 
-void move_lift_up(void);
-void move_lift_down(void);
-void move_lift_hang(void);
-void move_lift_end(void);
-
 void run_conveyor_forward(void);
 void run_conveyor_backward(void);
 
