@@ -1,5 +1,6 @@
 #include "mechs.hpp"
 #include "main.h"
+#include "pros/motors.h"
 #include "pros/motors.hpp"
 
 extern pros::Motor left_intake_mtr;
@@ -10,6 +11,8 @@ extern pros::Motor flywheel_mtr_2;
 
 extern pros::Motor left_lift_mtr;
 extern pros::Motor right_lift_mtr;
+
+extern pros::Motor lift_mtr;
 
 extern pros::Motor conveyor_mtr;
 extern pros::Motor conveyor_mtr_2;
@@ -132,6 +135,42 @@ void move_lift(bool lift_state) {
   double position = (lift_state) ? 4500 : 0;
   left_lift_mtr.move_relative(position, 50);
   right_lift_mtr.move_relative(position, 50);
+}
+
+
+bool lift_up = false;
+
+void move_lift_up() {
+  if (not lift_up) {
+    lift_mtr.set_brake_mode(MOTOR_BRAKE_COAST);
+    lift_mtr.move_relative(-825, 100);
+    lift_up = true;
+  }
+  pros::delay(250);
+}
+
+void move_lift_down() {
+  if (lift_up) {
+    lift_mtr.set_brake_mode(MOTOR_BRAKE_COAST);
+    lift_mtr.move_relative(825, 100);
+    lift_up = false;
+  }
+  pros::delay(250);
+}
+
+void move_lift_hang() {
+  if (lift_up) {
+    lift_mtr.set_brake_mode(MOTOR_BRAKE_HOLD);
+    lift_mtr.move_relative(925, 100);
+    lift_up = false;
+  }
+  pros::delay(250);
+}
+
+void move_lift_end() {
+  lift_mtr.set_brake_mode(MOTOR_BRAKE_HOLD);
+  lift_mtr.move_relative(-50, 100);
+  pros::delay(250);
 }
 
 

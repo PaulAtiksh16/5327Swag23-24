@@ -19,7 +19,12 @@ Joysticks: roll around obviously
 A: Intake forward
 B: Intake backward
 L2: Everything Off
+R2: blocker toggle (out first push, back in second push)
 X: walls toggle (out first push, back in second push)
+UP: lift up
+DOWN: lift down
+LEFT: lift down; motor hold
+RIGHT: lock toggle (out first push, back in second push)
 */
 
 //CONTROLLER
@@ -45,6 +50,8 @@ pros::Motor flywheel_mtr_2(FLYWHEEL_PORT_2, pros::E_MOTOR_GEAR_BLUE, false, pros
 pros::Motor left_lift_mtr(LEFT_LIFT_PORT, pros::E_MOTOR_GEAR_RED, false, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor right_lift_mtr(RIGHT_LIFT_PORT, pros::E_MOTOR_GEAR_RED, true, pros::E_MOTOR_ENCODER_DEGREES);
 
+pros::Motor lift_mtr(LIFT_PORT, pros::E_MOTOR_GEAR_RED, false, pros::E_MOTOR_ENCODER_DEGREES);
+
 pros::Motor conveyor_mtr(CONVEYOR_PORT, pros::E_MOTOR_GEAR_GREEN, false, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor conveyor_mtr_2(CONVEYOR_PORT_2, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_DEGREES);
 
@@ -52,6 +59,9 @@ pros::Motor conveyor_mtr_2(CONVEYOR_PORT_2, pros::E_MOTOR_GEAR_GREEN, true, pros
 //PNEUMATICS
 pros::ADIDigitalOut left_wall(LEFT_WALL_PORT, false);
 pros::ADIDigitalOut right_wall(RIGHT_WALL_PORT, false);
+
+pros::ADIDigitalOut lock(LOCK_PORT, false);
+pros::ADIDigitalOut blocker(BLOCKER_PORT, false);
 
 pros::ADIDigitalOut kicker(KICKER_PORT, false);
 
@@ -123,9 +133,9 @@ void autonomous() {
 	// base_move_relative(-200, 100);
 	// pros::delay(500);
 
-	base_move_relative(-2000, 1000);
-	pros::delay(1000);
-	base_move_relative(1000, 500);
+	// base_move_relative(-2000, 1000);
+	// pros::delay(1000);
+	// base_move_relative(1000, 500);
 }
 
 
@@ -145,6 +155,9 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+
+	// unlock lift at start of driver control
+	lock_toggle();
 
 	bool lift_state = false;
 
@@ -211,6 +224,22 @@ void opcontrol() {
 			everything_off();
 		}
 
+
+		// LIFT UP //
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
+			move_lift_up();
+		}
+
+		// LIFT DOWN //
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
+			move_lift_down();
+		}
+
+		// LIFT HOLD //
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) {
+			move_lift_hang();
+		}
+
 		// INDEX // 
 		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
 		// 	index();
@@ -220,6 +249,20 @@ void opcontrol() {
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_X)) {
 			walls_toggle();
 			pros::delay(200);
+		}
+
+		// BLOCKER TOGGLE //
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+			blocker_toggle();
+			pros::delay(200);
+		}
+
+		// LOCK TOGGLE //
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
+			lock_toggle();
+			pros::delay(500);
+			move_lift_end();
+			pros::delay(250);
 		}
 
 		// KICKER MACRO //
