@@ -12,7 +12,7 @@ extern pros::ADIDigitalOut grabber;
 
 extern pros::ADIDigitalOut blocker;
 
-extern pros::ADIDigitalOut lock;
+extern pros::ADIDigitalOut locking;
 
 bool grabber_flag = false;
 
@@ -53,9 +53,9 @@ void lock_toggle() {
     lock_flag = !lock_flag;
 
     if (lock_flag) {
-        lock.set_value(true); //lock deploys when piston turns on
+        locking.set_value(true); //lock deploys when piston turns on
     } else {
-        lock.set_value(false); //lock retracts when piston turns off
+        locking.set_value(false); //lock retracts when piston turns off
     }
 }
 

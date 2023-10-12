@@ -9,6 +9,7 @@
 #include "autonomous.hpp"
 
 
+
 //HELPFUL LINKS:
 //ascii text generator: https://fsymbols.com/generators/carty/
 //PROS API: https://pros.cs.purdue.edu/v5/api/cpp/index.html
@@ -60,12 +61,59 @@ pros::Motor conveyor_mtr_2(CONVEYOR_PORT_2, pros::E_MOTOR_GEAR_GREEN, true, pros
 pros::ADIDigitalOut left_wall(LEFT_WALL_PORT, false);
 pros::ADIDigitalOut right_wall(RIGHT_WALL_PORT, false);
 
-pros::ADIDigitalOut lock(LOCK_PORT, false);
+pros::ADIDigitalOut locking(LOCK_PORT, false);
 pros::ADIDigitalOut blocker(BLOCKER_PORT, false);
 
 pros::ADIDigitalOut kicker(KICKER_PORT, false);
 
 pros::ADIDigitalOut grabber(GRABBER_PORT, false);
+
+
+
+// Chassis constructor
+Drive chassis (
+  // Left Chassis Ports (negative port will reverse it!)
+  //   the first port is the sensored port (when trackers are not used!)
+  {-13, -14, -11}
+
+  // Right Chassis Ports (negative port will reverse it!)
+  //   the first port is the sensored port (when trackers are not used!)
+  ,{18, 19, 20}
+
+  // IMU Port
+  ,4
+
+  // Wheel Diameter (Remember, 4" wheels are actually 4.125!)
+  //    (or tracking wheel diameter)
+  ,3.25
+
+  // Cartridge RPM
+  //   (or tick per rotation if using tracking wheels)
+  ,600
+
+  // External Gear Ratio (MUST BE DECIMAL)
+  //    (or gear ratio of tracking wheel)
+  // eg. if your drive is 84:36 where the 36t is powered, your RATIO would be 2.333.
+  // eg. if your drive is 36:60 where the 60t is powered, your RATIO would be 0.6.
+  ,1.666
+
+  // Uncomment if using tracking wheels
+  /*
+  // Left Tracking Wheel Ports (negative port will reverse it!)
+  // ,{1, 2} // 3 wire encoder
+  // ,8 // Rotation sensor
+
+  // Right Tracking Wheel Ports (negative port will reverse it!)
+  // ,{-3, -4} // 3 wire encoder
+  // ,-9 // Rotation sensor
+  */
+
+  // Uncomment if tracking wheels are plugged into a 3 wire expander
+  // 3 Wire Port Expander Smart Port
+  // ,1
+);
+
+
 
 /**
  * A callback function for LLEMU's center button.
@@ -90,10 +138,35 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	pros::lcd::initialize();
-	pros::lcd::set_text(1, "hi bitchy!");
+	ez::print_ez_template();
+  
+	pros::delay(500); // Stop the user from doing anything while legacy ports configure.
 
-	pros::lcd::register_btn1_cb(on_center_button);
+	// Configure your chassis controls
+	chassis.toggle_modify_curve_with_controller(true); // Enables modifying the controller curve with buttons on the joysticks
+	chassis.set_active_brake(0); // Sets the active brake kP. We recommend 0.1.
+	chassis.set_curve_default(0, 0); // Defaults for curve. If using tank, only the first parameter is used. (Comment this line out if you have an SD card!)  
+	default_constants(); // Set the drive to your own constants from autons.cpp!
+	exit_condition_defaults(); // Set the exit conditions to your own constants from autons.cpp!
+
+	// These are already defaulted to these buttons, but you can change the left/right curve buttons here!
+	// chassis.set_left_curve_buttons (pros::E_CONTROLLER_DIGITAL_LEFT, pros::E_CONTROLLER_DIGITAL_RIGHT); // If using tank, only the left side is used. 
+	// chassis.set_right_curve_buttons(pros::E_CONTROLLER_DIGITAL_Y,    pros::E_CONTROLLER_DIGITAL_A);
+
+	// Autonomous Selector using LLEMU
+	ez::as::auton_selector.add_autons({
+		Auton("Example Drive\n\nDrive forward and come back.", drive_example),
+		Auton("Example Turn\n\nTurn 3 times.", turn_example),
+		Auton("Drive and Turn\n\nDrive forward, turn, come back. ", drive_and_turn),
+		Auton("Drive and Turn\n\nSlow down during drive.", wait_until_change_speed),
+		Auton("Swing Example\n\nSwing, drive, swing.", swing_example),
+		Auton("Combine all 3 movements", combining_movements),
+		Auton("Interference\n\nAfter driving forward, robot performs differently if interfered or not.", interfered_example),
+	});
+
+	// Initialize chassis and auton selector
+	chassis.initialize();
+	ez::as::initialize();
 }
 
 /**
@@ -136,6 +209,8 @@ void autonomous() {
 	// base_move_relative(-2000, 1000);
 	// pros::delay(1000);
 	// base_move_relative(1000, 500);
+
+	drive_example();
 }
 
 
@@ -260,8 +335,8 @@ void opcontrol() {
 		// LOCK TOGGLE //
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
 			lock_toggle();
-			pros::delay(500);
-			move_lift_end();
+			// pros::delay(500);
+			// move_lift_end();
 			pros::delay(250);
 		}
 
