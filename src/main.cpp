@@ -9,6 +9,7 @@
 #include "pros/apix.h"
 #include "pros/rtos.hpp"
 #include "autonomous.hpp"
+#include "lemlib/api.hpp"
 
 
 //HELPFUL LINKS:
@@ -41,6 +42,11 @@ pros::Motor front_right_mtr(FRONT_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pr
 pros::Motor top_right_mtr(MID_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor back_right_mtr(BACK_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
 
+pros::MotorGroup left_side_motors({front_left_mtr, top_left_mtr, back_left_mtr});
+pros::MotorGroup right_side_motors({front_right_mtr, top_right_mtr, back_right_mtr});
+
+pros::Imu inertial_sensor(INERTIAL_PORT);
+
 pros::Motor intake_mtr(INTAKE_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
 
 pros::Motor left_intake_mtr(LEFT_INTAKE_PORT, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_DEGREES);
@@ -69,6 +75,48 @@ pros::ADIDigitalOut kicker(KICKER_PORT, false);
 
 pros::ADIDigitalOut grabber(GRABBER_PORT, false);
 
+
+lemlib::Drivetrain_t drivetrain {
+    &left_side_motors, // left drivetrain motors
+    &right_side_motors, // right drivetrain motors
+    10.5, // track width
+    3.25, // wheel diameter
+    360 // wheel rpm
+};
+
+lemlib::OdomSensors_t sensors {
+    nullptr,
+    nullptr,
+    nullptr,
+    nullptr,
+    &inertial_sensor
+};
+
+// forward/backward PID
+lemlib::ChassisController_t lateralController {
+    10, // kP
+    70, // kD
+    1, // smallErrorRange
+    100, // smallErrorTimeout
+    3, // largeErrorRange
+    500, // largeErrorTimeout
+    1 // slew rate
+};
+ 
+// turning PID
+lemlib::ChassisController_t angularController {
+    7.2, // kP
+    60, // kD
+    1, // smallErrorRange
+    100, // smallErrorTimeout
+    3, // largeErrorRange
+    500, // largeErrorTimeout
+    0 // slew rate
+};
+
+lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors);
+
+
 /**
  * A callback function for LLEMU's center button.
  *
@@ -92,10 +140,15 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+    chassis.calibrate();
+
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "hi bitchy!");
 
 	pros::lcd::register_btn1_cb(on_center_button);
+
+	// pros::Task screenTask(screen); // create a task to print the position to the screen
+
 }
 
 /**
@@ -147,16 +200,22 @@ void autonomous() {
 	// pros::delay(1000);
 	// base_move_relative(1000, 500);
 
-
-	// MATCH LOAD AUTON //
-	base_move_relative(-2000, 1000);
-	pros::delay(1000);
-	base_move_relative(1000, 500);
-	pros::delay(1000);
 	lock.set_value(true);
 	lock_flag = true;
-	pros::delay(1000);
-	move_lift_up();
+
+	chassis.moveTo(0, 60, 1000); // move to the point (53, 53) with a timeout of 1000 
+	chassis.turnTo(10, -10, 1000); // turn to the point (53, 53) with a timeout of 1000 ms
+	chassis.moveTo(20, -10, 1000); // move to the point (53, 53) with a timeout of 1000 
+	// chassis.moveTo(0, 48, 1000); // move to the point (53, 53) with a timeout of 1000 
+	// MATCH LOAD AUTON //
+	// base_move_relative(-2000, 1000);
+	// pros::delay(1000);
+	// base_move_relative(1000, 500);
+	// pros::delay(1000);
+	// lock.set_value(true);
+	// lock_flag = true;
+	// pros::delay(1000);
+	// move_lift_up();
 }
 
 

@@ -28,6 +28,8 @@
 
 #define LIFT_PORT 5
 
+#define INERTIAL_PORT 4
+
 
 
 //ADI TRIPORTS BELOW
