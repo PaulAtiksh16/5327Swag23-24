@@ -188,34 +188,41 @@ using namespace okapi;
 
 extern bool lock_flag;
 void autonomous() {
-	
-	// PID_controller pid(10000, 0.1, 0.1, 0, 7.5);
-	// while (pid.atPosition == false)
-	// {
-	// 	pid.basicPID(12.0, get_distance_in(front_left_mtr.get_position()));
-	// }
 
-	// NO MATCH LOAD AUTON //
-	// base_move_relative(-2000, 1000);
-	// pros::delay(1000);
-	// base_move_relative(1000, 500);
-
+	// CLOSE AUTON //
 	lock.set_value(true);
 	lock_flag = true;
 
-	chassis.moveTo(0, 60, 1000); // move to the point (53, 53) with a timeout of 1000 
-	chassis.turnTo(10, -10, 1000); // turn to the point (53, 53) with a timeout of 1000 ms
-	chassis.moveTo(20, -10, 1000); // move to the point (53, 53) with a timeout of 1000 
+	chassis.setPose(0, 0, 45);
+	chassis.moveTo(0, 6, 1000);
+
+	walls_toggle();
+	pros::delay(500);
+	walls_toggle();
+    
+	chassis.moveTo(-1.4, -1.4, 200);
+
+	chassis.turnTo(24, 10, 500);
+	chassis.moveTo(24, 10, 1000);
+	
+	// Outtake
+	run_intake_backward();
+	pros::delay(500);
+	run_intake_backward();
+
+	// Push Triball
+	chassis.moveTo(15, 10, 300);
+	chassis.moveTo(30, 10, 600);
+
+	// Move towards
+	chassis.moveTo(14, 10, 2000);
+
+	// Face triball
+	//chassis.turnTo(0, -7, 1000);
+	chassis.moveTo(0, -7, 1000);
+
+	
 	// chassis.moveTo(0, 48, 1000); // move to the point (53, 53) with a timeout of 1000 
-	// MATCH LOAD AUTON //
-	// base_move_relative(-2000, 1000);
-	// pros::delay(1000);
-	// base_move_relative(1000, 500);
-	// pros::delay(1000);
-	// lock.set_value(true);
-	// lock_flag = true;
-	// pros::delay(1000);
-	// move_lift_up();
 }
 
 
@@ -236,7 +243,7 @@ void autonomous() {
  */
 void opcontrol() {
 	
-	// unlock lift at start of driver control
+	// unlock lift at start of  control
 	lock.set_value(true);
 	lock_flag = true;
 
