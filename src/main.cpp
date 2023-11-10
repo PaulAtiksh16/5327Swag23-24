@@ -203,16 +203,19 @@ void autonomous() {
 	chassis.moveTo(-1.4, -1.4, 200);
 
 	chassis.turnTo(24, 10, 500);
-	chassis.moveTo(24, 10, 1000);
-	
+	chassis.moveTo(22, 10, 1000);
+    pros::delay(400);
 	// Outtake
 	run_intake_backward();
 	pros::delay(500);
 	run_intake_backward();
 
 	// Push Triball
-	chassis.moveTo(15, 10, 300);
-	chassis.moveTo(30, 10, 600);
+	chassis.moveTo(15, 10, 1000);
+    //rotate 360 degrees
+    chassis.turnTo(0, 10, 1000);
+	chassis.moveTo(30, 10, 600 );
+    pros::delay(400);
 
 	// Move towards
 	chassis.moveTo(14, 10, 2000);
@@ -221,7 +224,16 @@ void autonomous() {
 	//chassis.turnTo(0, -7, 1000);
 	chassis.moveTo(0, -7, 1000);
 
-	
+    // Move towards elevation bar (turn bot so blocker works lol
+	chassis.turnTo(0, -35, 500, true);
+    chassis.moveTo(0, -35, 1000);
+
+    // Turn on blocker toggle
+    blocker_toggle();
+
+    // Edge the robot
+    chassis.moveTo(0, -40, 2000);
+
 	// chassis.moveTo(0, 48, 1000); // move to the point (53, 53) with a timeout of 1000 
 }
 
@@ -375,6 +387,16 @@ void opcontrol() {
 		// DEBUGGING //
 		get_base_watts();
 		// get_mech_watts();
+
+        lemlib::Pose currentPose = chassis.getPose();
+
+        float x = currentPose.x;
+        float y = currentPose.y;
+        float theta = currentPose.theta;
+
+        pros::lcd::set_text(2, "x: " + std::to_string(x));
+        pros::lcd::set_text(3, "y: " + std::to_string(y));
+        pros::lcd::set_text(4, "theta: " + std::to_string(theta));
 
 
 		pros::delay(20);
