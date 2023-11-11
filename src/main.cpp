@@ -236,7 +236,23 @@ void autonomous() {
 	chassis.moveTo(-5, -45.5, 1000);
 	*/
 	
-	
+	//Far Auton
+	lock.set_value(true);
+	lock_flag = true;
+
+	chassis.setPose(0, 1, -45);
+
+	chassis.moveTo(6.5, -6.5, 1000);
+	walls_toggle();
+	pros::delay(500);
+	walls_toggle();
+	chassis.moveTo(15, -15, 1000);
+	chassis.moveTo(100, -25, 1500);
+	chassis.moveTo(15, -15, 1000);
+
+
+
+	/*
 	// ** SKILLS RUN ** //
 	chassis.setPose(0, -1, 0);
 	// Blocker on, match load, blocker off
@@ -263,7 +279,7 @@ void autonomous() {
 	chassis.moveTo(50, -37, 1000);
 	walls_toggle();
 	chassis.moveTo(20, -10, 1000);
-	
+	*/
 }
 
 
