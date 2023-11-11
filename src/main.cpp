@@ -194,51 +194,53 @@ void autonomous() {
 	lock_flag = true;
 
 	chassis.setPose(0, 0, 45);
-	chassis.moveTo(0, 6, 1000);
+	chassis.moveTo(2, 2, 1000);
 
+	// Use walls to push match load triball
 	walls_toggle();
 	pros::delay(500);
 	walls_toggle();
-    
-	chassis.moveTo(-1.4, -1.4, 200);
-
-	chassis.turnTo(22, 10, 500);
+    // Push triball
+	chassis.moveTo(0, 0, 1000);
+	// chassis.turnTo(24, 12, 500);
 	// chassis.setPose(-1.4, -1.4, 24.444);
-	chassis.moveTo(22, 10, 1000);
+	
+	chassis.moveTo(8, 12, 1000);
     pros::delay(400);
 	// Outtake
 	run_intake_backward();
 	pros::delay(500);
 	run_intake_backward();
 
-	// Push Triball
-	chassis.moveTo(15, 10, 1000);
+	// Move away to Push Triball
+	chassis.moveTo(4, 12, 1000);
 
-
-
-    //rotate 360 degrees
-    chassis.turnTo(0, 10, 1000);
-	chassis.moveTo(30, 10, 600 );
+    // rotate 180 degrees
+    chassis.turnTo(0, 12, 1000);
+	// Push triball
+	chassis.moveTo(30, 12, 1000);
     pros::delay(400);
 
-	// Move towards
-	chassis.moveTo(14, 10, 2000);
+	// Move towards matchload
+	chassis.turnTo(15, -5, 1000);
+	chassis.moveTo(15, -5, 2000);
 
 	// Face triball
-	chassis.turnTo(-10, -4, 1000);
-	chassis.moveTo(-10, -4, 2500);
+	chassis.turnTo(-10, -10, 1000);
+	chassis.moveTo(-10, -10, 2500);
 
-    // Move towards elevation bar (turn bot so blocker works lol
-	 chassis.turnTo(-10, -35, 500, true);
-     chassis.moveTo(-10, -35, 2000);
+    // Move towards elevation bar (turn bot so blocker works lol)
+	 chassis.turnTo(-12, -35, 500);
+     chassis.moveTo(-12, -35, 2000);
 
     // Turn on blocker toggle
     //blocker_toggle();
 
     // Edge the robot
-    //chassis.moveTo(0, -40, 2000);
+	chassis.moveTo(-12, -40);
 
 	// chassis.moveTo(0, 48, 1000); // move to the point (53, 53) with a timeout of 1000 
+	
 }
 
 
