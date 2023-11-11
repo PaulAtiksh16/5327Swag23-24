@@ -188,7 +188,7 @@ using namespace okapi;
 
 extern bool lock_flag;
 void autonomous() {
-
+	/*
 	// CLOSE AUTON //
 	lock.set_value(true);
 	lock_flag = true;
@@ -205,7 +205,7 @@ void autonomous() {
 	// chassis.turnTo(24, 12, 500);
 	// chassis.setPose(-1.4, -1.4, 24.444);
 	
-	chassis.moveTo(8, 12, 1000);
+	chassis.moveTo(22.5, 12, 2000);
     pros::delay(400);
 	// Outtake
 	run_intake_backward();
@@ -213,7 +213,7 @@ void autonomous() {
 	run_intake_backward();
 
 	// Move away to Push Triball
-	chassis.moveTo(4, 12, 1000);
+	chassis.moveTo(16, 12, 1000);
 
     // rotate 180 degrees
     chassis.turnTo(0, 12, 1000);
@@ -222,24 +222,30 @@ void autonomous() {
     pros::delay(400);
 
 	// Move towards matchload
-	chassis.turnTo(15, -5, 1000);
-	chassis.moveTo(15, -5, 2000);
+	chassis.turnTo(15, -7, 1000);
+	chassis.moveTo(15, -7, 2000);
 
 	// Face triball
-	chassis.turnTo(-10, -10, 1000);
-	chassis.moveTo(-10, -10, 2500);
+	chassis.turnTo(-3, -10, 1000);
+	chassis.moveTo(-3, -10, 2500);
 
     // Move towards elevation bar (turn bot so blocker works lol)
-	 chassis.turnTo(-12, -35, 500);
-     chassis.moveTo(-12, -35, 2000);
-
-    // Turn on blocker toggle
-    //blocker_toggle();
-
+	chassis.turnTo(-5, -43, 500);
+    chassis.moveTo(-5, -43, 2000);
     // Edge the robot
-	chassis.moveTo(-12, -40);
-
-	// chassis.moveTo(0, 48, 1000); // move to the point (53, 53) with a timeout of 1000 
+	chassis.moveTo(-5, -45.5, 1000);
+	*/
+	
+	
+	// ** SKILLS RUN ** //
+	chassis.setPose(0, -1, 0);
+	// Blocker on, match load, blocker off
+	move_lift_up();
+	pros::delay(30000);
+	move_lift_down();
+	// Walls on
+	walls_toggle();
+	chassis.moveTo(0, -78, 4000);
 	
 }
 
