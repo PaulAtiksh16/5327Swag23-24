@@ -221,18 +221,18 @@ void autonomous() {
 	chassis.moveTo(14, 10, 2000);
 
 	// Face triball
-	//chassis.turnTo(0, -7, 1000);
-	chassis.moveTo(0, -7, 1000);
+	chassis.turnTo(-7, -5, 500);
+	chassis.moveTo(-7, -5, 2000);
 
     // Move towards elevation bar (turn bot so blocker works lol
-	chassis.turnTo(0, -35, 500, true);
-    chassis.moveTo(0, -35, 1000);
+	 chassis.turnTo(-7, -35, 500, true);
+     chassis.moveTo(-7, -35, 2000);
 
     // Turn on blocker toggle
-    blocker_toggle();
+    //blocker_toggle();
 
     // Edge the robot
-    chassis.moveTo(0, -40, 2000);
+    //chassis.moveTo(0, -40, 2000);
 
 	// chassis.moveTo(0, 48, 1000); // move to the point (53, 53) with a timeout of 1000 
 }
