@@ -202,7 +202,8 @@ void autonomous() {
     
 	chassis.moveTo(-1.4, -1.4, 200);
 
-	chassis.turnTo(24, 10, 500);
+	chassis.turnTo(22, 10, 500);
+	// chassis.setPose(-1.4, -1.4, 24.444);
 	chassis.moveTo(22, 10, 1000);
     pros::delay(400);
 	// Outtake
@@ -212,6 +213,9 @@ void autonomous() {
 
 	// Push Triball
 	chassis.moveTo(15, 10, 1000);
+
+
+
     //rotate 360 degrees
     chassis.turnTo(0, 10, 1000);
 	chassis.moveTo(30, 10, 600 );
@@ -221,12 +225,12 @@ void autonomous() {
 	chassis.moveTo(14, 10, 2000);
 
 	// Face triball
-	chassis.turnTo(-7, -5, 500);
-	chassis.moveTo(-7, -5, 2000);
+	chassis.turnTo(-10, -4, 1000);
+	chassis.moveTo(-10, -4, 2500);
 
     // Move towards elevation bar (turn bot so blocker works lol
-	 chassis.turnTo(-7, -35, 500, true);
-     chassis.moveTo(-7, -35, 2000);
+	 chassis.turnTo(-10, -35, 500, true);
+     chassis.moveTo(-10, -35, 2000);
 
     // Turn on blocker toggle
     //blocker_toggle();
