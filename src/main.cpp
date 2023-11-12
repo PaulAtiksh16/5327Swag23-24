@@ -188,7 +188,7 @@ using namespace okapi;
 
 extern bool lock_flag;
 void autonomous() {
-	/*
+	
 	// CLOSE AUTON //
 	lock.set_value(true);
 	lock_flag = true;
@@ -230,25 +230,25 @@ void autonomous() {
 	chassis.moveTo(-3, -10, 2500);
 
     // Move towards elevation bar (turn bot so blocker works lol)
-	chassis.turnTo(-5, -43, 500);
-    chassis.moveTo(-5, -43, 2000);
+	chassis.turnTo(-5, -39, 500);
+    chassis.moveTo(-5, -39, 2000);
     // Edge the robot
-	chassis.moveTo(-5, -45.5, 1000);
-	*/
+	chassis.moveTo(-5, -41.5, 1000);
+	
 	
 	//Far Auton
-	lock.set_value(true);
-	lock_flag = true;
+	// lock.set_value(true);
+	// lock_flag = true;
 
-	chassis.setPose(0, 1, -45);
+	// chassis.setPose(0, 1, -45);
 
-	chassis.moveTo(6.5, -6.5, 1000);
-	walls_toggle();
-	pros::delay(500);
-	walls_toggle();
-	chassis.moveTo(15, -15, 1000);
-	chassis.moveTo(100, -25, 1500);
-	chassis.moveTo(15, -15, 1000);
+	// chassis.moveTo(6.5, -6.5, 1000);
+	// walls_toggle();
+	// pros::delay(500);
+	// walls_toggle();
+	// chassis.moveTo(15, -15, 1000);
+	// chassis.moveTo(100, -25, 1500);
+	// chassis.moveTo(15, -15, 1000);
 
 
 
