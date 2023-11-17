@@ -190,65 +190,109 @@ extern bool lock_flag;
 void autonomous() {
 	
 	// CLOSE AUTON //
-	lock.set_value(true);
-	lock_flag = true;
-
-	chassis.setPose(0, 0, 45);
-	chassis.moveTo(2, 2, 1000);
-
-	// Use walls to push match load triball
-	walls_toggle();
-	pros::delay(500);
-	walls_toggle();
-    // Push triball
-	chassis.moveTo(0, 0, 1000);
-	// chassis.turnTo(24, 12, 500);
-	// chassis.setPose(-1.4, -1.4, 24.444);
-	
-	chassis.moveTo(22.5, 12, 2000);
-    pros::delay(400);
-	// Outtake
-	run_intake_backward();
-	pros::delay(500);
-	run_intake_backward();
-
-	// Move away to Push Triball
-	chassis.moveTo(16, 12, 1000);
-
-    // rotate 180 degrees
-    chassis.turnTo(0, 12, 1000);
-	// Push triball
-	chassis.moveTo(30, 12, 1000);
-    pros::delay(400);
-
-	// Move towards matchload
-	chassis.turnTo(15, -7, 1000);
-	chassis.moveTo(15, -7, 2000);
-
-	// Face triball
-	chassis.turnTo(-3, -10, 1000);
-	chassis.moveTo(-3, -10, 2500);
-
-    // Move towards elevation bar (turn bot so blocker works lol)
-	chassis.turnTo(-5, -39, 500);
-    chassis.moveTo(-5, -39, 2000);
-    // Edge the robot
-	chassis.moveTo(-5, -41.5, 1000);
+//	lock.set_value(true);
+//	lock_flag = true;
+//
+//	chassis.setPose(0, 0, 45);
+//	chassis.moveTo(2, 2, 1000);
+//
+//	// Use walls to push match load triball
+//	walls_toggle();
+//	pros::delay(500);
+//	walls_toggle();
+//
+//    // Push triball
+//	chassis.moveTo(0, 0, 1000);
+//	// chassis.turnTo(24, 12, 500);
+//	// chassis.setPose(-1.4, -1.4, 24.444);
+//
+//	chassis.moveTo(22.5, 12, 2000);
+//    pros::delay(400);
+//	// Outtake
+//	run_intake_backward();
+//	pros::delay(500);
+//	run_intake_backward();
+//
+//	// Move away to Push Triball
+//	chassis.moveTo(16, 12, 1000);
+//
+//    // rotate 180 degrees
+//    chassis.turnTo(0, 12, 1000);
+//	// Push triball
+//	chassis.moveTo(30, 12, 1000);
+//    pros::delay(400);
+//
+//	// Move towards matchload
+//	chassis.turnTo(15, -7, 1000);
+//	chassis.moveTo(15, -7, 2000);
+//
+//	// Face triball
+//	chassis.turnTo(-3, -10, 1000);
+//	chassis.moveTo(-3, -10, 2500);
+//
+//    // Move towards elevation bar (turn bot so blocker works lol)
+//	chassis.turnTo(-5, -39, 500);
+//    chassis.moveTo(-5, -39, 2000);
+//    // Edge the robot
+//	chassis.moveTo(-5, -41.5, 1000);
 	
 	
 	//Far Auton
-	// lock.set_value(true);
-	// lock_flag = true;
+//	 lock.set_value(true);
+//	 lock_flag = true;
+//
+//	 chassis.setPose(0, 1, -45);
+//
+//	 chassis.moveTo(6.5, -6.5, 1000);
+//	 walls_toggle();
+//	 pros::delay(500);
+//	 walls_toggle();
+//	 chassis.moveTo(15, -15, 1000);
+//	 chassis.moveTo(100, -25, 1500);
+//	 chassis.moveTo(15, -15, 1000);
 
-	// chassis.setPose(0, 1, -45);
+    // // ** BETTER FAR AUTON ** //
+    lock.set_value(true);
+    lock_flag = true;
 
-	// chassis.moveTo(6.5, -6.5, 1000);
-	// walls_toggle();
-	// pros::delay(500);
-	// walls_toggle();
-	// chassis.moveTo(15, -15, 1000);
-	// chassis.moveTo(100, -25, 1500);
-	// chassis.moveTo(15, -15, 1000);
+    chassis.setPose(0, 0, 0);
+
+    walls_toggle();
+    pros::delay(500);
+    walls_toggle();
+
+    run_intake_forward();
+    chassis.turnTo(-39.5, 59, 1000);
+    chassis.moveTo(-39.5, 59, 2500, 75);
+    pros::delay(500);
+    run_intake_forward();
+    chassis.turnTo(59, 59, 1000);
+    run_intake_backward();
+    chassis.moveTo(55, 59, 1000);
+    pros::delay(500);
+    chassis.moveTo(-39.5,59, 1000);
+    chassis.turnTo(-5,59,1000);
+     walls_toggle();
+    chassis.moveTo(5,59,1000);
+    walls_toggle();
+
+
+
+
+
+
+
+
+
+//    chassis.moveTo(-10, 60, 1000);
+//    run_intake_forward();
+//    chassis.turnTo(-13, 67, 1000);
+//    pros::delay(500);
+//    chassis.moveTo(-13, 67, 1000);
+//    pros::delay(500);
+//    run_intake_forward();
+//    chassis.turnTo(-5, 68, 1000);
+
 
 
 
