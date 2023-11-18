@@ -90,7 +90,7 @@ void run_intake_forward() {
     // right_intake_mtr.move(0);
     intake_mtr.move(0);
   }
-  pros::delay(250);
+  pros::delay(100);
 }
 
 
@@ -109,7 +109,7 @@ void run_intake_backward() {
     // right_intake_mtr.move(0);
     intake_mtr.move(0);
   }
-  pros::delay(250);
+  pros::delay(100);
 }
 
 

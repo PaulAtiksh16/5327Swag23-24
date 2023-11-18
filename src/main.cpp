@@ -19,8 +19,8 @@
 /**
 CONTROLS:
 Joysticks: roll around obviously
-A: Intake forward
-B: Intake backward
+R1: Intake forward
+R2: Intake backward
 L2: Everything Off
 R2: blocker toggle (out first push, back in second push)
 X: walls toggle (out first push, back in second push)
@@ -76,42 +76,42 @@ pros::ADIDigitalOut kicker(KICKER_PORT, false);
 pros::ADIDigitalOut grabber(GRABBER_PORT, false);
 
 
-lemlib::Drivetrain_t drivetrain {
-    &left_side_motors, // left drivetrain motors
-    &right_side_motors, // right drivetrain motors
-    10.5, // track width
-    3.25, // wheel diameter
-    360 // wheel rpm
+lemlib::Drivetrain_t drivetrain{
+        &left_side_motors, // left drivetrain motors
+        &right_side_motors, // right drivetrain motors
+        10.5, // track width
+        3.25, // wheel diameter
+        360 // wheel rpm
 };
 
-lemlib::OdomSensors_t sensors {
-    nullptr,
-    nullptr,
-    nullptr,
-    nullptr,
-    &inertial_sensor
+lemlib::OdomSensors_t sensors{
+        nullptr,
+        nullptr,
+        nullptr,
+        nullptr,
+        &inertial_sensor
 };
 
 // forward/backward PID
-lemlib::ChassisController_t lateralController {
-    10, // kP
-    70, // kD
-    1, // smallErrorRange
-    100, // smallErrorTimeout
-    3, // largeErrorRange
-    500, // largeErrorTimeout
-    1 // slew rate
+lemlib::ChassisController_t lateralController{
+        10, // kP
+        70, // kD
+        1, // smallErrorRange
+        100, // smallErrorTimeout
+        3, // largeErrorRange
+        500, // largeErrorTimeout
+        1 // slew rate
 };
- 
+
 // turning PID
-lemlib::ChassisController_t angularController {
-    7.2, // kP
-    60, // kD
-    1, // smallErrorRange
-    100, // smallErrorTimeout
-    3, // largeErrorRange
-    500, // largeErrorTimeout
-    0 // slew rate
+lemlib::ChassisController_t angularController{
+        7.2, // kP
+        60, // kD
+        1, // smallErrorRange
+        100, // smallErrorTimeout
+        3, // largeErrorRange
+        500, // largeErrorTimeout
+        0 // slew rate
 };
 
 lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors);
@@ -124,13 +124,13 @@ lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensor
  * "I was pressed!" and nothing.
  */
 void on_center_button() {
-	// static bool pressed = false;
-	// pressed = !pressed;
-	// if (pressed) {
-	// 	pros::lcd::set_text(2, "I was pressed!");
-	// } else {
-	// 	pros::lcd::clear_line(2);
-	// }
+    // static bool pressed = false;
+    // pressed = !pressed;
+    // if (pressed) {
+    // 	pros::lcd::set_text(2, "I was pressed!");
+    // } else {
+    // 	pros::lcd::clear_line(2);
+    // }
 }
 
 /**
@@ -142,12 +142,12 @@ void on_center_button() {
 void initialize() {
     chassis.calibrate();
 
-	pros::lcd::initialize();
-	pros::lcd::set_text(1, "hi bitchy!");
+    pros::lcd::initialize();
+    pros::lcd::set_text(1, "hi bitchy!");
 
-	pros::lcd::register_btn1_cb(on_center_button);
+    pros::lcd::register_btn1_cb(on_center_button);
 
-	// pros::Task screenTask(screen); // create a task to print the position to the screen
+    // pros::Task screenTask(screen); // create a task to print the position to the screen
 
 }
 
@@ -157,7 +157,7 @@ void initialize() {
  * the robot is enabled, this task will exit.
  */
 void disabled() {
-	everything_off();
+    everything_off();
 }
 
 /**
@@ -187,57 +187,60 @@ void competition_initialize() {
 using namespace okapi;
 
 extern bool lock_flag;
+
 void autonomous() {
-	
-	// CLOSE AUTON //
-//	lock.set_value(true);
-//	lock_flag = true;
-//
-//	chassis.setPose(0, 0, 45);
-//	chassis.moveTo(2, 2, 1000);
-//
-//	// Use walls to push match load triball
-//	walls_toggle();
-//	pros::delay(500);
-//	walls_toggle();
-//
-//    // Push triball
-//	chassis.moveTo(0, 0, 1000);
-//	// chassis.turnTo(24, 12, 500);
-//	// chassis.setPose(-1.4, -1.4, 24.444);
-//
-//	chassis.moveTo(22.5, 12, 2000);
-//    pros::delay(400);
-//	// Outtake
-//	run_intake_backward();
-//	pros::delay(500);
-//	run_intake_backward();
-//
-//	// Move away to Push Triball
-//	chassis.moveTo(16, 12, 1000);
-//
-//    // rotate 180 degrees
-//    chassis.turnTo(0, 12, 1000);
-//	// Push triball
-//	chassis.moveTo(30, 12, 1000);
-//    pros::delay(400);
-//
-//	// Move towards matchload
-//	chassis.turnTo(15, -7, 1000);
-//	chassis.moveTo(15, -7, 2000);
-//
-//	// Face triball
-//	chassis.turnTo(-3, -10, 1000);
-//	chassis.moveTo(-3, -10, 2500);
-//
-//    // Move towards elevation bar (turn bot so blocker works lol)
-//	chassis.turnTo(-5, -39, 500);
-//    chassis.moveTo(-5, -39, 2000);
-//    // Edge the robot
-//	chassis.moveTo(-5, -41.5, 1000);
-	
-	
-	//Far Auton
+    /*
+    // CLOSE AUTON //
+	lock.set_value(true);
+	lock_flag = true;
+
+
+    // moving bot into position
+	chassis.setPose(0, 0, 45);
+	chassis.moveTo(2, 2, 1000);
+
+	// Use walls to push match load triball
+	walls_toggle();
+	pros::delay(500);
+	walls_toggle();
+
+    // Push triball
+	chassis.moveTo(0, 0, 1000);
+	// chassis.turnTo(24, 12, 500);
+	// chassis.setPose(-1.4, -1.4, 24.444);
+
+	chassis.moveTo(22.5, 12, 2000);
+    pros::delay(400);
+	// Outtake
+	run_intake_backward();
+	pros::delay(500);
+	run_intake_backward();
+
+	// Move away to Push Triball
+	chassis.moveTo(16, 12, 1000);
+
+    // rotate 180 degrees
+    chassis.turnTo(0, 12, 1000);
+	// Push triball
+	chassis.moveTo(30, 12, 1000);
+    pros::delay(400);
+
+	// Move towards matchload
+	chassis.turnTo(15, -7, 1000);
+	chassis.moveTo(15, -7, 2000);
+
+	// Face triball
+	chassis.turnTo(-3, -10, 1000);
+	chassis.moveTo(-3, -10, 2500);
+
+    // Move towards elevation bar (turn bot so blocker works lol)
+	chassis.turnTo(-5, -39, 500);
+    chassis.moveTo(-5, -39, 2000);
+    // Edge the robot
+	chassis.moveTo(-5, -45, 1000);
+*/
+
+    //Far Auton
 //	 lock.set_value(true);
 //	 lock_flag = true;
 //
@@ -252,35 +255,77 @@ void autonomous() {
 //	 chassis.moveTo(15, -15, 1000);
 
     // // ** BETTER FAR AUTON ** //
-    lock.set_value(true);
-    lock_flag = true;
+//    lock.set_value(true);
+//    lock_flag = true;
+//
+//    chassis.setPose(0, 0, 0);
+//
+//    chassis.moveTo(-10, 37, 4000);
+//    chassis.turnTo(5, 50, 4000); //to goal
+//    run_intake_backward(); // outtake 1, facing goal
+//    pros::delay(500);
+//    run_intake_backward();
+//    chassis.turnTo(-20, 55, 4000); // face away from goal
+//    run_intake_forward(); // intake 1
+//    /*chassis.turnTo(-20, 53, 4000);
+//    chassis.moveTo(-20, 53, 4000);
+//    chassis.turnTo(-20, 53.5, 4000);
+//    chassis.moveTo(-20, 53.5, 4000);
+//    chassis.moveTo(-20, 55, 4000); */
+//    chassis.moveTo(-20, 55, 2000, 6000); // go to second ball
+//    pros::delay(500);
+//    chassis.turnTo(5, 53.5, 4000); // turn to goal
+//    run_intake_forward();
+//
+//    run_intake_backward(); //outtake second triball
+//    pros::delay(500);
+//    run_intake_backward();
+//
+//    // turn 180 degrees
+//
+//    chassis.turnTo(-34, 54, 1500); // face third triball
+//    run_intake_forward();
+//    chassis.moveTo(-34, 54, 4000, 3000); // intake third triball
+//    pros::delay(500);
+//    run_intake_forward();
+//
+//    chassis.turnTo(5, 54, 1500); // turn to goal
+//    run_intake_backward(); // outake triball
+//    pros::delay(500);
+//    run_intake_backward();
+//    chassis.turnTo(-4.5, 54, 1500, true);// turn away from goal
+//    walls_toggle();
+//    chassis.moveTo(4.5,54, 1500); // move to goal
+//    walls_toggle();
+//    blocker_toggle();
 
-    chassis.setPose(0, 0, 0);
-
-    walls_toggle();
-    pros::delay(500);
-    walls_toggle();
-
-    run_intake_forward();
-    chassis.turnTo(-39.5, 59, 1000);
-    chassis.moveTo(-39.5, 59, 2500, 75);
-    pros::delay(500);
-    run_intake_forward();
-    chassis.turnTo(59, 59, 1000);
-    run_intake_backward();
-    chassis.moveTo(55, 59, 1000);
-    pros::delay(500);
-    chassis.moveTo(-39.5,59, 1000);
-    chassis.turnTo(-5,59,1000);
-     walls_toggle();
-    chassis.moveTo(5,59,1000);
-    walls_toggle();
+    // --------------------- //
 
 
+//    chassis.moveTo(5, 54, 4000);
 
 
+//    chassis.turnTo(-40, 60, 1000);
+//    chassis.moveTo(-40, 60, 2500, 75);
 
-
+//    walls_toggle();
+//    pros::delay(500);
+//    walls_toggle();
+//
+//    run_intake_forward();
+//    chassis.turnTo(-39.5, 59, 1000);
+//    chassis.moveTo(-39.5, 59, 2500, 75);
+//    pros::delay(500);
+//    run_intake_forward();
+//    chassis.turnTo(59, 59, 1000);
+//    run_intake_backward();
+//    chassis.moveTo(55, 59, 1000);
+//    pros::delay(500);
+//    chassis.moveTo(-39.5,59, 1000);
+//    chassis.turnTo(-5,59,1000);
+//     walls_toggle();
+//    chassis.moveTo(5,59,1000);
+//    walls_toggle();
 
 
 
@@ -296,37 +341,34 @@ void autonomous() {
 
 
 
-	/*
-	// ** SKILLS RUN ** //
-	chassis.setPose(0, -1, 0);
-	// Blocker on, match load, blocker off
-	lock.set_value(true);
-	lock_flag = true;
 
-	bool lift_state = false;
+    // ** SKILLS RUN ** //
+    chassis.setPose(0, -1, 0);
+    // Blocker on, match load, blocker off
+    lock.set_value(true);
+    lock_flag = true;
 
-	move_lift_up();
-	pros::delay(30000);
-	move_lift_down();
-	// Walls on
-	walls_toggle();
-	chassis.moveTo(0, -84, 4000);
+    bool lift_state = false;
 
-	chassis.setPose(0, 0, 0);
-	chassis.turnTo(30, -27, true);
-	chassis.moveTo(30, -27, 2000);
+    move_lift_up();
+    pros::delay(30000);
+    move_lift_down();
+    // Walls on
+    walls_toggle();
+    chassis.moveTo(0, -84, 5000, 8000);
+    chassis.setPose(0, 0, 0);
+    chassis.turnTo(30, -27, true);
+    chassis.moveTo(30, -27, 2000, 6000);
 
-	// Move back then push rly hard lol
-	chassis.moveTo(10, -10, 1000);
+    // Move back then push rly hard lol
+    chassis.moveTo(10, -10, 1000);
 
-	chassis.turnTo(50, -37, true);
-	chassis.moveTo(50, -37, 1000);
-	walls_toggle();
-	chassis.moveTo(20, -10, 1000);
-	*/
+    chassis.turnTo(50, -37, true);
+    chassis.moveTo(50, -37, 1000);
+    walls_toggle();
+    chassis.moveTo(20, -10, 1000);
+
 }
-
-
 
 
 /**
@@ -343,139 +385,139 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	
-	// unlock lift at start of  control
-	lock.set_value(true);
-	lock_flag = true;
 
-	bool lift_state = false;
+    // unlock lift at start of  control
+    lock.set_value(true);
+    lock_flag = true;
 
-	while (true) {
+    bool lift_state = false;
 
-		// TANK DRIVE //
-		int left = master.get_analog(ANALOG_LEFT_Y);
-		int right = master.get_analog(ANALOG_RIGHT_Y);
-		tank_control(left, right);
+    while (true) {
 
-		// ARCADE DRIVE //
-		// int left = master.get_analog(ANALOG_LEFT_Y);
-		// int right = master.get_analog(ANALOG_RIGHT_X);
-		// arcade_control(left, right);
+        // TANK DRIVE //
+        int left = master.get_analog(ANALOG_LEFT_Y);
+        int right = master.get_analog(ANALOG_RIGHT_Y);
+        tank_control(left, right);
 
-		// SINGLE STICK ARCADE //
-		// int left = master.get_analog(ANALOG_LEFT_Y);
-		// int right = master.get_analog (ANALOG_LEFT_X);
-		// arcade_control(left, right);
+        // ARCADE DRIVE //
+        // int left = master.get_analog(ANALOG_LEFT_Y);
+        // int right = master.get_analog(ANALOG_RIGHT_X);
+        // arcade_control(left, right);
 
-
-
-		// // LIFT UP //
-		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
-		// 	if (lift_state == false) {
-		// 		lift_state = true;
-		// 		move_lift(lift_state);
-		// 	}			
-		// }
-
-		// // LIFT DOWN //
-		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-		// 	if (lift_state == true) {
-		// 		lift_state = false;
-		// 		move_lift(lift_state);
-		// 	}	
-		// }
-
-
-		// INTAKE //
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
-			run_intake_forward();
-			// intake();
-		}
-		
-		// OUTTAKE //
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
-			run_intake_backward();
-			// outtake();
-		}
-
-		// FLYWHEEL //
-		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
-		// 	run_flywheel(115);
-		// }
-
-		// FLYWHEEL OFF //
-		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-		// 	run_flywheel(0);
-		// }
-
-		// EVERYTHING OFF //
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-			everything_off();
-		}
-
-
-		// LIFT UP //
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
-			move_lift_up();
-		}
-
-		// LIFT DOWN //
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-			move_lift_down();
-		}
-
-		// LIFT HOLD //
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) {
-			move_lift_hang();
-		}
-
-		// INDEX // 
-		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-		// 	index();
-		// }
-
-		// WALLS TOGGLE //
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_X)) {
-			walls_toggle();
-			pros::delay(200);
-		}
-
-		// BLOCKER TOGGLE //
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-			blocker_toggle();
-			pros::delay(200);
-		}
-
-		// LOCK TOGGLE //
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
-			lock_toggle();
-			pros::delay(500);
-			// move_lift_end();
-			// pros::delay(250);
-		}
-
-		// KICKER MACRO //
-		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-		// 	// kick_macro();
-		// 	pros::Task kicker_task(kick_macro);
-		// }
-
-		// KICKER TOGGLE //
-		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-		// 	kick_toggle();
-		// }
-
-		// if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-		// 	// kick_macro();
-		// 	grabber_toggle();
-		// 	pros::delay(200);
-		// }
+        // SINGLE STICK ARCADE //
+        // int left = master.get_analog(ANALOG_LEFT_Y);
+        // int right = master.get_analog (ANALOG_LEFT_X);
+        // arcade_control(left, right);
 
 
 
-		// DEBUGGING //
-		get_base_watts();
-		// get_mech_watts();
+        // // LIFT UP //
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
+        // 	if (lift_state == false) {
+        // 		lift_state = true;
+        // 		move_lift(lift_state);
+        // 	}
+        // }
+
+        // // LIFT DOWN //
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
+        // 	if (lift_state == true) {
+        // 		lift_state = false;
+        // 		move_lift(lift_state);
+        // 	}
+        // }
+
+
+        // INTAKE //
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
+            run_intake_forward();
+            // intake();
+        }
+
+        // OUTTAKE //
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+            run_intake_backward();
+            // outtake();
+        }
+
+        // FLYWHEEL //
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+        // 	run_flywheel(115);
+        // }
+
+        // FLYWHEEL OFF //
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+        // 	run_flywheel(0);
+        // }
+
+        // EVERYTHING OFF //
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+            everything_off();
+        }
+
+
+        // LIFT UP //
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
+            move_lift_up();
+        }
+
+        // LIFT DOWN //
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
+            move_lift_down();
+        }
+
+        // LIFT HOLD //
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) {
+            move_lift_hang();
+        }
+
+        // INDEX //
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+        // 	index();
+        // }
+
+        // WALLS TOGGLE //
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_X)) {
+            walls_toggle();
+            pros::delay(200);
+        }
+
+        // BLOCKER TOGGLE //
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+            blocker_toggle();
+            pros::delay(200);
+        }
+
+        // LOCK TOGGLE //
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
+            lock_toggle();
+            pros::delay(500);
+            // move_lift_end();
+            // pros::delay(250);
+        }
+
+        // KICKER MACRO //
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+        // 	// kick_macro();
+        // 	pros::Task kicker_task(kick_macro);
+        // }
+
+        // KICKER TOGGLE //
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+        // 	kick_toggle();
+        // }
+
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+        // 	// kick_macro();
+        // 	grabber_toggle();
+        // 	pros::delay(200);
+        // }
+
+
+
+        // DEBUGGING //
+        get_base_watts();
+        // get_mech_watts();
 
         lemlib::Pose currentPose = chassis.getPose();
 
@@ -488,6 +530,6 @@ void opcontrol() {
         pros::lcd::set_text(4, "theta: " + std::to_string(theta));
 
 
-		pros::delay(20);
-	}
+        pros::delay(20);
+    }
 }
