@@ -189,7 +189,7 @@ using namespace okapi;
 extern bool lock_flag;
 
 void autonomous() {
-    /*
+
     // CLOSE AUTON //
 	lock.set_value(true);
 	lock_flag = true;
@@ -237,8 +237,8 @@ void autonomous() {
 	chassis.turnTo(-5, -39, 500);
     chassis.moveTo(-5, -39, 2000);
     // Edge the robot
-	chassis.moveTo(-5, -45, 1000);
-*/
+	chassis.moveTo(-5, -40, 1000);
+
 
     //Far Auton
 //	 lock.set_value(true);
@@ -343,30 +343,30 @@ void autonomous() {
 
 
     // ** SKILLS RUN ** //
-    chassis.setPose(0, -1, 0);
-    // Blocker on, match load, blocker off
-    lock.set_value(true);
-    lock_flag = true;
-
-    bool lift_state = false;
-
-    move_lift_up();
-    pros::delay(30000);
-    move_lift_down();
-    // Walls on
-    walls_toggle();
-    chassis.moveTo(0, -84, 5000, 8000);
-    chassis.setPose(0, 0, 0);
-    chassis.turnTo(30, -27, true);
-    chassis.moveTo(30, -27, 2000, 6000);
-
-    // Move back then push rly hard lol
-    chassis.moveTo(10, -10, 1000);
-
-    chassis.turnTo(50, -37, true);
-    chassis.moveTo(50, -37, 1000);
-    walls_toggle();
-    chassis.moveTo(20, -10, 1000);
+//    chassis.setPose(0, -1, 0);
+//    // Blocker on, match load, blocker off
+//    lock.set_value(true);
+//    lock_flag = true;
+//
+//    bool lift_state = false;
+//
+//    move_lift_up();
+//    pros::delay(30000);
+//    move_lift_down();
+//    // Walls on
+//    walls_toggle();
+//    chassis.moveTo(0, -84, 5000, 8000);
+//    chassis.setPose(0, 0, 0);
+//    chassis.turnTo(30, -27, true);
+//    chassis.moveTo(30, -27, 2000, 6000);
+//
+//    // Move back then push rly hard lol
+//    chassis.moveTo(10, -10, 1000);
+//
+//    chassis.turnTo(50, -37, true);
+//    chassis.moveTo(50, -37, 1000);
+//    walls_toggle();
+//    chassis.moveTo(20, -10, 1000);
 
 }
 
