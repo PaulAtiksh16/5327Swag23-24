@@ -190,7 +190,7 @@ extern bool lock_flag;
 
 void autonomous() {
 
-    // CLOSE AUTON //
+   /* // CLOSE AUTON //
 	lock.set_value(true);
 	lock_flag = true;
 
@@ -237,7 +237,7 @@ void autonomous() {
 	chassis.turnTo(-5, -39, 500);
     chassis.moveTo(-5, -39, 2000);
     // Edge the robot
-	chassis.moveTo(-5, -40, 1000);
+	chassis.moveTo(-5, -42, 1000); */
 
 
     //Far Auton
@@ -254,50 +254,50 @@ void autonomous() {
 //	 chassis.moveTo(100, -25, 1500);
 //	 chassis.moveTo(15, -15, 1000);
 
-    // // ** BETTER FAR AUTON ** //
-//    lock.set_value(true);
-//    lock_flag = true;
-//
-//    chassis.setPose(0, 0, 0);
-//
-//    chassis.moveTo(-10, 37, 4000);
-//    chassis.turnTo(5, 50, 4000); //to goal
-//    run_intake_backward(); // outtake 1, facing goal
-//    pros::delay(500);
-//    run_intake_backward();
-//    chassis.turnTo(-20, 55, 4000); // face away from goal
-//    run_intake_forward(); // intake 1
-//    /*chassis.turnTo(-20, 53, 4000);
-//    chassis.moveTo(-20, 53, 4000);
-//    chassis.turnTo(-20, 53.5, 4000);
-//    chassis.moveTo(-20, 53.5, 4000);
-//    chassis.moveTo(-20, 55, 4000); */
-//    chassis.moveTo(-20, 55, 2000, 6000); // go to second ball
-//    pros::delay(500);
-//    chassis.turnTo(5, 53.5, 4000); // turn to goal
-//    run_intake_forward();
-//
-//    run_intake_backward(); //outtake second triball
-//    pros::delay(500);
-//    run_intake_backward();
-//
-//    // turn 180 degrees
-//
-//    chassis.turnTo(-34, 54, 1500); // face third triball
-//    run_intake_forward();
-//    chassis.moveTo(-34, 54, 4000, 3000); // intake third triball
-//    pros::delay(500);
-//    run_intake_forward();
-//
-//    chassis.turnTo(5, 54, 1500); // turn to goal
-//    run_intake_backward(); // outake triball
-//    pros::delay(500);
-//    run_intake_backward();
-//    chassis.turnTo(-4.5, 54, 1500, true);// turn away from goal
-//    walls_toggle();
-//    chassis.moveTo(4.5,54, 1500); // move to goal
-//    walls_toggle();
-//    blocker_toggle();
+    // ** BETTER FAR AUTON ** //
+   lock.set_value(true);
+   lock_flag = true;
+
+   chassis.setPose(0, 0, 0);
+
+   chassis.moveTo(-10, 37, 4000);
+   chassis.turnTo(5, 50, 4000); //to goal
+   run_intake_backward(); // outtake 1, facing goal
+   pros::delay(500);
+   run_intake_backward();
+   chassis.turnTo(-20, 55, 4000); // face away from goal
+   run_intake_forward(); // intake 1
+   /*chassis.turnTo(-20, 53, 4000);
+   chassis.moveTo(-20, 53, 4000);
+   chassis.turnTo(-20, 53.5, 4000);
+   chassis.moveTo(-20, 53.5, 4000);
+   chassis.moveTo(-20, 55, 4000); */
+   chassis.moveTo(-20, 55, 2000, 6000); // go to second ball
+   pros::delay(500);
+   chassis.turnTo(5, 53.5, 4000); // turn to goal
+   run_intake_forward();
+
+   run_intake_backward(); //outtake second triball
+   pros::delay(500);
+   run_intake_backward();
+
+   // turn 180 degrees
+
+   chassis.turnTo(-34, 54, 1500); // face third triball
+   run_intake_forward();
+   chassis.moveTo(-34, 54, 2000, 3000); // intake third triball
+   pros::delay(500);
+   run_intake_forward();
+
+   chassis.turnTo(5, 54, 1500); // turn to goal
+   run_intake_backward(); // outake triball
+   pros::delay(500);
+   run_intake_backward();
+   chassis.turnTo(-4.5, 54, 1500, true);// turn away from goal
+   walls_toggle();
+   chassis.moveTo(6,54, 1500); // move to goal
+   walls_toggle();
+   blocker_toggle();
 
     // --------------------- //
 
