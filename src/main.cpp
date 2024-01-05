@@ -35,7 +35,7 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 //MOTORS
 pros::Motor front_left_mtr(FRONT_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor top_left_mtr(MID_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor top_left_mtr(MID_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor back_left_mtr(BACK_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
 
 pros::Motor front_right_mtr(FRONT_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
@@ -125,7 +125,7 @@ lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensor
  */
 void on_center_button() {
     // static bool pressed = false;
-    // pressed = !pressed;
+    // pressed = !pressed:
     // if (pressed) {
     // 	pros::lcd::set_text(2, "I was pressed!");
     // } else {
@@ -337,6 +337,7 @@ void autonomous() {
 //    pros::delay(500);
 //    run_intake_forward();
 //    chassis.turnTo(-5, 68, 1000);
+
 
 
 
