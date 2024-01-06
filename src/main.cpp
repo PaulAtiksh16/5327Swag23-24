@@ -82,9 +82,9 @@ pros::ADIDigitalOut grabber(GRABBER_PORT, false);
 lemlib::Drivetrain_t drivetrain{
         &left_side_motors, // left drivetrain motors
         &right_side_motors, // right drivetrain motors
-        10.5, // track width
+        10.8, // track width
         3.25, // wheel diameter
-        360 // wheel rpm
+        450 // wheel rpm
 };
 
 lemlib::OdomSensors_t sensors{
@@ -97,8 +97,8 @@ lemlib::OdomSensors_t sensors{
 
 // forward/backward PID
 lemlib::ChassisController_t lateralController{
-        10, // kP
-        70, // kD
+        8, // kP
+        60, // kD
         1, // smallErrorRange
         100, // smallErrorTimeout
         3, // largeErrorRange
@@ -108,13 +108,13 @@ lemlib::ChassisController_t lateralController{
 
 // turning PID
 lemlib::ChassisController_t angularController{
-        7.2, // kP
-        60, // kD
+        2, // kP
+        15, // kD
         1, // smallErrorRange
         100, // smallErrorTimeout
         3, // largeErrorRange
         500, // largeErrorTimeout
-        0 // slew rate
+        50 // slew rate
 };
 
 lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors);
@@ -193,184 +193,10 @@ extern bool lock_flag;
 
 void autonomous() {
 
-   /* // CLOSE AUTON //
-	lock.set_value(true);
-	lock_flag = true;
-
-
-    // moving bot into position
-	chassis.setPose(0, 0, 45);
-	chassis.moveTo(2, 2, 1000);
-
-	// Use walls to push match load triball
-	walls_toggle();
-	pros::delay(500);
-	walls_toggle();
-
-    // Push triball
-	chassis.moveTo(0, 0, 1000);
-	// chassis.turnTo(24, 12, 500);
-	// chassis.setPose(-1.4, -1.4, 24.444);
-
-	chassis.moveTo(22.5, 12, 2000);
-    pros::delay(400);
-	// Outtake
-	run_intake_backward();
-	pros::delay(500);
-	run_intake_backward();
-
-	// Move away to Push Triball
-	chassis.moveTo(16, 12, 1000);
-
-    // rotate 180 degrees
-    chassis.turnTo(0, 12, 1000);
-	// Push triball
-	chassis.moveTo(30, 12, 1000);
-    pros::delay(400);
-
-	// Move towards matchload
-	chassis.turnTo(15, -7, 1000);
-	chassis.moveTo(15, -7, 2000);
-
-	// Face triball
-	chassis.turnTo(-3, -10, 1000);
-	chassis.moveTo(-3, -10, 2500);
-
-    // Move towards elevation bar (turn bot so blocker works lol)
-	chassis.turnTo(-5, -39, 500);
-    chassis.moveTo(-5, -39, 2000);
-    // Edge the robot
-	chassis.moveTo(-5, -42, 1000); */
-
-
-    //Far Auton
-//	 lock.set_value(true);
-//	 lock_flag = true;
-//
-//	 chassis.setPose(0, 1, -45);
-//
-//	 chassis.moveTo(6.5, -6.5, 1000);
-//	 walls_toggle();
-//	 pros::delay(500);
-//	 walls_toggle();
-//	 chassis.moveTo(15, -15, 1000);
-//	 chassis.moveTo(100, -25, 1500);
-//	 chassis.moveTo(15, -15, 1000);
-
-    // ** BETTER FAR AUTON ** //
-   lock.set_value(true);
-   lock_flag = true;
-
-   chassis.setPose(0, 0, 0);
-
-   chassis.moveTo(-10, 37, 4000);
-   chassis.turnTo(5, 50, 4000); //to goal
-   run_intake_backward(); // outtake 1, facing goal
-   pros::delay(500);
-   run_intake_backward();
-   chassis.turnTo(-20, 55, 4000); // face away from goal
-   run_intake_forward(); // intake 1
-   /*chassis.turnTo(-20, 53, 4000);
-   chassis.moveTo(-20, 53, 4000);
-   chassis.turnTo(-20, 53.5, 4000);
-   chassis.moveTo(-20, 53.5, 4000);
-   chassis.moveTo(-20, 55, 4000); */
-   chassis.moveTo(-20, 55, 2000, 6000); // go to second ball
-   pros::delay(500);
-   chassis.turnTo(5, 53.5, 4000); // turn to goal
-   run_intake_forward();
-
-   run_intake_backward(); //outtake second triball
-   pros::delay(500);
-   run_intake_backward();
-
-   // turn 180 degrees
-
-   chassis.turnTo(-34, 54, 1500); // face third triball
-   run_intake_forward();
-   chassis.moveTo(-34, 54, 2000, 3000); // intake third triball
-   pros::delay(500);
-   run_intake_forward();
-
-   chassis.turnTo(5, 54, 1500); // turn to goal
-   run_intake_backward(); // outake triball
-   pros::delay(500);
-   run_intake_backward();
-   chassis.turnTo(-4.5, 54, 1500, true);// turn away from goal
-   walls_toggle();
-   chassis.moveTo(6,54, 1500); // move to goal
-   walls_toggle();
-   blocker_toggle();
-
-    // --------------------- //
-
-
-//    chassis.moveTo(5, 54, 4000);
-
-
-//    chassis.turnTo(-40, 60, 1000);
-//    chassis.moveTo(-40, 60, 2500, 75);
-
-//    walls_toggle();
-//    pros::delay(500);
-//    walls_toggle();
-//
-//    run_intake_forward();
-//    chassis.turnTo(-39.5, 59, 1000);
-//    chassis.moveTo(-39.5, 59, 2500, 75);
-//    pros::delay(500);
-//    run_intake_forward();
-//    chassis.turnTo(59, 59, 1000);
-//    run_intake_backward();
-//    chassis.moveTo(55, 59, 1000);
-//    pros::delay(500);
-//    chassis.moveTo(-39.5,59, 1000);
-//    chassis.turnTo(-5,59,1000);
-//     walls_toggle();
-//    chassis.moveTo(5,59,1000);
-//    walls_toggle();
-
-
-
-//    chassis.moveTo(-10, 60, 1000);
-//    run_intake_forward();
-//    chassis.turnTo(-13, 67, 1000);
-//    pros::delay(500);
-//    chassis.moveTo(-13, 67, 1000);
-//    pros::delay(500);
-//    run_intake_forward();
-//    chassis.turnTo(-5, 68, 1000);
-
-
-
-
-
-
-    // ** SKILLS RUN ** //
-//    chassis.setPose(0, -1, 0);
-//    // Blocker on, match load, blocker off
-//    lock.set_value(true);
-//    lock_flag = true;
-//
-//    bool lift_state = false;
-//
-//    move_lift_up();
-//    pros::delay(30000);
-//    move_lift_down();
-//    // Walls on
-//    walls_toggle();
-//    chassis.moveTo(0, -84, 5000, 8000);
-//    chassis.setPose(0, 0, 0);
-//    chassis.turnTo(30, -27, true);
-//    chassis.moveTo(30, -27, 2000, 6000);
-//
-//    // Move back then push rly hard lol
-//    chassis.moveTo(10, -10, 1000);
-//
-//    chassis.turnTo(50, -37, true);
-//    chassis.moveTo(50, -37, 1000);
-//    walls_toggle();
-//    chassis.moveTo(20, -10, 1000);
+    brake_brake();
+    // CLOSE AUTON //
+    near_auton();
+    
 
 }
 

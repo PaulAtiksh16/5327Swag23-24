@@ -44,6 +44,18 @@ void walls_toggle() {
     }
 }
 
+void right_wall_toggle() {
+    walls_flag = !walls_flag;
+
+    if (walls_flag) {
+        //walls expand when piston actuates
+        right_wall.set_value(true);
+    } else {
+        //walls fold when piston retracts
+        right_wall.set_value(false);
+    }
+}
+
 void hang_toggle() {
     hang_flag = !hang_flag;
 

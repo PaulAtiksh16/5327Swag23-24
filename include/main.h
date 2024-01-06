@@ -41,7 +41,7 @@
 
 #define INTAKE_LINE_TRACKER 1
 
-#define LOCK_PORT 2
+#define LOCK_PORT 4
 
 #define BLOCKER_PORT 5
 

@@ -12,6 +12,7 @@ extern "C" {
 #endif
 
 void walls_toggle(void);
+void right_wall_toggle(void);
 
 void hang_toggle(void);
 
