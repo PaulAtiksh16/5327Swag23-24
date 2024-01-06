@@ -6,6 +6,9 @@
 extern pros::ADIDigitalOut left_wall;
 extern pros::ADIDigitalOut right_wall;
 
+extern pros::ADIDigitalOut left_hang;
+extern pros::ADIDigitalOut right_hang;
+
 extern pros::ADIDigitalOut kicker;
 
 extern pros::ADIDigitalOut grabber;
@@ -17,6 +20,8 @@ extern pros::ADIDigitalOut lock;
 bool grabber_flag = false;
 
 bool walls_flag = false;
+
+bool hang_flag = false;
 
 bool kicker_flag = false;
 
@@ -36,6 +41,20 @@ void walls_toggle() {
         //walls fold when piston retracts
         left_wall.set_value(false);
         right_wall.set_value(false);
+    }
+}
+
+void hang_toggle() {
+    hang_flag = !hang_flag;
+
+    if (hang_flag) {
+        //hang lifts when piston actuates
+        left_hang.set_value(true);
+        right_hang.set_value(true);
+    } else {
+        //hang folds when piston retracts
+        left_hang.set_value(false);
+        right_hang.set_value(false);
     }
 }
 

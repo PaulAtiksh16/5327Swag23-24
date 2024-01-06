@@ -120,10 +120,10 @@ void run_flywheel(int power) {
 
   if (flywheel_flag) {
     flywheel_mtr.move(power);
-    flywheel_mtr_2.move(power);
+    // flywheel_mtr_2.move(power);
   } else {
     flywheel_mtr.move(0);
-    flywheel_mtr_2.move(0);
+    // flywheel_mtr_2.move(0);
   }
   pros::delay(250);
 }

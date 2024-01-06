@@ -35,7 +35,7 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 //MOTORS
 pros::Motor front_left_mtr(FRONT_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor top_left_mtr(MID_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor top_left_mtr(MID_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor back_left_mtr(BACK_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
 
 pros::Motor front_right_mtr(FRONT_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
@@ -47,12 +47,12 @@ pros::MotorGroup right_side_motors({front_right_mtr, top_right_mtr, back_right_m
 
 pros::Imu inertial_sensor(INERTIAL_PORT);
 
-pros::Motor intake_mtr(INTAKE_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor intake_mtr(INTAKE_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
 
 pros::Motor left_intake_mtr(LEFT_INTAKE_PORT, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor right_intake_mtr(RIGHT_INTAKE_PORT, pros::E_MOTOR_GEAR_GREEN, false, pros::E_MOTOR_ENCODER_DEGREES);
 
-pros::Motor flywheel_mtr(FLYWHEEL_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor flywheel_mtr(FLYWHEEL_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor flywheel_mtr_2(FLYWHEEL_PORT_2, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
 
 pros::Motor left_lift_mtr(LEFT_LIFT_PORT, pros::E_MOTOR_GEAR_RED, false, pros::E_MOTOR_ENCODER_DEGREES);
@@ -67,6 +67,9 @@ pros::Motor conveyor_mtr_2(CONVEYOR_PORT_2, pros::E_MOTOR_GEAR_GREEN, true, pros
 //PNEUMATICS
 pros::ADIDigitalOut left_wall(LEFT_WALL_PORT, false);
 pros::ADIDigitalOut right_wall(RIGHT_WALL_PORT, false);
+
+pros::ADIDigitalOut left_hang(LEFT_HANG_PORT, false);
+pros::ADIDigitalOut right_hang(RIGHT_HANG_PORT, false);
 
 pros::ADIDigitalOut lock(LOCK_PORT, false);
 pros::ADIDigitalOut blocker(BLOCKER_PORT, false);
@@ -442,35 +445,41 @@ void opcontrol() {
         }
 
         // FLYWHEEL //
-        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
-        // 	run_flywheel(115);
-        // }
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+        	run_flywheel(127);
+        }
 
         // FLYWHEEL OFF //
-        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-        // 	run_flywheel(0);
-        // }
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+        	run_flywheel(0);
+        }
 
         // EVERYTHING OFF //
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) {
             everything_off();
+        }
+
+        // HANG UP //
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
+            hang_toggle();
+            pros::delay(200);
         }
 
 
         // LIFT UP //
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
-            move_lift_up();
-        }
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
+        //     move_lift_up();
+        // }
 
         // LIFT DOWN //
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-            move_lift_down();
-        }
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
+        //     move_lift_down();
+        // }
 
         // LIFT HOLD //
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) {
-            move_lift_hang();
-        }
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) {
+        //     move_lift_hang();
+        // }
 
         // INDEX //
         // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
@@ -484,18 +493,18 @@ void opcontrol() {
         }
 
         // BLOCKER TOGGLE //
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
-            blocker_toggle();
-            pros::delay(200);
-        }
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+        //     blocker_toggle();
+        //     pros::delay(200);
+        // }
 
         // LOCK TOGGLE //
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
-            lock_toggle();
-            pros::delay(500);
-            // move_lift_end();
-            // pros::delay(250);
-        }
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
+        //     lock_toggle();
+        //     pros::delay(500);
+        //     // move_lift_end();
+        //     // pros::delay(250);
+        // }
 
         // KICKER MACRO //
         // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {

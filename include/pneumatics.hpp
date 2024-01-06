@@ -13,6 +13,8 @@ extern "C" {
 
 void walls_toggle(void);
 
+void hang_toggle(void);
+
 void kick_macro(void);
 void kick_toggle(void);
 
