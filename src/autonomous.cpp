@@ -38,30 +38,33 @@ void far_auton() {
     walls_toggle();
     run_intake_backward();
     // Push matchload triball
+    chassis.moveTo(-8, 8, 1000);
     chassis.moveTo(-30, 8, 1000);
     walls_toggle();
     // Back push to get triballs in goal
     chassis.moveTo(-20, 18, 1000);
-    chassis.turnTo(-28, 23, 700, true);
+    chassis.turnTo(-28, 23, 1000, true);
     chassis.moveTo(-28, 23, 1000);
     run_intake_backward();
     chassis.moveTo(-15, 23, 1000);
     chassis.moveTo(-35, 23, 1500);
 
-    //
+    // Get first triball at barrier and outtake
 
     chassis.moveTo(-14, 23, 1000);
-    chassis.turnTo(-40, -48, 1000);
+    chassis.turnTo(-35, -20, 1000);
     run_intake_forward();
-    chassis.moveTo(-38, -28, 5000);
+    chassis.moveTo(-30, -20, 3000);
+    pros::delay(500 );
+    chassis.turnTo(-45, 5, 800);
     run_intake_forward();
-    chassis.turnTo(-45, -25, 1000);
     run_intake_backward();
-    pros::delay(500);
+    pros::delay(300);
     run_intake_backward();
-    chassis.turnTo(-45, -46, 5000);
 
-
+    chassis.turnTo(-50, -34, 500);
+    run_intake_forward();
+    chassis.moveTo(-50, -34, 1000);
 
 
 
