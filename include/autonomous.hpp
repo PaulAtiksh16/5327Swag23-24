@@ -11,4 +11,6 @@ extern "C" {
 #endif
 
 void near_auton();
+void far_auton();
+
 #endif //_DRIVE_HPP_

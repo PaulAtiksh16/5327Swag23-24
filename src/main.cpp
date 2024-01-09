@@ -195,7 +195,7 @@ void autonomous() {
 
     brake_brake();
     // CLOSE AUTON //
-    near_auton();
+    far_auton();
     
 
 }
@@ -215,6 +215,7 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+    brake_coast();
 
     // unlock lift at start of  control
     lock.set_value(true);
