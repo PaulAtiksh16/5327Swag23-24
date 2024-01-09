@@ -42,11 +42,14 @@ void far_auton() {
     chassis.moveTo(-30, 8, 1000);
     walls_toggle();
     // Back push to get triballs in goal
+    /*
     chassis.moveTo(-20, 18, 1000);
     chassis.turnTo(-28, 23, 1000, true);
     chassis.moveTo(-28, 23, 1000);
+    */
     run_intake_backward();
     chassis.moveTo(-15, 23, 1000);
+    chassis.turnTo(-35, 23, 1000, true);
     chassis.moveTo(-35, 23, 1500);
 
     // Get first triball at barrier and outtake
