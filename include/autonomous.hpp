@@ -12,5 +12,6 @@ extern "C" {
 
 void near_auton();
 void far_auton();
+void skills();
 
 #endif //_DRIVE_HPP_

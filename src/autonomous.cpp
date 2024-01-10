@@ -38,7 +38,7 @@ void far_auton() {
     walls_toggle();
     run_intake_backward();
     // Push matchload triball
-    chassis.moveTo(-8, 8, 1000);
+    chassis.moveTo(-8, 8, 600);
     chassis.moveTo(-30, 8, 1000);
     walls_toggle();
     // Back push to get triballs in goal
@@ -48,14 +48,14 @@ void far_auton() {
     chassis.moveTo(-28, 23, 1000);
     */
     run_intake_backward();
-    chassis.moveTo(-15, 23, 1000);
-    chassis.turnTo(-35, 23, 1000, true);
-    chassis.moveTo(-35, 23, 1500);
+    chassis.moveTo(-20, 23, 1000);
+    chassis.turnTo(-32, 23, 800, true);
+    chassis.moveTo(-32, 23, 1000);
 
     // Get first triball at barrier and outtake
 
     chassis.moveTo(-14, 23, 1000);
-    chassis.turnTo(-35, -20, 1000);
+    chassis.turnTo(-35, -20, 500);
     run_intake_forward();
     chassis.moveTo(-30, -20, 3000);
     pros::delay(500 );
@@ -65,10 +65,40 @@ void far_auton() {
     pros::delay(300);
     run_intake_backward();
 
-    chassis.turnTo(-50, -34, 500);
+    // Grab second triball
+
+    chassis.turnTo(-60, -34, 500);
     run_intake_forward();
-    chassis.moveTo(-50, -34, 1000);
+    chassis.moveTo(-60, -34, 1000);
 
+    // Push three triballs into goal
+    chassis.turnTo(-45, 5, 750);
+    run_intake_backward();
+    walls_toggle();
+    //chassis.moveTo(-60, 5, 2000);
+    base_move(200);
+    pros::delay(1000);
+    base_move(0);
+    walls_toggle();
+    run_intake_backward();
+}
 
+void skills() {
+    chassis.setPose(0, 0, 0);
+    run_flywheel(127);
+    pros::delay(5000);
+    run_flywheel(0);
+    walls_toggle();
+    chassis.moveTo(0, 95, 4000);
+    walls_toggle();
+    chassis.turnTo(-10, 120, 1000, true);
+    chassis.moveTo(-10, 120, 1000);
+    chassis.turnTo(-30, 120, 1000, true);
+    chassis.moveTo(-30, 120, 1000);
+    chassis.moveTo(0, 120, 1000);
+    walls_toggle();
+    chassis.turnTo(-10, 70, 1000);
+    chassis.moveTo(-10, 70, 1000);
+    
 
 }
