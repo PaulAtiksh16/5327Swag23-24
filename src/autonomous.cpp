@@ -117,6 +117,9 @@ void skills() {
     chassis.moveTo(-60, 100, 1000);
     walls_toggle();
 
+    // Move away, move to my left, push again
+    
+
 
 
 //    // push middle into goal
