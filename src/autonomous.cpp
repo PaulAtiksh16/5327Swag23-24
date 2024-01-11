@@ -84,21 +84,48 @@ void far_auton() {
 }
 
 void skills() {
-    chassis.setPose(0, 0, 0);
+    chassis.setPose(0, 0, -27);
     run_flywheel(127);
-    pros::delay(5000);
+    pros::delay(2000);
     run_flywheel(0);
     walls_toggle();
-    chassis.moveTo(0, 95, 4000);
+    // go to other side of field
+    chassis.turnTo(0, 92.5, 1000);
+    chassis.moveTo(0, 92.5, 4000);
     walls_toggle();
-    chassis.turnTo(-10, 120, 1000, true);
-    chassis.moveTo(-10, 120, 1000);
-    chassis.turnTo(-30, 120, 1000, true);
-    chassis.moveTo(-30, 120, 1000);
-    chassis.moveTo(0, 120, 1000);
+    // go closer to goal
+    chassis.turnTo(-10, 100, true);
+    chassis.moveTo(-10, 100, 1000);
+    // push into goal side
+    chassis.turnTo(-38, 110, 1000, true);
+    chassis.moveTo(-38, 110, 1000);
+    // Position ourselves away from goal
+    chassis.moveTo(-25, 100, 1000);
     walls_toggle();
-    chassis.turnTo(-10, 70, 1000);
-    chassis.moveTo(-10, 70, 1000);
-    
+    // Turn away from goal
+    chassis.turnTo(-34, 70, 1000);
+    chassis.moveTo(-34, 70, 1000);
+
+
+    chassis.turnTo(-50, 55, 1000);
+    chassis.moveTo(-50, 55, 1000);
+
+    chassis.turnTo(-60, 55, 1000);
+    chassis.moveTo(-60, 55, 1000);
+
+    chassis.turnTo(-60, 100, 1000);
+    chassis.moveTo(-60, 100, 1000);
+    walls_toggle();
+
+
+
+//    // push middle into goal
+//    chassis.moveTo(-50, 120, 1000);
+//    //backup
+//    walls_toggle();
+//    chassis.moveTo(-50, 50, 1000, true);
+//    chassis.turnTo(-70, 50, 1000);
+//    walls_toggle();
+
 
 }
