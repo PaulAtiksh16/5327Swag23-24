@@ -194,11 +194,9 @@ extern bool lock_flag;
 void autonomous() {
 
     brake_brake();
-    
-    skills();
-    
-    
-
+    push_one();
+//
+//    skills();
 }
 
 

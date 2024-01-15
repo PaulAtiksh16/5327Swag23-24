@@ -31,6 +31,13 @@ void near_auton() {
     run_intake_backward();
 }
 
+void push_one() {
+    // move forward to push one ball
+    chassis.setPose(0, 0, 0);
+    chassis.moveTo(0, -50, 3000);
+
+}
+
 void far_auton() {
     // Bot at same angle as match load bar, facing goal, front left tip on corner
     chassis.setPose(0, 0, 315);
@@ -84,18 +91,18 @@ void far_auton() {
 }
 
 void skills() {
-    chassis.setPose(0, 0, -27);
+    chassis.setPose(0, 0, -29);
     run_flywheel(127);
     pros::delay(30000);
     run_flywheel(0);
 
     // go to other side of field
-    chassis.turnTo(0, 85.5, 1000);
-    chassis.moveTo(0, 85.5, 4000);
+    chassis.turnTo(0, 92.5, 1000);
+    chassis.moveTo(0, 92.5, 4000);
 
     // go closer to goal
-    chassis.turnTo(-10, 85.5, true);
-    chassis.moveTo(-10, 85.5, 1000);
+    chassis.turnTo(-10, 100, true);
+    chassis.moveTo(-10, 100, 1000);
     // push into goal side
     chassis.turnTo(-38, 110, 1000, true);
     chassis.moveTo(-38, 110, 1000);
@@ -107,50 +114,52 @@ void skills() {
     chassis.moveTo(-30, 70, 1000);
 
 
-    chassis.turnTo(-50, 55, 1000);
-    chassis.moveTo(-50, 55, 1000);
+    chassis.turnTo(-50, 55, 1000, false, 40);
+    chassis.moveTo(-50, 55, 1000, 40);
 
-    chassis.turnTo(-60, 55, 1000);
-    chassis.moveTo(-60, 55, 1000);
+    chassis.turnTo(-60, 55, 1000, false, 40);
+    chassis.moveTo(-60, 55, 1000, 40);
 
     // push middle into goal
-    chassis.turnTo(-60, 100, 1000);
+    chassis.turnTo(-60, 100, 1000, false, 40);
     chassis.moveTo(-60, 100, 1000);
     pros::delay(500);
     walls_toggle();
 
     //back up from wall then turn toward middle
-    chassis.moveTo(-60, 90, 1000);
-    chassis.turnTo(-70, 60, 1000);
-
-    // open wings
+    chassis.moveTo(-60, 55, 1000, 60);
     walls_toggle();
+    chassis.moveTo(-60, 100, 1000);
+//    chassis.turnTo(-70, 60, 1000);
 
-    //back to middle
-    chassis.moveTo(-70, 60, 1000);
-
-    //turn toward right corner
-    chassis.turnTo(-80, 70, 1000);
-    chassis.moveTo(-80, 70, 1000);
-
-    //turn toward goal again
-    chassis.turnTo(-70, 100, 1000);
-    chassis.moveTo(-70, 100, 1000);
-    pros::delay(500);
-    walls_toggle();
-
-    // Move away from goal
-    chassis.turnTo(-70, 70, 1000);
-    chassis.moveTo(-70, 70, 1000);
-    // Move towards goal's side
-    chassis.turnTo(-100, 90, 1000);
-    chassis.moveTo(-100, 90, 1000);
-    // Move to goal's side
-    chassis.moveTo(-100, 110, 1000);
-    // Push with back of bot
-    walls_toggle();
-    chassis.turnTo(-100, 110, 1000);
-    chassis.moveTo(-70, 110, 1000);
+//    // open wings
+//    walls_toggle();
+//
+//    //back to middle
+//    chassis.moveTo(-70, 60, 1000, 40);
+//
+//    //turn toward right corner
+//    chassis.turnTo(-80, 70, 1000);
+//    chassis.moveTo(-80, 70, 1000);
+//
+//    //turn toward goal again
+//    chassis.turnTo(-70, 100, 1000);
+//    chassis.moveTo(-70, 100, 1000);
+//    pros::delay(500);
+//    walls_toggle();
+//
+//    // Move away from goal
+//    chassis.turnTo(-70, 70, 1000);
+//    chassis.moveTo(-70, 70, 1000);
+//    // Move towards goal's side
+//    chassis.turnTo(-100, 90, 1000);
+//    chassis.moveTo(-100, 90, 1000);
+//    // Move to goal's side
+//    chassis.moveTo(-100, 110, 1000);
+//    // Push with back of bot
+//    walls_toggle();
+//    chassis.turnTo(-100, 110, 1000);
+//    chassis.moveTo(-70, 110, 1000);
 
 
 //    chassis.turnTo(-90, 70, 1000);
