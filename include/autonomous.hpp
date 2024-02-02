@@ -12,6 +12,7 @@ extern "C" {
 
 void near_auton();
 void far_auton();
+void push_one();
 void skills();
 void new_skills();
 

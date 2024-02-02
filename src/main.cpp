@@ -146,7 +146,7 @@ void initialize() {
     chassis.calibrate();
 
     pros::lcd::initialize();
-    pros::lcd::set_text(1, "hi bitchy!");
+    pros::lcd::set_text(1, "tri balls");
 
     pros::lcd::register_btn1_cb(on_center_button);
 
