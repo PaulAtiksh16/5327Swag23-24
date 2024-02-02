@@ -193,11 +193,11 @@ extern bool lock_flag;
 
 void autonomous() {
 
-    brake_brake();
+    // brake_brake();
     
-    skills();
+    // skills();
     
-    
+    new_skills();
 
 }
 
@@ -229,6 +229,7 @@ void opcontrol() {
         // TANK DRIVE //
         int left = master.get_analog(ANALOG_LEFT_Y);
         int right = master.get_analog(ANALOG_RIGHT_Y);
+        // tank_control(left, right);
         tank_control(left, right);
 
         // ARCADE DRIVE //
@@ -264,12 +265,14 @@ void opcontrol() {
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
             run_intake_forward();
             // intake();
+            // pros::delay(200);
         }
 
         // OUTTAKE //
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
             run_intake_backward();
             // outtake();
+            // pros::delay(200);
         }
 
         // FLYWHEEL //

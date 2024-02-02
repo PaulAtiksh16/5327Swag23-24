@@ -24,7 +24,7 @@
 #define MID_RIGHT_PORT 9
 #define BACK_RIGHT_PORT 10
 
-#define INTAKE_PORT 16
+#define INTAKE_PORT 15
 
 #define FLYWHEEL_PORT 1
 
