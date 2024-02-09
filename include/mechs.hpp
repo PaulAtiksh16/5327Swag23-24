@@ -35,4 +35,6 @@ void outtake(void);
 
 void index(void);
 
+void slapper(void);
+
 #endif //_MECHS_HPP_

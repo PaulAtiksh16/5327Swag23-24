@@ -1,5 +1,6 @@
 #include "mechs.hpp"
 #include "main.h"
+#include "pros/motors.h"
 #include "pros/motors.hpp"
 
 extern pros::Motor left_intake_mtr;
@@ -18,6 +19,8 @@ extern pros::Motor conveyor_mtr_2;
 
 extern pros::Motor intake_mtr;
 
+extern pros::Motor slapper_mtr;
+
 //pneumatics below
 extern pros::ADIDigitalOut left_wall;
 extern pros::ADIDigitalOut right_wall;
@@ -34,6 +37,8 @@ bool flywheel_flag = false;
 
 bool forward_conveyor_flag = false;
 bool reverse_conveyor_flag = false;
+
+bool slapper_flag = false;
 
 
 // turn off motors; reset flags; retract pneumatics
@@ -242,4 +247,19 @@ void index() {
   conveyor_mtr_2.move(127);
   forward_conveyor_flag = true;
   reverse_conveyor_flag = false;
+}
+
+void slapper()
+{
+  if (slapper_flag == false)
+  {
+    slapper_mtr.set_brake_mode(MOTOR_BRAKE_COAST);
+    slapper_mtr.move(127); 
+    slapper_flag = true;
+  }
+  else
+  {
+    slapper_mtr.move(0);
+    slapper_flag = false;
+  }
 }

@@ -7,6 +7,8 @@
 #include "pneumatics.hpp"
 #include "pros/adi.hpp"
 #include "pros/apix.h"
+#include "pros/misc.h"
+#include "pros/motors.h"
 #include "pros/rtos.hpp"
 #include "autonomous.hpp"
 #include "lemlib/api.hpp"
@@ -62,6 +64,8 @@ pros::Motor lift_mtr(LIFT_PORT, pros::E_MOTOR_GEAR_RED, false, pros::E_MOTOR_ENC
 
 pros::Motor conveyor_mtr(CONVEYOR_PORT, pros::E_MOTOR_GEAR_GREEN, false, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor conveyor_mtr_2(CONVEYOR_PORT_2, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_DEGREES);
+
+pros::Motor slapper_mtr(SLAPPER_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
 
 
 //PNEUMATICS
@@ -293,6 +297,10 @@ void opcontrol() {
         // HANG UP //
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
             hang_toggle();
+            pros::delay(200);
+        }
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
+            slapper();
             pros::delay(200);
         }
 
