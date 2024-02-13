@@ -16,9 +16,9 @@
 #define _PROS_MAIN_H_
 
 //SMART PORTS BELOW
-#define FRONT_LEFT_PORT 1
+#define FRONT_LEFT_PORT 3
 #define MID_LEFT_PORT 2
-#define BACK_LEFT_PORT 3
+#define BACK_LEFT_PORT 11
 
 #define FRONT_RIGHT_PORT 10
 #define MID_RIGHT_PORT 9
@@ -26,22 +26,22 @@
 
 #define INTAKE_PORT 7
 
-#define SLAPPER_PORT 12
+#define SLAPPER_PORT 13
 
-#define INERTIAL_PORT 11
+#define INERTIAL_PORT 12
 
 
 
 //ADI TRIPORTS BELOW
-#define LEFT_WALL_PORT 8
-#define RIGHT_WALL_PORT 1
+#define LEFT_WALL_PORT 1
+#define RIGHT_WALL_PORT 3
 
-#define LEFT_HANG_PORT 7
-#define RIGHT_HANG_PORT 2
+#define LEFT_HANG_PORT 2
+#define RIGHT_HANG_PORT 4
 
 #define INTAKE_LINE_TRACKER 1
 
-#define LOCK_PORT 4
+#define LOCK_PORT 5
 
 #define BLOCKER_PORT 5
 
