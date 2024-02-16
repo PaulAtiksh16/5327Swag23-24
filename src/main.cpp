@@ -101,13 +101,13 @@ lemlib::OdomSensors_t sensors{
 
 // forward/backward PID
 lemlib::ChassisController_t lateralController{
-        8, // kP
-        60, // kD
+        12, // kP
+        85, // kD
         1, // smallErrorRange
         100, // smallErrorTimeout
         3, // largeErrorRange
         500, // largeErrorTimeout
-        1 // slew rate
+        3// slew rate
 };
 
 // turning PID
@@ -191,7 +191,6 @@ void competition_initialize() {
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-using namespace okapi;
 
 extern bool lock_flag;
 
@@ -200,8 +199,10 @@ void autonomous() {
     // brake_brake();
     
     // skills();
+//    near_auton();
+    far_auton();
     
-    new_skills();
+//    new_skills();
 
 }
 
@@ -235,6 +236,11 @@ void opcontrol() {
         int right = master.get_analog(ANALOG_RIGHT_Y);
         // tank_control(left, right);
         tank_control(left, right);
+
+//        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
+//            chassis.setPose({0, 0, 0});
+//            chassis.moveTo(0, 48, 3000);
+//        }
 
         // ARCADE DRIVE //
         // int left = master.get_analog(ANALOG_LEFT_Y);
@@ -294,7 +300,7 @@ void opcontrol() {
             everything_off();
         }
 
-        // HANG UP //
+         //HANG UP
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
             hang_toggle();
             pros::delay(200);
