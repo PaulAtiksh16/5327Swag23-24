@@ -45,43 +45,46 @@ void far_auton() {
     walls_toggle();
     run_intake_backward();
     // Push matchload triball
-    chassis.moveTo(-8, 8, 600, 100);
-    chassis.moveTo(-30, 8, 1000, 100);
+    chassis.moveTo(-8, 7, 600, 100);
+    chassis.moveTo(-23, 7, 1000, 100);
     walls_toggle();
-    // Back push to get triballs in goal
-    /*
-    chassis.moveTo(-20, 18, 1000);
-    chassis.turnTo(-28, 23, 1000, true);
-    chassis.moveTo(-28, 23, 1000);
-    */
     run_intake_backward();
-    chassis.moveTo(-20, 23, 1000, 100);
-    chassis.turnTo(-28, 23, 800, true, 100);
-    chassis.moveTo(-28, 23, 1000, 100);
+
+    // Push triballs a second time
+    chassis.turnTo(-15, 14, 1000, true);
+    chassis.moveTo(-15, 14, 1000, 50);
+    chassis.turnTo(-30, 17, 1000, true, 50);
+    chassis.moveTo(-30, 17, 1000, 200);
 
     // Get first triball at barrier and outtake
 
-    chassis.moveTo(-13, 20, 1000, 100);
-    chassis.turnTo(-35, -25, 500, false, 100);
+    chassis.moveTo(-13, 9, 1000, 100);
+    chassis.turnTo(-35, -32, 500, false, 100);
     run_intake_forward();
-    chassis.moveTo(-30, -25, 3000, 50);
-    pros::delay(500 );
+    chassis.moveTo(-30, -32, 3000, 100);
+    pros::delay(500);
+
+    // Turn to goal1
     chassis.turnTo(-45, 5, 800, false, 50);
+    chassis.moveTo(-37, -23, 800);
     run_intake_backward();
-    pros::delay(300);
+    chassis.moveTo(-35, -25, 800);
     run_intake_backward();
 
     // Grab second triball
 
-    chassis.turnTo(-60, -34, 500, false, 50);
+    chassis.turnTo(-47, -42, 1000, false, 100);
     run_intake_forward();
-    chassis.moveTo(-60, -34, 1000, 50);
+    chassis.moveTo(-47, -42, 1000, 90);
+    run_intake_forward();
 
+    pros::delay(200); // Slight delay to grip triball
     // Push three triballs into goal
-    chassis.turnTo(-45, 5, 750, false, 50);
+    chassis.turnTo(-60, 5, 1000, false, 50);
     run_intake_backward();
     walls_toggle();
-    //chassis.moveTo(-60, 5, 2000);
+
+    // Hit wall lol
     base_move(200);
     pros::delay(1000);
     base_move(0);
