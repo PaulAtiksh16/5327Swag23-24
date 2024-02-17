@@ -229,13 +229,23 @@ void opcontrol() {
 
     bool lift_state = false;
 
+    pros::Task task{[=] {
+        while (true) {
+            int left = master.get_analog(ANALOG_LEFT_Y);
+            int right = master.get_analog(ANALOG_RIGHT_Y);
+            tank_control(left, right);
+            pros::delay(20);
+        }
+    }};
+
+    task.resume();
+
     while (true) {
 
         // TANK DRIVE //
-        int left = master.get_analog(ANALOG_LEFT_Y);
-        int right = master.get_analog(ANALOG_RIGHT_Y);
+//        int left = master.get_analog(ANALOG_LEFT_Y);
+//        int right = master.get_analog(ANALOG_RIGHT_Y);
         // tank_control(left, right);
-        tank_control(left, right);
 
 //        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
 //            chassis.setPose({0, 0, 0});
