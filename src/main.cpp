@@ -133,6 +133,9 @@ void slapper()
 void skills(){
     chassis.setPose(45,55, -130);
 
+    slapper();
+    pros::delay(30000);
+    slapper();
 
     pros::Task([=]{
         left_wall.set_value(1);
