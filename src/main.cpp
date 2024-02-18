@@ -112,8 +112,28 @@ void competition_initialize() {}
 pros::ADIDigitalOut left_wall(LEFT_WALL_PORT, false);
 pros::ADIDigitalOut right_wall(RIGHT_WALL_PORT, false);
 ASSET(bowl_txt);
+
+bool slapper_flag = false;
+
+void slapper()
+{
+  if (slapper_flag == false)
+  {
+    slapper_mtr.set_brake_mode(MOTOR_BRAKE_COAST);
+    slapper_mtr.move(127);
+    slapper_flag = true;
+  }
+  else
+  {
+    slapper_mtr.move(0);
+    slapper_flag = false;
+  }
+}
+
 void skills(){
     chassis.setPose(45,55, -130);
+
+
     pros::Task([=]{
         left_wall.set_value(1);
         pros::delay(900);
