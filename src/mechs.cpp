@@ -62,6 +62,10 @@ void everything_off() {
   right_wall.set_value(false);
   grabber.set_value(false);
 
+  //lift hang
+  left_hang.set_value(false);
+  right_hang.set_value(false);
+
   //flywheel
   // flywheel_mtr.move(0);
   // flywheel_mtr_2.move(0);
