@@ -199,8 +199,8 @@ void autonomous() {
     // brake_brake();
     
     // skills();   
-//    near_auton();
-    far_auton();
+//   near_auton();
+     far_auton();
     
 //    new_skills();
 

@@ -20,12 +20,12 @@ void near_auton() {
     // Move backwards slightly
     chassis.moveTo(4,4, 1000);
     walls_toggle();
-    chassis.moveTo(-3, 0, 1000);
+    chassis.moveTo(-2, -1, 1000);
     run_intake_backward();
     // Turn to face elevation bar
-    chassis.turnTo(-3, -10, 1000);
+    chassis.turnTo(-3, -25, 1000);
     // Move towards elevation bar
-    chassis.moveTo(-3, -36, 2000);
+    chassis.moveTo(-3, -34, 2000);
     pros::delay(500);
     walls_toggle();
     run_intake_backward();
@@ -52,8 +52,8 @@ void far_auton() {
 
     // Push triballs a second time
     chassis.turnTo(-15, 14, 1000, true);
-    chassis.moveTo(-15, 14, 1000, 50);
-    chassis.turnTo(-30, 17, 1000, true, 50);
+    chassis.moveTo(-15, 14, 1000, 60);
+    chassis.turnTo(-30, 17, 1000, true, 90);
     chassis.moveTo(-30, 17, 1000, 200);
 
     // Get first triball at barrier and outtake
@@ -61,32 +61,32 @@ void far_auton() {
     chassis.moveTo(-13, 9, 1000, 100);
     chassis.turnTo(-35, -32, 500, false, 100);
     run_intake_forward();
-    chassis.moveTo(-30, -32, 3000, 100);
+    chassis.moveTo(-30.2, -32.5, 3000, 100);
     pros::delay(500);
 
     // Turn to goal1
     chassis.turnTo(-45, 5, 800, false, 50);
-    chassis.moveTo(-37, -23, 800);
+    chassis.moveTo(-37, -20.7, 800);
     run_intake_backward();
-    chassis.moveTo(-35, -25, 800);
+    chassis.moveTo(-35, -24, 800);
     run_intake_backward();
 
     // Grab second triball
 
-    chassis.turnTo(-47, -42, 1000, false, 100);
+    chassis.turnTo(-49.5, -41.5, 1000, false, 100);
     run_intake_forward();
-    chassis.moveTo(-47, -42, 1000, 90);
+    chassis.moveTo(-49.5, -41.5, 1000, 90);
     run_intake_forward();
 
     pros::delay(200); // Slight delay to grip triball
     // Push three triballs into goal
-    chassis.turnTo(-60, 5, 1000, false, 50);
+    chassis.turnTo(-55, 4, 1000, false, 100);
     run_intake_backward();
     walls_toggle();
 
     // Hit wall lol
     base_move(200);
-    pros::delay(1000);
+    pros::delay(900);
     base_move(0);
     walls_toggle();
     run_intake_backward();
