@@ -63,6 +63,7 @@ void everything_off() {
   grabber.set_value(false);
 
   //lift hang
+  lift_up = false;
   left_hang.set_value(false);
   right_hang.set_value(false);
 
