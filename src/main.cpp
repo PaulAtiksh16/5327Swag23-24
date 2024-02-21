@@ -150,7 +150,7 @@ void initialize() {
     chassis.calibrate();
 
     pros::lcd::initialize();
-    pros::lcd::set_text(1, "tri balls");
+    pros::lcd::set_text(1, "trois balls");
 
     pros::lcd::register_btn1_cb(on_center_button);
 
@@ -199,8 +199,8 @@ void autonomous() {
     // brake_brake();
     
     // skills();   
-   near_auton();
-//     far_auton();
+//   near_auton();
+     far_auton();
     
 //    new_skills();
 
@@ -233,6 +233,7 @@ void opcontrol() {
         while (true) {
             int left = master.get_analog(ANALOG_LEFT_Y);
             int right = master.get_analog(ANALOG_RIGHT_Y);
+//            tank_control_curve(left, right);
             tank_control(left, right);
             pros::delay(20);
         }
@@ -296,14 +297,14 @@ void opcontrol() {
         }
 
         // FLYWHEEL //
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
-        	run_flywheel(127);
-        }
+//        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+//        	run_flywheel(127);
+//        }
 
         // FLYWHEEL OFF //
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-        	run_flywheel(0);
-        }
+//        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+//        	run_flywheel(0);
+//        }
 
         // EVERYTHING OFF //
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) {
@@ -311,7 +312,7 @@ void opcontrol() {
         }
 
          //HANG UP
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
             hang_toggle();
             pros::delay(200);
         }
@@ -342,7 +343,7 @@ void opcontrol() {
         // }
 
         // WALLS TOGGLE //
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_X)) {
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
             walls_toggle();
             pros::delay(200);
         }

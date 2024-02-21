@@ -42,6 +42,18 @@ void tank_control(int left, int right) {
     top_right_mtr.move(right);
 }
 
+void tank_control_curve(int left, int right) {
+
+    printf("left: %d, right: %d\n", left, right);
+
+    int new_left = (std::pow(left, 3)) / (std::pow(127, 2));
+    int new_right = (std::pow(right, 3)) / (std::pow(127, 2));
+
+    printf("leftNEW: %d, rightNEW: %d\n", new_left, new_right);
+
+    tank_control(new_left, new_right);
+}
+
 void arcade_control(int left, int right) {
 
     // deadzones

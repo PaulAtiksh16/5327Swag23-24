@@ -25,6 +25,9 @@ extern pros::Motor slapper_mtr;
 extern pros::ADIDigitalOut left_wall;
 extern pros::ADIDigitalOut right_wall;
 
+extern pros::ADIDigitalOut left_hang;
+extern pros::ADIDigitalOut right_hang;
+
 extern pros::ADIDigitalOut kicker;
 
 extern pros::ADIDigitalOut grabber;
@@ -63,7 +66,7 @@ void everything_off() {
   grabber.set_value(false);
 
   //lift hang
-  lift_up = false; 
+//  lift_up = false;
   
   left_hang.set_value(false);
   right_hang.set_value(false);

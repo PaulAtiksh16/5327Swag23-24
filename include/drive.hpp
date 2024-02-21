@@ -13,6 +13,8 @@ extern "C" {
 
 void tank_control(int left, int right);
 
+void tank_control_curve(int left, int right);
+
 void arcade_control(int left, int right);
 
 void get_base_watts(void);
