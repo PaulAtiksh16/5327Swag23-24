@@ -131,6 +131,22 @@ void slapper()
 }
 
 void skills(){
+  chassis.setPose(-55,-55, -130);
+  chassis.turnTo(-60, -25, 500);
+  chassis.moveTo(-60, -25, 0, 500);
+  chassis.turnTo(-6.2, -35.7, 0, 500);
+  left_wall.set_value(1);
+
+  //matchloading
+  slapper();
+  pros::delay(30000);
+  slapper();
+
+  chassis.moveTo(-6.2, -35.7, 0, 500);
+  //chassis.turnTo();
+
+    /* arpit code
+
     chassis.setPose(45,55, -130);
 
     slapper();
@@ -174,8 +190,7 @@ void skills(){
     left_wall.set_value(1);
     right_wall.set_value(1);
     chassis.moveTo(-50, 0, -90, 1000, false, true, 40, 0.2, 127);
-
-    
+    */
 
 
 }
