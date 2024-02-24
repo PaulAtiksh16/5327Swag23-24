@@ -24,5 +24,6 @@ void grabber_toggle(void);
 void blocker_toggle(void);
 
 void lock_toggle(void);
+void left_wall_toggle(void);
 
 #endif //_MECHS_HPP_

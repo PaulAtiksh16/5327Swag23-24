@@ -44,6 +44,18 @@ void walls_toggle() {
     }
 }
 
+void left_wall_toggle()
+{
+    if (left_wall.set_value(true))
+    {
+        left_wall.set_value(false);
+    }
+    else
+    {
+        left_wall.set_value(true);
+    }
+}
+
 void right_wall_toggle() {
     walls_flag = !walls_flag;
 

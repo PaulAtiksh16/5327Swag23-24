@@ -24,10 +24,10 @@ void near_auton() {
     run_intake_backward();
     // Turn to face elevation bar
     chassis.turnTo(-3, -25, 1000);
+    left_wall_toggle();
     // Move towards elevation bar
     chassis.moveTo(-3, -34, 2000);
     pros::delay(500);
-    walls_toggle();
     run_intake_backward();
 }
 
@@ -53,40 +53,40 @@ void far_auton() {
     // Push triballs a second time
     chassis.turnTo(-15, 14, 1000, true);
     chassis.moveTo(-15, 14, 1000, 60);
-    chassis.turnTo(-30, 17, 1000, true, 90);
-    chassis.moveTo(-30, 17, 1000, 200);
+    chassis.turnTo(-30, 20, 1000, true, 90);
+    chassis.moveTo(-30, 20, 1000, 200);
 
     // Get first triball at barrier and outtake
 
-    chassis.moveTo(-13, 9, 1000, 100);
+    chassis.moveTo(-13, 9, 900, 100);
     chassis.turnTo(-35, -32, 500, false, 100);
     run_intake_forward();
     chassis.moveTo(-30.2, -32.5, 3000, 100);
     pros::delay(500);
 
-    // Turn to goal1
-    chassis.turnTo(-45, 5, 800, false, 50);
-    chassis.moveTo(-37, -20.7, 800);
+    // Turn to goal
+    chassis.turnTo(-45, 5, 700, false, 70);
+    chassis.moveTo(-37, -17, 800);
     run_intake_backward();
     chassis.moveTo(-35, -24, 800);
     run_intake_backward();
 
     // Grab second triball
 
-    chassis.turnTo(-49.5, -41.5, 1000, false, 100);
+    chassis.turnTo(-52.5, -41.5, 1000, false, 100);
     run_intake_forward();
-    chassis.moveTo(-49.5, -41.5, 1000, 90);
-    run_intake_forward();
+    chassis.moveTo(-52.5, -41.5, 1000, 90);
 
-    pros::delay(200); // Slight delay to grip triball
+    pros::delay(300); // Slight delay to grip triball
     // Push three triballs into goal
     chassis.turnTo(-55, 4, 1000, false, 100);
+    run_intake_forward();
     run_intake_backward();
     walls_toggle();
 
     // Hit wall lol
     base_move(200);
-    pros::delay(900);
+    pros::delay(800);
     base_move(0);
     walls_toggle();
     run_intake_backward();
