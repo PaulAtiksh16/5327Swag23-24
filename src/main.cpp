@@ -199,8 +199,11 @@ void autonomous() {
     // brake_brake();
     
     // skills();
-    near_auton();
-     //far_auton();
+    //near_auton();
+    
+    
+    
+    far_auton();
     
 //    new_skills();
 
@@ -312,7 +315,7 @@ void opcontrol() {
         }
 
          //HANG UP
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
             hang_toggle();
             pros::delay(200);
         }
@@ -343,7 +346,7 @@ void opcontrol() {
         // }
 
         // WALLS TOGGLE //
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
             walls_toggle();
             pros::delay(200);
         }

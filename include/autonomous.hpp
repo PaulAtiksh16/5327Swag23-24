@@ -11,6 +11,7 @@ extern "C" {
 #endif
 
 void near_auton();
+void wp_far();
 void far_auton();
 void push_one();
 void skills();

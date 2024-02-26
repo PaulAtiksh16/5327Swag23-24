@@ -31,6 +31,23 @@ void near_auton() {
     run_intake_backward();
 }
 
+void wp_far() {
+   // Bot at same angle as match load bar, folding intake facing wall, back right tile on corner
+    chassis.setPose(0, 0, 225);
+    // Move backwards slightly
+    chassis.moveTo(4,4, 1000);
+    walls_toggle();
+    chassis.moveTo(-2, -1, 1000);
+    run_intake_backward();
+    // Turn to face elevation bar
+    chassis.turnTo(-3, -25, 1000);
+    left_wall_toggle();
+    // Move towards elevation bar
+    chassis.moveTo(-3, -34, 2000);
+    pros::delay(500);
+    run_intake_backward(); 
+}
+
 void push_one() {
     // move forward to push one ball
     chassis.setPose(0, 0, 0);
