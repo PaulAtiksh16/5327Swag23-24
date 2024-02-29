@@ -44,14 +44,45 @@ void tank_control(int left, int right) {
 
 void tank_control_curve(int left, int right) {
 
-    printf("left: %d, right: %d\n", left, right);
 
-    int new_left = (std::pow(left, 3)) / (std::pow(127, 2));
-    int new_right = (std::pow(right, 3)) / (std::pow(127, 2));
+    int x[18] = {10, 15, 20, 35, 40, 50, 60, 75, 90, 100, 105, 110, 112, 115, 118, 120, 122, 150};
+    int voltage[17] = {11, 15, 25, 35, 45, 55, 60, 65, 70, 80, 90, 95, 100, 105, 110, 115, 127};
 
-    printf("leftNEW: %d, rightNEW: %d\n", new_left, new_right);
+    for (int i = 1; i < 18; i++) {
+      if (abs(left) <= x[i] && abs(left) > x[i-1]) {
+        if (left < 0)
+        {
+          left = voltage[i] * -1;
+          break;
+        }
+        else
+        {
+          left = voltage[i];
+          break;
+        }
+      }
+      
+    }
 
-    tank_control(new_left, new_right);
+
+    for (int i = 1; i < 18; i++) {
+      if (abs(right) <= x[i] && abs(right) > x[i-1]) {
+        if (right < 0)
+        {
+          right = voltage[i] * -1;
+          break;
+        }
+        else
+        {
+          right = voltage[i];
+          break;
+        }
+      }
+      
+    }
+
+
+    tank_control(left, right);
 }
 
 void arcade_control(int left, int right) {

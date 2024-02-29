@@ -236,8 +236,8 @@ void opcontrol() {
         while (true) {
             int left = master.get_analog(ANALOG_LEFT_Y);
             int right = master.get_analog(ANALOG_RIGHT_Y);
-//            tank_control_curve(left, right);
-            tank_control(left, right);
+            tank_control_curve(left, right);
+            //tank_control(left, right);
             pros::delay(20);
         }
     }};
