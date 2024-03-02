@@ -102,8 +102,8 @@ void far_auton() {
     walls_toggle();
 
     // Hit wall lol
-    base_move_voltage(1200000);
-    pros::delay(1000);
+    base_move(200);
+    pros::delay(800);
     base_move(0);
     walls_toggle();
     run_intake_backward();
