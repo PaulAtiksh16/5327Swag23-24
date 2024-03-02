@@ -124,15 +124,16 @@ void arcade_control(int left, int right) {
 
 //display wattage from base
 void get_base_watts() {
+    pros::lcd::print(3, "left average: %f", (front_left_mtr.get_power() + back_left_mtr.get_power() + top_left_mtr.get_power())/3);
+    pros::lcd::print(6, "right average: %f", (front_right_mtr.get_power() + back_right_mtr.get_power() + top_right_mtr.get_power())/3);
+
     pros::lcd::print(0, "front left: %f", front_left_mtr.get_power());
     pros::lcd::print(1, "back left: %f", back_left_mtr.get_power());
     pros::lcd::print(2, "top left: %f", top_left_mtr.get_power());
-    pros::lcd::print(3, "left average: %f", (front_left_mtr.get_power() + back_left_mtr.get_power() + top_left_mtr.get_power())/3);
 
     pros::lcd::print(3, "front right: %f", front_right_mtr.get_power());
     pros::lcd::print(4, "back right: %f", back_right_mtr.get_power());
     pros::lcd::print(5, "top right: %f", top_right_mtr.get_power());
-    pros::lcd::print(6, "right average: %f", (front_right_mtr.get_power() + back_right_mtr.get_power() + top_right_mtr.get_power())/3);
 }
 
 //braking

@@ -207,6 +207,6 @@ void skills() {
 void new_skills()
 {
     chassis.setPose(-48, -57, 0);
-    chassis.follow("skills_part1.txt", 30000, 100);
+    chassis.follow("skills_goofy3.txt", 30000, 50);
     pros::delay(20000);
 }
