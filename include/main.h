@@ -24,7 +24,7 @@
 #define MID_RIGHT_PORT 9
 #define BACK_RIGHT_PORT 10
 
-#define INTAKE_PORT 12
+#define INTAKE_PORT 1
 
 #define SLAPPER_PORT 13
 

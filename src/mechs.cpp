@@ -98,7 +98,7 @@ void run_intake_forward() {
   if (forward_intake_flag) {
     // left_intake_mtr.move(127);
     // right_intake_mtr.move(127);
-    intake_mtr.move(-127);
+    intake_mtr.move(127);
   } else {
     // left_intake_mtr.move(0);
     // right_intake_mtr.move(0);
@@ -117,7 +117,7 @@ void run_intake_backward() {
   if (reverse_intake_flag) {
     // left_intake_mtr.move(-127);
     // right_intake_mtr.move(-127);
-    intake_mtr.move(127);
+    intake_mtr.move(-127);
   } else {
     // left_intake_mtr.move(0);
     // right_intake_mtr.move(0);

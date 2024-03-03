@@ -33,53 +33,18 @@ void tank_control(int left, int right) {
     brake_flag = false;
 
     // actually runs the motors
-    front_left_mtr.move(left);
-    back_left_mtr.move(left);
-    top_left_mtr.move(left);
+    front_left_mtr.move(tank_control_curve(left));
+    back_left_mtr.move(tank_control_curve(left));
+    top_left_mtr.move(tank_control_curve(left));
 
-    front_right_mtr.move(right);
-    back_right_mtr.move(right);
-    top_right_mtr.move(right);
+    front_right_mtr.move(tank_control_curve(right));
+    back_right_mtr.move(tank_control_curve(right));
+    top_right_mtr.move(tank_control_curve(right));
 }
 
-void tank_control_curve(int left, int right) {
-
-    // kimson curve
-    int x[18] = {10, 15, 20, 35, 40, 50, 60, 75, 90, 100, 105, 110, 112, 115, 118, 120, 122, 150};
-    int voltage[17] = {11, 15, 25, 35, 45, 55, 60, 65, 70, 80, 90, 95, 100, 105, 110, 115, 127};
-
-    for (int i = 1; i < 18; i++) {
-      if (abs(left) <= x[i] && abs(left) > x[i-1]) {
-        if (left < 0)
-        {
-          left = voltage[i] * -1;
-          break;
-        }
-        else
-        {
-          left = voltage[i];
-          break;
-        }
-      }
-      
-    }
-
-
-    for (int i = 1; i < 18; i++) {
-      if (abs(right) <= x[i] && abs(right) > x[i-1]) {
-        if (right < 0)
-        {
-          right = voltage[i] * -1;
-          break;
-        }
-        else
-        {
-          right = voltage[i];
-          break;
-        }
-      }
-      
-    }
+double tank_control_curve(double joystick) {
+  double tune_value = 2.4;
+  return (std::pow(2.718, -(tune_value/10.0)) + std::pow(2.718, (fabs(joystick) - 127.0)/10.0 ) * (1 - std::pow(2.718, -(tune_value/10.0)))) * joystick;
     // Lukas code
     /*
     printf("left: %d, right: %d\n", left, right);
