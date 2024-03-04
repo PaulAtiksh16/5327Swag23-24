@@ -193,7 +193,7 @@ void competition_initialize() {
 extern bool lock_flag;
 
 void autonomous() {
-    far_auton();
+    near_auton();
 }
 
 

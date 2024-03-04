@@ -22,9 +22,9 @@ void near_auton() {
     run_intake_backward();
     // Turn to face elevation bar
     chassis.turnTo(-3, -25, 1000);
-    left_wall_toggle();
+    walls_toggle();
     // Move towards elevation bar
-    chassis.moveTo(-3, -34, 2000);
+    chassis.moveTo(-3, -35, 2000);
     pros::delay(500);
     run_intake_backward();
 }
