@@ -114,11 +114,33 @@ void far_auton() {
 }
 
 void skills() {
-    chassis.setPose(-63, -47, 50);
-    chassis.goTo(0, 0, 0, 1000);
+//    void moveTo(float x, float y, int timeout, float maxSpeed = 200, bool log = false);
+    chassis.setPose(-58, -40, 62);
 
+    // Go to bottom left barrier corner
+    chassis.moveTo(-14, -27, 1000);
+    walls_toggle();
+    run_intake_backward();
 
+    // Move toward top of barrier
+    chassis.moveTo(-15, 39, 5000);
 
+    //Scoop balls to left of barrier
+    chassis.turnTo(-50, 48, 3000, false, 60);
+
+    // Move to top left corner
+    chassis.moveTo(-50, 48, 2000, 50);
+
+    //Go toward entrance of alley
+    chassis.turnTo(-19, 72, 1000, false, 60);
+    chassis.moveTo(-19, 72, 1000, 50);
+
+    //Remove walls so dont hit walls
+    walls_toggle();
+
+    //Go to other side of field
+    chassis.moveTo(-22, 74, 1000, 50);
+    chassis.moveTo(27, 62, 1000, 127);
 
 
 
