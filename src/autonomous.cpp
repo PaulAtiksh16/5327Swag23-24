@@ -114,6 +114,23 @@ void far_auton() {
 }
 
 void skills() {
+    chassis.setPose(-63, -47, 50);
+    chassis.goTo(0, 0, 0, 1000);
+
+
+
+
+
+
+    // slapper();
+    // pros::delay(30000);
+    // slapper();
+    // chassis.follow("skills_goofy3.txt", 30000, 10);
+
+
+
+
+    /*   
     chassis.setPose(0, 0, -29);
     run_flywheel(127);
     pros::delay(30000);
@@ -153,6 +170,7 @@ void skills() {
     chassis.moveTo(-60, 55, 1000, 60);
     walls_toggle();
     chassis.moveTo(-60, 100, 1000);
+    */
 //    chassis.turnTo(-70, 60, 1000);
 
 //    // open wings

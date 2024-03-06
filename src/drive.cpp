@@ -9,6 +9,10 @@ extern pros::Motor back_right_mtr;
 extern pros::Motor top_left_mtr;
 extern pros::Motor top_right_mtr;
 
+extern pros::Motor left_side_motors;
+extern pros::Motor right_side_motors;
+
+
 bool brake_flag = false;
 
 void tank_control(int left, int right) {
@@ -33,13 +37,8 @@ void tank_control(int left, int right) {
     brake_flag = false;
 
     // actually runs the motors
-    front_left_mtr.move(tank_control_curve(left));
-    back_left_mtr.move(tank_control_curve(left));
-    top_left_mtr.move(tank_control_curve(left));
-
-    front_right_mtr.move(tank_control_curve(right));
-    back_right_mtr.move(tank_control_curve(right));
-    top_right_mtr.move(tank_control_curve(right));
+    left_side_motors.move(tank_control_curve(left));
+    right_side_motors.move(tank_control_curve(right));
 }
 
 double tank_control_curve(double joystick) {

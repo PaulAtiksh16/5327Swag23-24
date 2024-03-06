@@ -63,7 +63,7 @@ pros::Motor lift_mtr(LIFT_PORT, pros::E_MOTOR_GEAR_RED, false, pros::E_MOTOR_ENC
 pros::Motor conveyor_mtr(CONVEYOR_PORT, pros::E_MOTOR_GEAR_GREEN, false, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor conveyor_mtr_2(CONVEYOR_PORT_2, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_DEGREES);
 
-pros::Motor slapper_mtr(SLAPPER_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor slapper_mtr(SLAPPER_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
 
 
 //PNEUMATICS
@@ -193,7 +193,8 @@ void competition_initialize() {
 extern bool lock_flag;
 
 void autonomous() {
-    near_auton();
+    // near_auton();
+    skills();
 }
 
 
