@@ -105,17 +105,17 @@ lemlib::ChassisController_t lateralController{
         100, // smallErrorTimeout
         3, // largeErrorRange
         500, // largeErrorTimeout
-        3// slew rate
+        50// slew rate
 };
 
 // turning PID
 lemlib::ChassisController_t angularController{
-        2, // kP
-        15, // kD
+        5, // kP
+        20, // kD
         1, // smallErrorRange
-        100, // smallErrorTimeout
-        3, // largeErrorRange
-        500, // largeErrorTimeout
+        150, // smallErrorTimeout
+        4, // largeErrorRange
+        1000, // largeErrorTimeout
         50 // slew rate
 };
 

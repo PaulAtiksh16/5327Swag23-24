@@ -114,7 +114,18 @@ void far_auton() {
 }
 
 void skills() {
-//    void moveTo(float x, float y, int timeout, float maxSpeed = 200, bool log = false);
+    // Bot at same angle as match load bar, facing goal, front left tip on corner
+    
+    chassis.setPose(0, 0, 135);
+
+    // Push alliance triballs into blue goal
+    chassis.turnTo(-60, 60, 1000, true);
+    chassis.moveTo(-6, 6, 1000, true);
+    chassis.moveTo(-10, 25, 1000, true);
+
+    // Get to matchloading position
+
+    /*
     chassis.setPose(-58, -40, 62);
 
     // Go to bottom left barrier corner
@@ -150,14 +161,7 @@ void skills() {
     chassis.turnTo(45, 57, 500, 100);
     chassis.moveTo(45, 57, 500, 100);
     chassis.moveTo(45, 47, 500, 127);
-
-    // slapper();
-    // pros::delay(30000);
-    // slapper();
-    // chassis.follow("skills_goofy3.txt", 30000, 10);
-
-
-
+    */
 
     /*   
     chassis.setPose(0, 0, -29);
