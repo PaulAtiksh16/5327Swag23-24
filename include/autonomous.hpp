@@ -14,6 +14,7 @@ void near_auton();
 void wp_far();
 void far_auton();
 void push_one();
+void true_skills();
 void skills();
 void new_skills();
 

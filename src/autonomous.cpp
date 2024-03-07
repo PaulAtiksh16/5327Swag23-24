@@ -113,6 +113,34 @@ void far_auton() {
     run_intake_backward();
 }
 
+void true_skills() {
+    chassis.setPose(0.0, 0.0, 135.0);
+
+    // Push alliance triballs into blue goal
+    chassis.turnTo(-50, 50, 1000, true);
+    chassis.moveTo(-6, 6, 1000);
+    chassis.turnTo(-10, 25, 1000, true);
+    base_move(-127);
+    pros::delay(400);
+    base_move(0);
+
+    // Re-orient bot to be origin and have back face goal
+    chassis.setPose(0, 0, 180.0);
+
+    // Move back to touch matchload bar
+    chassis.turnTo(30, -30, 500);
+    chassis.moveTo(6, -6, 1000);
+    chassis.turnTo(-30, -20, 500, true);
+    chassis.moveTo(-6, -5, 1000, 40);
+
+    // Shoot dem ballz
+    /*
+    slapper();
+    pros::delay(30000);
+    slapper();
+    */
+}
+
 void skills() {
     // Bot at same angle as match load bar, facing goal, front left tip on corner
     

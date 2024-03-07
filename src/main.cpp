@@ -194,7 +194,7 @@ extern bool lock_flag;
 
 void autonomous() {
     // near_auton();
-    skills();
+    true_skills();
 }
 
 
