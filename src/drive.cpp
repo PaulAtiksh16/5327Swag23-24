@@ -35,10 +35,18 @@ void tank_control(int left, int right) {
       right_brake();
     }
     brake_flag = false;
-
+    double new_left = tank_control_curve(left);
+    double new_right = tank_control_curve(right);
     // actually runs the motors
-    left_side_motors.move(tank_control_curve(left));
-    right_side_motors.move(tank_control_curve(right));
+  front_left_mtr.move(new_left);
+  top_left_mtr.move(new_left);
+  back_left_mtr.move(new_left);
+
+  front_right_mtr.move(new_right);
+  top_right_mtr.move(new_right);
+  back_right_mtr.move(new_right);
+//    left_side_motors.move(left);
+//    right_side_motors.move(right);
 }
 
 double tank_control_curve(double joystick) {

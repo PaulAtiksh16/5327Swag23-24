@@ -118,31 +118,38 @@ void skills() {
     chassis.setPose(-58, -40, 62);
 
     // Go to bottom left barrier corner
-    chassis.moveTo(-14, -27, 1000);
+    chassis.moveTo(-14, -27, 1500);
     walls_toggle();
     run_intake_backward();
 
     // Move toward top of barrier
-    chassis.moveTo(-15, 39, 5000);
+    chassis.moveTo(-15, 39, 4000, 180);
 
     //Scoop balls to left of barrier
-    chassis.turnTo(-50, 48, 3000, false, 60);
+    chassis.turnTo(-50, 48, 1000, false, 40);
 
     // Move to top left corner
-    chassis.moveTo(-50, 48, 2000, 50);
+    chassis.moveTo(-45, 50, 2000, 40);
 
     //Go toward entrance of alley
-    chassis.turnTo(-19, 72, 1000, false, 60);
-    chassis.moveTo(-19, 72, 1000, 50);
+    chassis.turnTo(-18, 74, 3000, false, 80);
+    chassis.moveTo(-18, 77, 3000, 90);
+    chassis.moveTo(-18, 79, 3000, 100);
 
-    //Remove walls so dont hit walls
-    walls_toggle();
+    //move to top right corner
+    chassis.moveTo(30, 79, 4000, 120);
+    chassis.moveTo(38, 80, 4000, 100);
 
-    //Go to other side of field
-    chassis.moveTo(-22, 74, 1000, 50);
-    chassis.moveTo(27, 62, 1000, 127);
+    //move balls to score to goal
+    chassis.moveTo(62, 57, 1000, 100);
+    run_intake_backward();
+    chassis.turnTo(65, 57, 500, true, 100);
+    chassis.moveTo(65, 57, 600, 127);
 
-
+    //curve to push balls into goal
+    chassis.turnTo(45, 57, 500, 100);
+    chassis.moveTo(45, 57, 500, 100);
+    chassis.moveTo(45, 47, 500, 127);
 
     // slapper();
     // pros::delay(30000);
