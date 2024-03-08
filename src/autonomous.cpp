@@ -120,8 +120,10 @@ void true_skills() {
     chassis.turnTo(-50, 50, 1000, true);
     chassis.moveTo(-6, 6, 1000);
     chassis.turnTo(-10, 25, 1000, true);
-    base_move(-127);
-    pros::delay(400);
+    base_move(-87);
+    pros::delay(1000);
+    base_move(-20);
+    pros::delay(300);
     base_move(0);
 
     // Re-orient bot to be origin and have back face goal
@@ -133,6 +135,8 @@ void true_skills() {
     chassis.turnTo(-30, -20, 500, true);
     chassis.moveTo(-6, -7, 1000, 40);
 
+
+    pros::delay(1000); // temporary ball drop
     // Shoot dem ballz
     /*
     slapper();
@@ -140,35 +144,67 @@ void true_skills() {
     slapper();
     */
 
-    int alleyY = -36;
+    int alleyY = -20;
     // Move towards alley
     chassis.moveTo(24, alleyY, 1500);
     // Move through alley
-    chassis.moveTo(96, alleyY, 3000);
-
+    chassis.moveTo(96, alleyY, 5000);
 
     // * REORIENT AFTER EVERY PUSH LOL *
-
+    run_intake_backward();
+    
     // Make barrier push and turn bot around
-    int goalX = 104;
-    int goalY = 0;
-    chassis.turnTo(96+8, alleyY+8, 1000, true); // intermediate movement
-    chassis.moveTo(96+8, alleyY+8, 1000);
-    chassis.turnTo(goalX, goalY, 1000);
+    int goalX = 96+20;
+    int goalY = alleyY+26.5;
+    // turn towards goal
+    chassis.turnTo(goalX, alleyY+7, 2000, true, 60); // intermediate movement
+    chassis.moveTo(goalX, alleyY+7, 1000, 60);
+    chassis.turnTo(goalX+8, goalY, 1000, true);
     // Ram into goal
     base_move(-127);
-    pros::delay(400);
+    pros::delay(1000);
     base_move(0);
     // Re-orient bot to be origin and have back face goal
     chassis.setPose(0, 0, 180.0);
 
     // First front push
-    walls_toggle(); // activating wings 
-    chassis.turnTo(-30, -18, 1000, true);
-    chassis.moveTo(-30, -18, 1000);
-    // Second front push
+    chassis.moveTo(0, -18, 700); // back out slightly
+    int intermediate1[2] = {-45, 4};
+    chassis.turnTo(intermediate1[0], intermediate1[1], 1000);
+    chassis.moveTo(intermediate1[0], intermediate1[1], 4000, 60); 
 
-    // Third front push
+    int front1[2] = {6, 12};
+    chassis.turnTo(front1[0], front1[1], 1000, false, 60); 
+    walls_toggle(); // activating wings 
+
+    base_move(120);
+    pros::delay(1500); // push on barrier
+    base_move(0);
+
+    chassis.setPose(0, 0, 90);
+
+    // Second front push
+    walls_toggle(); // turn off walls
+    int intermediate2[2] = {-40, 2};
+    chassis.moveTo(intermediate2[0], 0, 1000); // back out of goal
+    walls_toggle(); // turn on walls
+
+    int front2[2] = {0, 40};
+    walls_toggle(); // turn off walls
+    chassis.turnTo(intermediate2[0], front2[1]/2.0, 1000);
+    chassis.moveTo(intermediate2[0], front2[1]/2.0, 1000);
+    chassis.turnTo(front2[0], front2[1], 1000);
+
+    walls_toggle(); // turn on walls
+    base_move(80);
+    pros::delay(2000);
+    base_move(-50);
+    pros::delay(300);
+    base_move(127);
+    pros::delay(1000);  
+    base_move(0);
+    
+    chassis.setPose(0, 0, 90);
 
     // Rotate around to make final push
 }
