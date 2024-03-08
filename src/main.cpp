@@ -86,7 +86,8 @@ lemlib::Drivetrain_t drivetrain{
         &right_side_motors, // right drivetrain motors
         10.8, // track width
         3.25, // wheel diameter
-        450 // wheel rpm
+        450 // wheel rpm,
+        
 };
 
 lemlib::OdomSensors_t sensors{

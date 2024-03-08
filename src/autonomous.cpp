@@ -131,7 +131,7 @@ void true_skills() {
     chassis.turnTo(30, -30, 500);
     chassis.moveTo(6, -6, 1000);
     chassis.turnTo(-30, -20, 500, true);
-    chassis.moveTo(-6, -5, 1000, 40);
+    chassis.moveTo(-6, -7, 1000, 40);
 
     // Shoot dem ballz
     /*
@@ -139,6 +139,38 @@ void true_skills() {
     pros::delay(30000);
     slapper();
     */
+
+    int alleyY = -36;
+    // Move towards alley
+    chassis.moveTo(24, alleyY, 1500);
+    // Move through alley
+    chassis.moveTo(96, alleyY, 3000);
+
+
+    // * REORIENT AFTER EVERY PUSH LOL *
+
+    // Make barrier push and turn bot around
+    int goalX = 104;
+    int goalY = 0;
+    chassis.turnTo(96+8, alleyY+8, 1000, true); // intermediate movement
+    chassis.moveTo(96+8, alleyY+8, 1000);
+    chassis.turnTo(goalX, goalY, 1000);
+    // Ram into goal
+    base_move(-127);
+    pros::delay(400);
+    base_move(0);
+    // Re-orient bot to be origin and have back face goal
+    chassis.setPose(0, 0, 180.0);
+
+    // First front push
+    walls_toggle(); // activating wings 
+    chassis.turnTo(-30, -18, 1000, true);
+    chassis.moveTo(-30, -18, 1000);
+    // Second front push
+
+    // Third front push
+
+    // Rotate around to make final push
 }
 
 void skills() {
