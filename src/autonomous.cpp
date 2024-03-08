@@ -12,6 +12,16 @@
 
 extern lemlib::Chassis chassis;
 
+void alliance() {
+    chassis.setPose(0, 0, 135);
+    chassis.turnTo(-8, 12, 600, true);
+    chassis.moveTo(-12, 12, 1000);
+    chassis.moveTo(-12, 28, 3500, 200);
+    chassis.moveTo(-12, 20, 1000);
+    chassis.moveTo(-12, 28, 1000);
+}
+
+
 void near_auton() {
     // Bot at same angle as match load bar, folding intake facing wall, back right tile on corner
     chassis.setPose(0, 0, 225);
@@ -52,6 +62,7 @@ void push_one() {
     chassis.moveTo(0, -50, 3000);
 
 }
+
 
 void far_auton() {
     // Bot at same angle as match load bar, facing goal, front left tip on corner
