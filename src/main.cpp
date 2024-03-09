@@ -97,6 +97,7 @@ lemlib::OdomSensors_t sensors{
         &inertial_sensor
 };
 
+/* skills PID
 // forward/backward PID
 lemlib::ChassisController_t lateralController{
         12, // kP
@@ -108,6 +109,28 @@ lemlib::ChassisController_t lateralController{
         3// slew rate
 };
 
+// turning PID
+lemlib::ChassisController_t angularController{
+        2, // kP
+        15, // kD
+        1, // smallErrorRange
+        100, // smallErrorTimeout
+        3, // largeErrorRange
+        500, // largeErrorTimeout
+        50 // slew rate
+};
+ */
+
+// forward/backward PID
+lemlib::ChassisController_t lateralController{
+        8, // kP
+        60, // kD
+        1, // smallErrorRange
+        100, // smallErrorTimeout
+        3, // largeErrorRange
+        500, // largeErrorTimeout
+        1 // slew rate
+};
 // turning PID
 lemlib::ChassisController_t angularController{
         2, // kP
@@ -193,8 +216,9 @@ void competition_initialize() {
 extern bool lock_flag;
 
 void autonomous() {
-    // near_auton();
-    skills();
+//     near_auton();
+//    skills();
+    far_auton();
 }
 
 
