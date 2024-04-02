@@ -18,4 +18,6 @@ void true_skills();
 void skills();
 void new_skills();
 
+void alliance();
+
 #endif //_DRIVE_HPP_
