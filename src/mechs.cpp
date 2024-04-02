@@ -32,9 +32,15 @@ extern pros::ADIDigitalOut kicker;
 
 extern pros::ADIDigitalOut grabber;
 
+extern pros::Controller master;
+
 
 bool forward_intake_flag = false;
 bool reverse_intake_flag = false;
+
+// false: reverse
+// true: forward
+bool intake_flag = false;
 
 bool flywheel_flag = false;
 
@@ -85,6 +91,23 @@ void get_mech_watts() {
   pros::lcd::print(3, "Flywheel 2: %f", flywheel_mtr_2.get_power());
   pros::lcd::print(4, "Conveyor: %f", conveyor_mtr.get_power());
   pros::lcd::print(5, "Conveyor 2: %f", conveyor_mtr_2.get_power());
+}
+
+
+void intake_toggle() {
+  intake_flag = not intake_flag;
+
+  if (intake_flag) {
+    intake_mtr.move(127);
+  } else {
+    intake_mtr.move(0);
+  }
+  pros::delay(20);
+
+}
+
+void intake_hold(int sign) {
+  intake_mtr.move(127 * sign);
 }
 
 

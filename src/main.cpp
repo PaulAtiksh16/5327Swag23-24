@@ -35,11 +35,11 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 //MOTORS
 pros::Motor front_left_mtr(FRONT_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor top_left_mtr(MID_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor top_left_mtr(MID_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor back_left_mtr(BACK_LEFT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
 
 pros::Motor front_right_mtr(FRONT_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor top_right_mtr(MID_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor top_right_mtr(MID_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor back_right_mtr(BACK_RIGHT_PORT, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
 
 pros::MotorGroup left_side_motors({front_left_mtr, top_left_mtr, back_left_mtr});
@@ -122,6 +122,7 @@ lemlib::ChassisController_t angularController{
 
 lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors);
 
+bool intakeState = false;
 
 /**
  * A callback function for LLEMU's center button.
@@ -193,6 +194,8 @@ void competition_initialize() {
 
 extern bool lock_flag;
 
+extern bool intake_flag;
+
 void autonomous() {
     // near_auton();
     true_skills();
@@ -224,13 +227,26 @@ void opcontrol() {
     pros::Task task{[=] {
         while (true) {
             int left = master.get_analog(ANALOG_LEFT_Y);
-            int right = master.get_analog(ANALOG_RIGHT_Y);
-            tank_control(left, right);
+            int right = master.get_analog(ANALOG_RIGHT_X);
+            arcade_control(left, right);
             pros::delay(20);
         }
     }};
 
+    pros::Task intake_hold_task{[=] {
+        while (true) {
+            if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+                intake_mtr.move(-127);
+            }
+            pros::delay(20);
+        }
+        intake_mtr.move(127);
+    }};
+
     task.resume();
+
+    bool holdState = false;
+    bool forward = false;
 
     while (true) {
 
@@ -273,19 +289,71 @@ void opcontrol() {
         // }
 
 
-        // INTAKE //
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
-            run_intake_forward();
-            // intake();
-            // pros::delay(200);
+        // // INTAKE //
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
+        //     run_intake_forward();
+        //     // intake();
+        //     // pros::delay(200);
+        // }
+
+        // // OUTTAKE //
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+        //     run_intake_backward();
+        //     // outtake();
+        //     // pros::delay(200);
+        // }
+        // INTAKE TOGGLE //
+        /*
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+            holdState = false;
+            intake_toggle();
+        }
+        */
+
+        
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+            // holdState = true;
+            // forward = true;
+            // intake_hold(1);
+            // } else if (forward == true && holdState == true) {
+            //     intake_hold(-1);
+            //     forward = false;
+            intake_mtr.move(-127);
+            intake_flag = false;
+            
+
+            forward = true;
+
+
+
+        } else {
+            if (forward == true) {
+                intake_mtr.move(127);
+                intake_flag = true;
+                
+            }
+
+            if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+                forward = false;
+                intake_toggle();
+            }
+            pros::delay(200);
         }
 
-        // OUTTAKE //
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-            run_intake_backward();
-            // outtake();
-            // pros::delay(200);
+
+        
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+        //     intake_toggle();
+        // }
+        // INTAKE HOLD //
+        /*
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+            holdState = true;
         }
+        */
+        
+
+        
 
         // FLYWHEEL //
 //        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
@@ -297,20 +365,20 @@ void opcontrol() {
 //        	run_flywheel(0);
 //        }
 
-        // EVERYTHING OFF //
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) {
-            everything_off();
-        }
+        // // EVERYTHING OFF //
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) {
+        //     everything_off();
+        // }
 
-         //HANG UP
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
-            hang_toggle();
-            pros::delay(200);
-        }
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
-            slapper();
-            pros::delay(200);
-        }
+        //  //HANG UP
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
+        //     hang_toggle();
+        //     pros::delay(200);
+        // }
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
+        //     slapper();
+        //     pros::delay(200);
+        // }
 
 
         // LIFT UP //

@@ -18,6 +18,9 @@ void get_mech_watts(void);
 void run_intake_forward(void);
 void run_intake_backward(void);
 
+void intake_toggle();
+void intake_hold(int sign);
+
 void run_flywheel(int power);
 
 void move_lift(bool lift_state);
@@ -32,6 +35,7 @@ void run_conveyor_backward(void);
 
 void intake(void);
 void outtake(void);
+void intakeHold(void);
 
 void index(void);
 
